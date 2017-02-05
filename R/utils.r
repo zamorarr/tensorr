@@ -9,7 +9,6 @@ build_indices <- function(dims, ...) {
   penv <- parent.frame()
 
   # get arguments
-  # args <- eval(substitute(alist(...)))
   args <- match.call(expand.dots = FALSE)$`...`
 
   # evaluate new args
@@ -35,3 +34,110 @@ expand_indices <- function(...) {
   res <- t(res)
   apply(res, c(1,2), as.integer)
 }
+
+
+#' Get specific value from ellipsis arguments
+#'
+#' Looks for \code{argname} in ellipsis args. If it is
+#' not there, returns \code{default}.
+#'
+#' @param argname name of argument
+#' @param default value to return if argname not in ...
+#' @param ... ellipsis arguments
+dots_val <- function(argname, default,  ...) {
+  dots <- match.call(expand.dots = FALSE)$`...`
+  if (argname %in% names(dots)) dots[[argname]]
+  else default
+}
+
+
+#' Vector Index
+#'
+#' Coverts a vector, matrix, or list of array indices to
+#' linear indices.
+#'
+#' @param x vector, matrix, or list of numeric indices
+#' @param dims dimensions
+#' @importFrom assertive is_matrix
+vec_index <- function(x, dims) {
+  if(!any(is_numeric(x), is_list(x))) {
+    stop("x must be a numeric or list of numerics", call. = FALSE)
+  }
+
+  # calculate the cumulative size of the tensor
+  n <- length(dims)
+  cumdims <- cumprod(c(1, dims[-n]))
+
+  # calculate vector indices
+  if (is_list(x)) map_int(x, vec_index_one, cumdims)
+  else if (is_matrix(x)) as.vector(col_apply(x, vec_index_one, cumdims))
+  else vec_index_one(x, cumdims)
+}
+
+#' @rdname vec_index
+#' @param cumdims cumulative size of tensor
+#' @importFrom assertive assert_is_numeric
+vec_index_one <- function(x, cumdims) {
+  assert_is_numeric(x)
+  as.integer(sum( (x - 1) * cumdims) + 1)
+}
+
+#' Array Index
+#'
+#' Convert a vector of linear indices to a a matrix
+#'  of array indices. Each linear index will map to
+#'  a column in the matrix.
+#'
+#' @param x vector of linear indices
+#' @param dims dimensions
+#'
+#' @importFrom assertive assert_is_numeric
+array_index <- function(x, dims) {
+  # check if linear indices are numbers
+  assert_is_numeric(x)
+
+  # calculate the cumulative size of the tensor
+  n <- length(dims)
+  cumdims <- cumprod(c(1, dims[-n]))
+
+  # allocate space for the result
+  res <- matrix(0, nrow = n, ncol = length(x))
+
+  # calculate the array indices
+  for (i in rev(seq_len(n))) {
+    cumdim <- cumdims[i]
+    res[i,] <- as.integer(ceiling(x / cumdim))
+    rem <- x %% cumdim
+    x <- ifelse(rem == 0, cumdim, rem)
+  }
+
+  # return result
+  res
+}
+
+#' Apply a function to columns of a matrix
+#'
+#' Convenience wrapper around apply. Always returns a matrix.
+#' @param x matrix
+#' @param f function to apply to each column
+#' @param ... extra args to f
+col_apply <- function(x, f, ...) {
+  res <- apply(x, 2, f, ...)
+
+  if(!is.matrix(res)) matrix(res, ncol = ncol(x))
+  else res
+}
+
+#' Apply a function to rows of a matrix
+#'
+#' Convenience wrapper around apply. Always returns a matrix.
+#' @param x matrix
+#' @param f function to apply to each row
+#' @param ... extra args to f
+row_apply <- function(x, f, ...) {
+  res <- apply(x, 1, f, ...)
+
+  if(!is.matrix(res)) matrix(res, nrow = nrow(x))
+  else t(res)
+}
+

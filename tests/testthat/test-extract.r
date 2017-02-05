@@ -1,13 +1,17 @@
 context("extract")
 
 # data
+subs <- matrix(as.integer(c(1,1,1, 1,1,2)), c(3,2))
+vals <- c(10,20)
 dims <- c(2,2,2)
-data <- array(c(10,0,0,0,20,0,0,0), dim = dims)
+data <- array(c(10,0,0,0,20,0,0,0), dims)
 
 # test tensors
+X <- sptensor(subs, vals, dims)
 Z <- dtensor(data)
 
 test_that("empty extract returns original tensor", {
+  expect_equal(X[], X)
   expect_equal(Z[], Z)
 })
 
@@ -17,6 +21,12 @@ test_that("linear indexing of a tensor works", {
   vec3 <- 1:2
   vec4 <- 2
   vec5 <- 100
+
+  expect_equal(X[vec1], c(10,20))
+  expect_equal(X[vec2], 10)
+  expect_equal(X[vec3], c(10,0))
+  expect_equal(X[vec4], 0)
+  expect_equal(X[vec5], NA_integer_)
 
   expect_equal(Z[vec1], c(10,20))
   expect_equal(Z[vec2], 10)
@@ -31,6 +41,11 @@ test_that("numeric matrix indexing of a tensor works", {
   mat3 <- matrix(c(1,1,1, 2,2,2), nrow = 3)
   mat4 <- matrix(c(2,2,2), nrow = 3)
 
+  expect_equal(X[mat1], c(10,20))
+  expect_equal(X[mat2], 10)
+  expect_equal(X[mat3], c(10,0))
+  expect_equal(X[mat4], 0)
+
   expect_equal(Z[mat1], c(10,20))
   expect_equal(Z[mat2], 10)
   expect_equal(Z[mat3], c(10,0))
@@ -43,6 +58,11 @@ test_that("list of numerics indexes tensor", {
   list3 <- list(c(1,1,1), c(2,2,2))
   list4 <- list(c(2,2,2))
 
+  expect_equal(X[list1], c(10,20))
+  expect_equal(X[list2], 10)
+  expect_equal(X[list3], c(10,0))
+  expect_equal(X[list4], 0)
+
   expect_equal(Z[list1], c(10,20))
   expect_equal(Z[list2], 10)
   expect_equal(Z[list3], c(10,0))
@@ -50,12 +70,21 @@ test_that("list of numerics indexes tensor", {
 })
 
 test_that("multiple args index tensor", {
+  expect_equal(X[1,1,1], 10)
+  expect_equal(X[1,2,1], 0)
+  expect_equal(X[1,2,3], NA_real_) # subscript out of bounds
+
   expect_equal(Z[1,1,1], 10)
   expect_equal(Z[1,2,1], 0)
   expect_error(Z[1,2,3]) # subscript out of bounds. Inconsident with sp?
 })
 
 test_that("range/missing indexes return a subtensor", {
+  expect_equal(dim(X[1,,]), c(1,2,2))
+  expect_equal(dim(X[1,1,]), c(1,1,2))
+  expect_equal(dim(X[,,2]), c(2,2,1))
+  expect_equal(dim(X[1,1:2,1,drop=TRUE]), c(2))
+
   expect_equal(dim(Z[1,,]), c(1,2,2))
   expect_equal(dim(Z[1,1,]), c(1,1,2))
   expect_equal(dim(Z[,,2]), c(2,2,1))
