@@ -2,9 +2,9 @@
 % Please edit documentation in R/dtensor.r, R/sptensor.r, R/tensor.r
 \docType{methods}
 \name{show,dtensor-method}
-\alias{show}
 \alias{show,dtensor-method}
 \alias{show,sptensor-method}
+\alias{show}
 \title{Show a tensor}
 \usage{
 \S4method{show}{dtensor}(object)
@@ -17,4 +17,3 @@
 \description{
 Show a tensor
 }
-

@@ -28,4 +28,3 @@ X <- dtensor(arr)
 \seealso{
 \code{\link{dtensor-class}} for class documentation.
 }
-

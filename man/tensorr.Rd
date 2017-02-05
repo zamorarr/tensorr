@@ -36,4 +36,3 @@ For a review on tensors, see
 Applications, SIAM Review 51(3):455-500, September 2009}
 }
 }
-

@@ -3,9 +3,9 @@
 \docType{methods}
 \name{sptensor}
 \alias{sptensor}
-\alias{sptensor,list,ANY,numeric-method}
-\alias{sptensor,matrix,missing,numeric-method}
 \alias{sptensor,matrix,numeric,numeric-method}
+\alias{sptensor,matrix,missing,numeric-method}
+\alias{sptensor,list,ANY,numeric-method}
 \title{Construct a sparse tensor}
 \usage{
 sptensor(subs, vals, dims)
@@ -43,4 +43,3 @@ X <- sptensor(subs, vals, dims)
 \seealso{
 \code{\link{sptensor-class}} for class documentation.
 }
-

@@ -14,4 +14,3 @@
 The total number of values in a tensor. Equal to the product of
 the dimensions.
 }
-
