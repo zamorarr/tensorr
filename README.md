@@ -3,9 +3,7 @@
 tensorr: sparse tensors in R
 ============================
 
-[![Build Status](https://travis-ci.org/zamorarr/tensorr.svg?branch=master)](https://travis-ci.org/zamorarr/tensorr)
-
-[![Coverage Status](https://img.shields.io/codecov/c/github/zamorarr/tensorr/master.svg)](https://codecov.io/github/zamorarr/tensorr?branch=master)
+[![Build Status](https://travis-ci.org/zamorarr/tensorr.svg?branch=master)](https://travis-ci.org/zamorarr/tensorr) [![Coverage Status](https://img.shields.io/codecov/c/github/zamorarr/tensorr/master.svg)](https://codecov.io/github/zamorarr/tensorr?branch=master)
 
 `tensorr` provides methods to manipulate and store sparse tensors. Tensors are multi-dimensional generalizations of matrices (two dimensional) and vectors (one dimensional).
 
