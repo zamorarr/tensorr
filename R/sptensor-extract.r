@@ -98,7 +98,7 @@ setMethod("[",
 #' @rdname sptensor-extract
 #' @export
 #' @aliases [,sptensor,matrix,missing-method
-#' @importFrom assertive assert_are_identical
+#' @importFrom assertive.base assert_are_identical
 setMethod("[",
   signature(x = "sptensor", i = "matrix", j = "missing", drop = "ANY"),
   function(x, i, j, ..., drop = FALSE) {
@@ -107,7 +107,7 @@ setMethod("[",
     assert_are_identical(nrow(i), length(dims))
 
     # check if "type" arg in the ellipsis
-    type <- dots_val("type", "vector", ...)
+    type <- dots_arg("type", "vector", ...)
 
     # extract values as a tensor or vector
     if (type == "sptensor") extract_sptensor(x, i, drop)
@@ -201,7 +201,7 @@ squeeze <- function(x) {
 #'
 #' @param idx index
 #' @param x sptensor
-#' @importFrom assertive assert_all_are_not_na
+#' @importFrom assertive.base assert_all_are_not_na
 matches <- function(idx, x) {
   subs <- x@subs
   dims <- dim(x)

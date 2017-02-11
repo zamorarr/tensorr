@@ -44,7 +44,7 @@ expand_indices <- function(...) {
 #' @param argname name of argument
 #' @param default value to return if argname not in ...
 #' @param ... ellipsis arguments
-dots_val <- function(argname, default,  ...) {
+dots_arg <- function(argname, default,  ...) {
   dots <- match.call(expand.dots = FALSE)$`...`
   if (argname %in% names(dots)) dots[[argname]]
   else default
@@ -58,7 +58,6 @@ dots_val <- function(argname, default,  ...) {
 #'
 #' @param x vector, matrix, or list of numeric indices
 #' @param dims dimensions
-#' @importFrom assertive is_matrix
 vec_index <- function(x, dims) {
   if(!any(is_numeric(x), is_list(x))) {
     stop("x must be a numeric or list of numerics", call. = FALSE)
@@ -70,13 +69,13 @@ vec_index <- function(x, dims) {
 
   # calculate vector indices
   if (is_list(x)) map_int(x, vec_index_one, cumdims)
-  else if (is_matrix(x)) as.vector(col_apply(x, vec_index_one, cumdims))
+  else if (is.matrix(x)) as.vector(col_apply(x, vec_index_one, cumdims))
   else vec_index_one(x, cumdims)
 }
 
 #' @rdname vec_index
 #' @param cumdims cumulative size of tensor
-#' @importFrom assertive assert_is_numeric
+#' @importFrom assertive.types assert_is_numeric
 vec_index_one <- function(x, cumdims) {
   assert_is_numeric(x)
   as.integer(sum( (x - 1) * cumdims) + 1)
@@ -91,7 +90,7 @@ vec_index_one <- function(x, cumdims) {
 #' @param x vector of linear indices
 #' @param dims dimensions
 #'
-#' @importFrom assertive assert_is_numeric
+#' @importFrom assertive.types assert_is_numeric
 array_index <- function(x, dims) {
   # check if linear indices are numbers
   assert_is_numeric(x)
@@ -141,3 +140,16 @@ row_apply <- function(x, f, ...) {
   else t(res)
 }
 
+#' convert matrix indices to list of indices
+#' @param m matrix
+mat_to_listidx <- function(m) {
+  cols <- ncol(m)
+  map(seq_len(cols), ~unname(m[,.x]))
+}
+
+#' convert list of indices to matrix indcies
+#' @param x list
+list_to_matidx <- function(x) {
+  d <- length(x[[1]])
+  vapply(x, function(i) as.integer(i), FUN.VALUE = integer(d))
+}

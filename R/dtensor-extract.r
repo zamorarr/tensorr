@@ -76,13 +76,13 @@ setMethod("[",
 #' @rdname dtensor-extract
 #' @export
 #' @aliases [,dtensor,matrix,missing-method
+#' @importFrom assertive.base assert_are_identical
 setMethod("[",
   signature(x = "dtensor", i = "matrix", j = "missing", drop = "ANY"),
   function(x, i, j, ..., drop = FALSE) {
-    dims <- dim(x)
-
     # dimensions should match
-    stopifnot(nrow(i) == length(dims))
+    dims <- dim(x)
+    assert_are_identical(nrow(i), length(dims))
 
     # compare each col to the subscripts
     args <- map(seq_len(ncol(i)), ~unname(i[,.x]))

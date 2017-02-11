@@ -1,10 +1,12 @@
 #' @rdname sptensor
 #' @aliases sptensor,matrix,numeric,numeric-method
 #' @export
+#' @importFrom assertive.base assert_are_identical
 setMethod("sptensor", c("matrix", "numeric", "numeric"), function(subs, vals, dims) {
 
-  stopifnot(ncol(subs) == length(vals))
-  stopifnot(nrow(subs) == length(dims))
+  # dimensions should match
+  assert_are_identical(ncol(subs), length(vals))
+  assert_are_identical(nrow(subs), length(dims))
 
   subs <- apply(subs, c(1,2), as.integer)
   dims <- as.integer(dims)

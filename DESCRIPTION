@@ -14,7 +14,9 @@ LazyData: true
 URL: https://github.com/zamorarr/tensorr
 BugReports: https://github.com/zamorarr/tensorr/issues
 Imports:
-  assertive,
+  assertive.base,
+  assertive.properties,
+  assertive.types,
   Matrix,
   methods,
   purrr
