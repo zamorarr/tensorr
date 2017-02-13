@@ -36,3 +36,14 @@ setGeneric("sptensor", function(subs, vals, dims) standardGeneric("sptensor"))
 #' @seealso \code{\link{dtensor-class}} for class documentation.
 #' @export
 setGeneric("dtensor", function(x) standardGeneric("dtensor"))
+
+
+#' Subscripts of non-zero values in a tensor
+#'
+#' @param x tensor
+setGeneric("nzsubs", function(x) standardGeneric("nzsubs"))
+
+#' Non-zero values in a tensor
+#'
+#' @param x tensor
+setGeneric("nzvals", function(x) standardGeneric("nzvals"))

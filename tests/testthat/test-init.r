@@ -68,8 +68,22 @@ test_that("tensors have correct length", {
 })
 
 test_that("tensors show outputs", {
-  X <- sptensor(subs, vals, dims)
-  Z <- dtensor(data)
   expect_output(show(X))
   expect_output(show(Z))
+})
+
+test_that("nzvals returns vals for sparse tensor", {
+  expect_equal(nzvals(X), X@vals)
+})
+
+test_that("nzsubs returns subs for sparse tensor", {
+  expect_equal(nzsubs(X), X@subs)
+})
+
+test_that("nzvals returns non-zero vals for dense tensor", {
+  expect_equal(nzvals(Z), c(1,1))
+})
+
+test_that("nzsubs returns non-zero subscripts for dense tensor", {
+  expect_equal(nzsubs(Z), matrix(c(1,1,1, 1,1,2), nrow = length(dims)))
 })

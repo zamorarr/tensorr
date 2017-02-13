@@ -21,6 +21,16 @@ is_dtensor <- function(x) inherits(x, "dtensor")
 #' @export
 setMethod("dim", "dtensor", function(x) dim(x@x))
 
+#' @rdname nzsubs
+#' @aliases nzsubs,dtensor-method
+#' @export
+setMethod("nzsubs", "dtensor", function(x) array_index(which(x@x != 0), dim(x)))
+
+#' @rdname nzvals
+#' @aliases nzvals,dtensor-method
+#' @export
+setMethod("nzvals", "dtensor", function(x) x[which(x@x != 0)])
+
 #' @rdname show
 setMethod("show", "dtensor", function(object) {
   x <- object

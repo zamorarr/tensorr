@@ -53,6 +53,16 @@ is_sptensor <- function(x) inherits(x, "sptensor")
 #' @export
 setMethod("dim", c(x = "sptensor"), function(x) x@dims )
 
+#' @rdname nzsubs
+#' @aliases nzsubs,sptensor-method
+#' @export
+setMethod("nzsubs", "sptensor", function(x) x@subs)
+
+#' @rdname nzvals
+#' @aliases nzvals,sptensor-method
+#' @export
+setMethod("nzvals", "sptensor", function(x) x@vals)
+
 #' @rdname show
 setMethod("show", c(object =  "sptensor"), function(object) {
   x <- object
