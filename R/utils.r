@@ -32,6 +32,7 @@ expand_indices <- function(...) {
   res <- expand.grid(..., KEEP.OUT.ATTRS = FALSE, stringsAsFactors = FALSE)
   res <- as.matrix(res)
   res <- t(res)
+  rownames(res) <- NULL
   apply(res, c(1,2), as.integer)
 }
 
@@ -140,14 +141,14 @@ row_apply <- function(x, f, ...) {
   else t(res)
 }
 
-#' convert matrix indices to list of indices
+#' convert matrix of indices to list of indices
 #' @param m matrix
 mat_to_listidx <- function(m) {
   cols <- ncol(m)
   map(seq_len(cols), ~unname(m[,.x]))
 }
 
-#' convert list of indices to matrix indcies
+#' convert list of indices to matrix of indcies
 #' @param x list
 list_to_matidx <- function(x) {
   d <- length(x[[1]])

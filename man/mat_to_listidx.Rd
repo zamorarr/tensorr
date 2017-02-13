@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.r
 \name{mat_to_listidx}
 \alias{mat_to_listidx}
-\title{convert matrix indices to list of indices}
+\title{convert matrix of indices to list of indices}
 \usage{
 mat_to_listidx(m)
 }
@@ -10,5 +10,5 @@ mat_to_listidx(m)
 \item{m}{matrix}
 }
 \description{
-convert matrix indices to list of indices
+convert matrix of indices to list of indices
 }
