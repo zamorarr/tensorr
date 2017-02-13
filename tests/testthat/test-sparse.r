@@ -1,13 +1,10 @@
-context("init")
+context("sparse")
 
+# test data
 subs <- matrix(c(1,1,1, 1,1,2), c(3,2))
 vals <- c(10,20)
 dims <- c(2,2,2)
-
-data <- array(data = c(1,0,0,0,1,0,0,0) , dim = dims)
-
 X <- sptensor(subs, vals, dims)
-Z <- dtensor(data)
 
 test_that("sparse tensor is initialized given subs, vals, dims", {
   expect_equal(X@subs, subs)
@@ -46,30 +43,16 @@ test_that("sparse tensor throws errors for empty subs, vals, or dims", {
   expect_error(sptensor(subs, vals, integer(0)))
 })
 
-test_that("dense tensor is initialized correctly given data", {
-  expect_equal(Z@x, data)
-  expect_equal(dim(Z), dims)
-  expect_true(is_dtensor(Z))
-})
-
-test_that("dense tensor throws errors for empty array", {
-  expect_error(dtensor(numeric(0)))
-})
-
-test_that("sparse and dense tensors are considered tensors", {
-  expect_true(is_tensor(Z))
+test_that("sparse tensors are considered tensors", {
   expect_true(is_tensor(X))
-
 })
 
-test_that("tensors have correct length", {
+test_that("sparse tensors have correct length", {
   expect_equal(length(X), 8)
-  expect_equal(length(Z), 8)
 })
 
-test_that("tensors show outputs", {
+test_that("sparse tensors show outputs", {
   expect_output(show(X))
-  expect_output(show(Z))
 })
 
 test_that("nzvals returns vals for sparse tensor", {
@@ -80,10 +63,3 @@ test_that("nzsubs returns subs for sparse tensor", {
   expect_equal(nzsubs(X), X@subs)
 })
 
-test_that("nzvals returns non-zero vals for dense tensor", {
-  expect_equal(nzvals(Z), c(1,1))
-})
-
-test_that("nzsubs returns non-zero subscripts for dense tensor", {
-  expect_equal(nzsubs(Z), matrix(c(1,1,1, 1,1,2), nrow = length(dims)))
-})
