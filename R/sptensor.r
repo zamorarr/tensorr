@@ -11,6 +11,16 @@ setMethod("sptensor", c("matrix", "numeric", "numeric"), function(subs, vals, di
   subs <- apply(subs, c(1,2), as.integer)
   dims <- as.integer(dims)
 
+  # if any vals are zero, don't include them
+  nonzeros <- which(vals != 0)
+  subs <- subs[, nonzeros, drop = FALSE]
+  vals <- vals[nonzeros]
+
+  # ascending order subscripts
+  ascending_indices <- order(vec_index(subs, dims))
+  subs <- subs[, ascending_indices, drop = FALSE]
+  vals <- vals[ascending_indices]
+
   methods::new("sptensor", subs = subs,  vals = vals, dims = dims)
 })
 
