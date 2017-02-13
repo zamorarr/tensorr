@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>convert list of indices to matrix of indcies — list_to_matidx • tensorr</title>
+<title>Replace values from a sparse tensor — sptensor-replace • tensorr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -71,19 +71,43 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>convert list of indices to matrix of indcies</h1>
+    <h1>Replace values from a sparse tensor</h1>
     </div>
 
     
-    <p>convert list of indices to matrix of indcies</p>
+    <p>Replace values from a sparse tensor</p>
     
 
-    <pre><span class='fu'>list_to_matidx</span>(<span class='no'>x</span>)</pre>
+    <pre># S4 method for sptensor,missing,missing,ANY
+[(x, i, j, ...) <- value
+
+# S4 method for sptensor,numeric,missing,ANY
+[(x, i, j, ...) <- value
+
+# S4 method for sptensor,missing,numeric,ANY
+[(x, i, j, ...) <- value
+
+# S4 method for sptensor,numeric,numeric,ANY
+[(x, i, j, ...) <- value
+
+# S4 method for sptensor,list,missing,ANY
+[(x, i, j, ...) <- value
+
+# S4 method for sptensor,matrix,missing,ANY
+[(x, i, j, ...) <- value</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
-      <dd>list</dd>
+      <dd>sptensor object</dd>
+      <dt>i</dt>
+      <dd>numeric index, vector, list, or matrix</dd>
+      <dt>j</dt>
+      <dd>numeric index</dd>
+      <dt>...</dt>
+      <dd>additional numeric indices</dd>
+      <dt>value</dt>
+      <dd>replacement value(s)</dd>
     </dl>
     
 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>convert list of indices to matrix of indcies — list_to_matidx • tensorr</title>
+<title>Replace values in a sparse tensor — replace_sptensor • tensorr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -71,19 +71,23 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>convert list of indices to matrix of indcies</h1>
+    <h1>Replace values in a sparse tensor</h1>
     </div>
 
     
-    <p>convert list of indices to matrix of indcies</p>
+    <p>Replaces values in sparse tensor and returns a new sparse tensor.</p>
     
 
-    <pre><span class='fu'>list_to_matidx</span>(<span class='no'>x</span>)</pre>
+    <pre><span class='fu'>replace_sptensor</span>(<span class='no'>x</span>, <span class='no'>idxmat</span>, <span class='no'>value</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
-      <dd>list</dd>
+      <dd>sptensor</dd>
+      <dt>idxmat</dt>
+      <dd>matrix of indices</dd>
+      <dt>value</dt>
+      <dd>replacement value(s)</dd>
     </dl>
     
 
