@@ -47,7 +47,7 @@ expand_indices <- function(...) {
 #' @param ... ellipsis arguments
 dots_arg <- function(argname, default,  ...) {
   dots <- match.call(expand.dots = FALSE)$`...`
-  if (argname %in% names(dots)) dots[[argname]]
+  if (argname %in% names(dots)) eval(dots[[argname]])
   else default
 }
 
