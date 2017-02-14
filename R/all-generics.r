@@ -47,3 +47,15 @@ setGeneric("nzsubs", function(x) standardGeneric("nzsubs"))
 #'
 #' @param x tensor
 setGeneric("nzvals", function(x) standardGeneric("nzvals"))
+
+#' Convert objects to sparse or dense tensors
+#'
+#' @param x object
+#' @param ... extra params
+setGeneric("as_sptensor", function(x, ...) standardGeneric("as_sptensor"))
+
+#' Convert objects to sparse or dense tensors
+#'
+#' @param x object
+#' @param ... extra params
+setGeneric("as_dtensor", function(x, ...) standardGeneric("as_dtensor"))
