@@ -34,3 +34,15 @@ test_that("nzvals returns non-zero vals for dense tensor", {
 test_that("nzsubs returns non-zero subscripts for dense tensor", {
   expect_equal(nzsubs(Z), matrix(c(1,1,1, 1,1,2), nrow = length(dims)))
 })
+
+test_that("zsubs returns zero subscripts for dense tensor", {
+  expect_equal(zsubs(Z), array_index(c(2,3,4,6,7,8), dims))
+})
+
+test_that("nzsubs returns non-zero subscripts for dense tensor", {
+  expect_equal(allsubs(Z), array_index(seq_along(Z), dims))
+})
+
+
+
+

@@ -63,3 +63,11 @@ test_that("nzsubs returns subs for sparse tensor", {
   expect_equal(nzsubs(X), X@subs)
 })
 
+test_that("zsubs returns zero subscripts for dense tensor", {
+  expect_equal(zsubs(X), array_index(c(2,3,4,6,7,8), dims))
+})
+
+test_that("nzsubs returns non-zero subscripts for dense tensor", {
+  expect_equal(allsubs(X), array_index(seq_along(X), dims))
+})
+
