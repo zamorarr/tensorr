@@ -7,8 +7,15 @@ setMethod("as_dtensor", "sptensor",
     vals <- nzvals(x)
     dims <- dim(x)
 
-    # initialize data array to 0
-    data <- array(0, dim = dims)
+    # initialize empty data array
+    # logical, integer, numeric/double, complex, character
+    emptyval <-
+      if (all(is.logical(vals))) FALSE
+      else if (all(is.integer(vals))) 0L
+      else if (all(is.character(vals))) ""
+      else 0
+
+    data <- array(emptyval, dim = dims)
 
     # insert non-zero values
     index <- vec_index(subs, dims)
