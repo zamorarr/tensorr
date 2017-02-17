@@ -16,3 +16,7 @@ test_that("data frame converts to sptensor", {
 test_that("dense tensor converts to sparse tensor", {
   expect_equal(as_sptensor(Z), X)
 })
+
+test_that("as.vector works", {
+  expect_equal(as.vector(X), c(1,0,0,0,1,0,0,0))
+})

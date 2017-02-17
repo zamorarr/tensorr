@@ -49,4 +49,4 @@ setMethod("as_sptensor", "data.frame", function(x, valcol = NULL, dims = NULL) {
 #' @rdname as.vector
 #' @aliases as.vector,sptensor-method
 #' @export
-#setMethod("as.vector", c(x = "sptensor"), function(x) x[seq_along(x)])
+setMethod("as.vector", c(x = "sptensor"), function(x) x[seq_along(x)])

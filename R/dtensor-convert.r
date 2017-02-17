@@ -33,4 +33,4 @@ setMethod("as_dtensor", "array", function(x) dtensor(x) )
 #' @rdname as.vector
 #' @aliases as.vector,dtensor-method
 #' @export
-#setMethod("as.vector", "dtensor", function(x) as.vector(x@x))
+setMethod("as.vector", "dtensor", function(x) as.vector(x@x))

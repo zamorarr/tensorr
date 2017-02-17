@@ -15,3 +15,7 @@ test_that("sparse tensor converts to dense tensor", {
 test_that("array converts to dense tensor", {
   expect_equal(as_dtensor(arr), Z)
 })
+
+test_that("as.vector works", {
+  expect_equal(as.vector(Z), c(1,0,0,0,1,0,0,0))
+})
