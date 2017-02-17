@@ -3,14 +3,14 @@
 \docType{methods}
 \name{sptensor}
 \alias{sptensor}
-\alias{sptensor,matrix,numeric,numeric-method}
+\alias{sptensor,matrix,ANY,numeric-method}
 \alias{sptensor,matrix,missing,numeric-method}
 \alias{sptensor,list,ANY,numeric-method}
 \title{Construct a sparse tensor}
 \usage{
 sptensor(subs, vals, dims)
 
-\S4method{sptensor}{matrix,numeric,numeric}(subs, vals, dims)
+\S4method{sptensor}{matrix,ANY,numeric}(subs, vals, dims)
 
 \S4method{sptensor}{matrix,missing,numeric}(subs, vals, dims)
 

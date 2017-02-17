@@ -1,8 +1,8 @@
 #' @rdname sptensor
-#' @aliases sptensor,matrix,numeric,numeric-method
+#' @aliases sptensor,matrix,ANY,numeric-method
 #' @export
 #' @importFrom assertive.base assert_are_identical
-setMethod("sptensor", c("matrix", "numeric", "numeric"), function(subs, vals, dims) {
+setMethod("sptensor", c("matrix", "ANY", "numeric"), function(subs, vals, dims) {
 
   # dimensions should match
   assert_are_identical(ncol(subs), length(vals))

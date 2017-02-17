@@ -16,7 +16,7 @@ setClass("tensor", contains = "VIRTUAL")
 #'
 #' @export
 setClass("sptensor",
-         slots = list(subs = "matrix", vals = "numeric", dims = "numeric"),
+         slots = list(subs = "matrix", vals = "ANY", dims = "numeric"),
          contains = "tensor")
 
 #' An S4 class for a dense tensor
