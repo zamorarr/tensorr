@@ -1,4 +1,4 @@
-context("dense-ops")
+context("dense-group-generics")
 
 # test data
 dims <- c(2,2,2)

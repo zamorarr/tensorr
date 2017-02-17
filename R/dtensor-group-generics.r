@@ -42,7 +42,10 @@ setMethod("Math2", "dtensor", function(x, digits) dtensor(methods::callGeneric(x
 #' @param na.rm logical: should missing values be removed?
 #' @name dtensor-Summary
 #' @aliases Summary,dtensor-method
-setMethod("Summary", "dtensor", function(x, ..., na.rm = FALSE) methods::callGeneric(x@x, na.rm))
+setMethod("Summary", "dtensor", function(x, ..., na.rm = FALSE) {
+  if (!missing(...)) stop("multiple arguments not implemented yet", call. = FALSE)
+  methods::callGeneric(x@x, na.rm = na.rm)
+})
 
 #' Complex Methods for dense tensors
 #'
