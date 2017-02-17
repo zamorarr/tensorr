@@ -87,14 +87,26 @@ setMethod("show", c(object =  "sptensor"), function(object) {
 
   # subscripts
   if (all(is.na(x@subs))) {
-    msg_subs <- NA
+    msg_subs <- "<empty>"
   } else {
     msg_subs <- apply(x@subs, 2, function(s) paste("<",paste(s,collapse=","),">",  sep =""))
+    if (length(msg_subs) > width) {
+      msg_subs <- c(msg_subs[1:width], "...")
+    }
   }
 
-  cat("subs:", paste(msg_subs[1:width],collapse=" "))
+  cat("subs:", msg_subs)
   cat("\n")
 
   # values
-  cat("vals:", x@vals[1:width])
+  if (length(x@vals) == 0) {
+    msg_vals <- "<empty"
+  }
+  else {
+    msg_vals <- x@vals
+    if (length(msg_vals) > width) {
+      msg_vals <- c(msg_vals[1:width], "...")
+    }
+  }
+  cat("vals:", msg_vals)
 })
