@@ -43,6 +43,16 @@ setGeneric("dtensor", function(x) standardGeneric("dtensor"))
 #' @param x tensor
 setGeneric("nzsubs", function(x) standardGeneric("nzsubs"))
 
+#' Subscripts of zero values in a tensor
+#'
+#' @param x tensor
+setGeneric("zsubs", function(x) standardGeneric("zsubs"))
+
+#' Subscripts of all values in a tensor
+#'
+#' @param x tensor
+setGeneric("allsubs", function(x) standardGeneric("allsubs"))
+
 #' Non-zero values in a tensor
 #'
 #' @param x tensor

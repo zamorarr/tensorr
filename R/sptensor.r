@@ -68,6 +68,28 @@ setMethod("dim", c(x = "sptensor"), function(x) x@dims )
 #' @export
 setMethod("nzsubs", "sptensor", function(x) x@subs)
 
+#' @rdname zsubs
+#' @aliases zsubs,sptensor-method
+#' @export
+setMethod("zsubs", "sptensor", function(x) {
+  allsubslist <- mat_to_listidx(allsubs(x))
+  nzsubslist <- mat_to_listidx(nzsubs(x))
+
+  zsubslist <- setdiff(allsubslist, nzsubslist)
+
+  if (length(zsubslist) > 0 )list_to_matidx(zsubslist)
+  else matrix(numeric(0), nrow = length(dim(x)))
+
+})
+
+#' @rdname allsubs
+#' @aliases allsubs,sptensor-method
+#' @export
+setMethod("allsubs", "sptensor", function(x) {
+  array_index(seq_along(x), dim(x))
+})
+
+
 #' @rdname nzvals
 #' @aliases nzvals,sptensor-method
 #' @export
