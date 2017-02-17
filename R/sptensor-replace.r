@@ -97,7 +97,7 @@ setMethod("[<-",
     # check if "type" arg in the ellipsis
     type <- dots_arg("type", "vector", ...)
 
-    # extract values as a tensor or vector
+    # replace values in sptensor
     replace_sptensor(x, i, value)
   }
 )
