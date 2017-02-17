@@ -9,12 +9,10 @@ setMethod("as_sptensor", "sptensor", function(x) x)
 #' @export
 setMethod("as_sptensor", "dtensor", function(x) {
   dims <- dim(x)
-  vals <- x@x
 
   # non-zero values
-  nonzero <- which(vals != 0)
-  nonzero_subs <- array_index(nonzero, dims)
-  nonzero_vals <- vals[nonzero]
+  nonzero_subs <- nzsubs(x)
+  nonzero_vals <- nzvals(x)
 
   sptensor(nonzero_subs, nonzero_vals, dims)
 })
