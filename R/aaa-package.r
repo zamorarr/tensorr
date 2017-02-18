@@ -8,7 +8,7 @@
 #'
 #' \itemize{
 #' \item Provide an effecient format to store sparse tensors in R.
-#' \item Provide standard tensor operations such as addition and multiplication.
+#' \item Provide standard tensor operations such as multiplication and unfolding.
 #' \item Provide standard tensor decomposition techniques such as CP and Tucker.
 #' }
 #'

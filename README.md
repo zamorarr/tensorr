@@ -10,7 +10,7 @@ tensorr: sparse tensors in R
 It has three main goals:
 
 -   Provide an effecient format to store sparse tensors in R.
--   Provide standard tensor operations such as addition and multiplication.
+-   Provide standard tensor operations such as multiplication and unfolding.
 -   Provide standard tensor decomposition techniques such as CP and Tucker.
 
 References
