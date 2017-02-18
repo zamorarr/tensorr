@@ -76,8 +76,7 @@ setMethod("[<-",
 setMethod("[<-",
   signature(x = "sptensor", i = "list", j = "missing", value = "ANY"),
   function(x,i,j,..., value = FALSE) {
-    d <- length(dim(x))
-    mat <- vapply(i, function(.i) as.integer(.i), FUN.VALUE = integer(d))
+    mat <- list_to_matidx(i)
     x[mat] <- value
     x
   }

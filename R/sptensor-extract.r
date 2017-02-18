@@ -35,7 +35,7 @@ setMethod("[",
     if (missing(...)) { # x[]
       x
     } else { # x[i=,j=,...]
-      mat <- build_indices(dim(x),i = NULL, j = NULL, ...)
+      mat <- build_indices(dim(x), i = NULL, j = NULL, ...)
       x[mat, type = "sptensor", drop = drop]
     }
   }
@@ -89,8 +89,7 @@ setMethod("[",
 setMethod("[",
   signature(x = "sptensor", i = "list", j = "missing", drop = "ANY"),
   function(x,i,j,...,drop = FALSE) {
-    d <- length(dim(x))
-    mat <- vapply(i, function(.i) as.integer(.i), FUN.VALUE = integer(d))
+    mat <- list_to_matidx(i)
     x[mat, type = "vector", drop = drop]
   }
 )
@@ -127,7 +126,7 @@ extract_vec <- function(x, idxmat) {
   matching <- col_apply(idxmat, matches, x)
   matching <- as.vector(matching)
 
-  vals <- x@vals
+  vals <- nzvals(x)
   map_dbl(matching, function(k) {
     if (is.na(k)) NA_real_ # index out of bounds
     else if (k == 0) 0 # value is zero
@@ -180,8 +179,8 @@ extract_sptensor <- function(x, idxmat, drop = FALSE) {
 #' @param x sptensor
 squeeze <- function(x) {
   # tensor values
-  subs <- x@subs
-  vals <- x@vals
+  subs <- nzsubs(x)
+  vals <- nzvals(x)
   dims <- dim(x)
 
   # keep dimensions that have size > 1
@@ -203,7 +202,7 @@ squeeze <- function(x) {
 #' @param x sptensor
 #' @importFrom assertive.base assert_all_are_not_na
 matches <- function(idx, x) {
-  subs <- x@subs
+  subs <- nzsubs(x)
   dims <- dim(x)
 
   #if (any(is.na(idx))) return(NA_integer_)

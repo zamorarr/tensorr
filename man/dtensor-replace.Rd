@@ -7,19 +7,19 @@
 \alias{[<-,dtensor,ANY,ANY-method}
 \alias{[<-,dtensor,ANY,missing,ANY-method}
 \alias{[<-,dtensor,ANY,missing-method}
-\alias{[<-,dtensor,list,missing,ANY-method}
-\alias{[<-,dtensor,list,missing-method}
 \alias{[<-,dtensor,matrix,missing,ANY-method}
 \alias{[<-,dtensor,matrix,missing-method}
+\alias{[<-,dtensor,list,missing,ANY-method}
+\alias{[<-,dtensor,list,missing-method}
 \title{Replace values from a dense tensor}
 \usage{
 \S4method{[}{dtensor,ANY,ANY,ANY}(x, i, j, ...) <- value
 
 \S4method{[}{dtensor,ANY,missing,ANY}(x, i, j, ...) <- value
 
-\S4method{[}{dtensor,list,missing,ANY}(x, i, j, ...) <- value
-
 \S4method{[}{dtensor,matrix,missing,ANY}(x, i, j, ...) <- value
+
+\S4method{[}{dtensor,list,missing,ANY}(x, i, j, ...) <- value
 }
 \arguments{
 \item{x}{dtensor object}

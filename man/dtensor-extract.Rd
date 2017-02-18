@@ -11,10 +11,10 @@
 \alias{[,dtensor,missing,numeric-method}
 \alias{[,dtensor,numeric,numeric,ANY-method}
 \alias{[,dtensor,numeric,numeric-method}
-\alias{[,dtensor,list,missing,ANY-method}
-\alias{[,dtensor,list,missing-method}
 \alias{[,dtensor,matrix,missing,ANY-method}
 \alias{[,dtensor,matrix,missing-method}
+\alias{[,dtensor,list,missing,ANY-method}
+\alias{[,dtensor,list,missing-method}
 \title{Extract values from a dense tensor}
 \usage{
 \S4method{[}{dtensor,missing,missing,ANY}(x, i, j, ..., drop = FALSE)
@@ -25,9 +25,9 @@
 
 \S4method{[}{dtensor,numeric,numeric,ANY}(x, i, j, ..., drop = FALSE)
 
-\S4method{[}{dtensor,list,missing,ANY}(x, i, j, ..., drop = FALSE)
-
 \S4method{[}{dtensor,matrix,missing,ANY}(x, i, j, ..., drop = FALSE)
+
+\S4method{[}{dtensor,list,missing,ANY}(x, i, j, ..., drop = FALSE)
 }
 \arguments{
 \item{x}{dtensor object}

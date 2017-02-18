@@ -63,18 +63,6 @@ setMethod("[",
 
 #' @rdname dtensor-extract
 #' @export
-#' @aliases [,dtensor,list,missing-method
-setMethod("[",
-  signature(x = "dtensor", i = "list", j = "missing", drop = "ANY"),
-  function(x,i,j,...,drop = FALSE) {
-    d <- length(dim(x))
-    mat <- vapply(i, function(.i) as.integer(.i), FUN.VALUE = integer(d))
-    x[mat, drop = drop]
-  }
-)
-
-#' @rdname dtensor-extract
-#' @export
 #' @aliases [,dtensor,matrix,missing-method
 #' @importFrom assertive.base assert_are_identical
 setMethod("[",
@@ -85,8 +73,19 @@ setMethod("[",
     assert_are_identical(nrow(i), length(dims))
 
     # compare each col to the subscripts
-    args <- map(seq_len(ncol(i)), ~unname(i[,.x]))
-    map_dbl(args, function(a) do.call(`[`, c(list(x@x), a)))
+    idxlist <- mat_to_listidx(i)
+    x[idxlist, drop = drop]
   }
 )
+
+#' @rdname dtensor-extract
+#' @export
+#' @aliases [,dtensor,list,missing-method
+setMethod("[",
+  signature(x = "dtensor", i = "list", j = "missing", drop = "ANY"),
+  function(x,i,j,...,drop = FALSE) {
+    map_dbl(i, function(a) do.call(`[`, c(list(x@x), a)))
+  }
+)
+
 

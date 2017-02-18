@@ -144,13 +144,14 @@ row_apply <- function(x, f, ...) {
 #' convert matrix of indices to list of indices
 #' @param m matrix
 mat_to_listidx <- function(m) {
-  cols <- ncol(m)
-  map(seq_len(cols), ~unname(m[,.x]))
+  seq_cols <- seq_len(ncol(m))
+  map(seq_cols, function(col) unname(m[,col]))
 }
 
 #' convert list of indices to matrix of indcies
 #' @param x list
 list_to_matidx <- function(x) {
   d <- length(x[[1]])
-  vapply(x, function(i) as.integer(i), FUN.VALUE = integer(d))
+  #vapply(x, function(i) as.integer(i), FUN.VALUE = integer(d))
+  matrix(unlist(x), nrow = d)
 }

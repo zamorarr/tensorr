@@ -35,16 +35,13 @@ setMethod("sptensor", c("matrix", "missing", "numeric"), function(subs, vals, di
 #' @rdname sptensor
 #' @aliases sptensor,list,ANY,numeric-method
 #' @export
+#' @importFrom assertive.properties assert_is_non_empty assert_are_same_length
 setMethod("sptensor", c("list", "ANY", "numeric"), function(subs, vals, dims) {
-  # number of dimensions
-  ndims <- length(dims)
-  index_len <- map_int(subs, length)
+  assert_is_non_empty(subs)
+  walk(subs, ~assert_are_same_length(.x, dims))
 
-  stopifnot(length(subs) > 0)
-  stopifnot(all(index_len == ndims))
-
-  # convert list to matrix
-  subs <- matrix(unlist(subs), nrow = ndims)
+  # convert subs list to matrix
+  subs <- list_to_matidx(subs)
 
   # create sptensor
   if (missing(vals)) sptensor(subs, dims = dims)

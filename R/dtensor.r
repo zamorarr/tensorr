@@ -6,10 +6,10 @@ setMethod("dtensor", "array", function(x) methods::new("dtensor", x = x) )
 #' @rdname dtensor
 #' @aliases dtensor,numeric-method
 #' @export
+#' @importFrom assertive.properties assert_is_non_empty
 setMethod("dtensor", "numeric", function(x) {
-  if (length(x) == 0) stop("Dimensions cannot be zero", call. = FALSE)
+  assert_is_non_empty(x)
   methods::new("dtensor", x = matrix(x, nrow = length(x)))
-
 })
 
 #' @describeIn is_tensor dense tensor
@@ -39,7 +39,7 @@ setMethod("allsubs", "dtensor", function(x) array_index(seq_along(x), dim(x)))
 #' @rdname nzvals
 #' @aliases nzvals,dtensor-method
 #' @export
-setMethod("nzvals", "dtensor", function(x) x[which(x@x != 0)])
+setMethod("nzvals", "dtensor", function(x) x[nzsubs(x)])
 
 #' @rdname show
 setMethod("show", "dtensor", function(object) {
