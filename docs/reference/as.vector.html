@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Replace values from a dense tensor — dtensor-replace • tensorr</title>
+<title>Vectorize values of a tensor — as.vector,dtensor-method • tensorr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -71,37 +71,23 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Replace values from a dense tensor</h1>
+    <h1>Vectorize values of a tensor</h1>
     </div>
 
     
-    <p>Replace values from a dense tensor</p>
+    <p>Vectorize values of a tensor</p>
     
 
-    <pre># S4 method for dtensor,ANY,ANY,ANY
-[(x, i, j, ...) <- value
+    <pre><span class='co'># S4 method for dtensor</span>
+<span class='fu'>as.vector</span>(<span class='no'>x</span>)
 
-# S4 method for dtensor,ANY,missing,ANY
-[(x, i, j, ...) <- value
-
-# S4 method for dtensor,matrix,missing,ANY
-[(x, i, j, ...) <- value
-
-# S4 method for dtensor,list,missing,ANY
-[(x, i, j, ...) <- value</pre>
+<span class='co'># S4 method for sptensor</span>
+<span class='fu'>as.vector</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
-      <dd>dtensor object</dd>
-      <dt>i</dt>
-      <dd>numeric index, vector, list, or matrix</dd>
-      <dt>j</dt>
-      <dd>numeric index</dd>
-      <dt>...</dt>
-      <dd>additional numeric indices</dd>
-      <dt>value</dt>
-      <dd>replacement value(s)</dd>
+      <dd>tensor</dd>
     </dl>
     
 
