@@ -18,6 +18,12 @@ setMethod("length", "tensor", function(x) prod(dim(x)) )
 #' @param x tensor
 NULL
 
+#' Vectorize values of a tensor
+#'
+#' @name as.vector
+#' @param x tensor
+NULL
+
 #' Show a tensor
 #'
 #' @name show
