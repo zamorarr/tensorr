@@ -1,31 +1,40 @@
-# convert args i,j,... to array of coords.
-# substitute missing args k with 1:dim[k]
+#' convert args i,j,... to array of coords.
+#'
+#' substitute missing args k with 1:dim[k]
+#' @param dims tensor dimensions
+#' @param ... indices
+#' @importFrom assertive.base assert_are_identical
 build_indices <- function(dims, ...) {
-  if (length(dims) != nargs()-1) {
-    stop("num indices must match num dimensions", call. = FALSE)
-  }
+  # check that there as many indices as tensor dimensions
+  nindices <- nargs() - 1L
+  assert_are_identical(nindices, length(dims))
 
   # save calling environment
   penv <- parent.frame()
 
-  # get arguments
-  args <- match.call(expand.dots = FALSE)$`...`
+  # get indices
+  indices <- as.list(match.call(expand.dots = FALSE)$`...`)
 
-  # evaluate new args
-  newargs <- map(seq_along(dims), function(k) {
-    if (is.null(args[[k]])) seq_len(dims[k])
-    else eval(args[[k]], penv)
-  })
-
-  # doesn't catch missing args first time...
-  # need to fix this bug
-  newargs <- map(seq_along(dims), function(k) {
-    if (class(newargs[[k]]) == "name") seq_len(dims[k])
-    else newargs[[k]]
-  })
+  # make new indices by filling out the missing ones
+  newindices <- map2(indices, dims, fill_missing_indices, penv)
 
   # return grid as a matrix
-  expand_indices(newargs)
+  expand_indices(newindices)
+}
+
+# if an index is missing, return a range from 1:dim
+fill_missing_indices <- function(index, dim, penv) {
+  if (is.symbol(index)) {
+    if (it_exists(index, penv)) eval(index, penv) # provided i or j value (by name)
+    else seq_len(dim) # missing ... value
+  }
+  else if (is.null(index)) seq_len(dim) # missing i or j value
+  else index # provided ... value (by value)
+}
+
+# does variable exist in environment?
+it_exists <- function(var, env) {
+  exists(as.character(var), env)
 }
 
 expand_indices <- function(...) {
