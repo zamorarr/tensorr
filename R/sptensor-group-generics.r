@@ -5,19 +5,20 @@ warn_not_sparse <- "Operation converts zero values to non-zero values. Tensor is
 #' @param e1,e2 at least one of them a sparse tensor
 #' @name sptensor-Ops
 #' @aliases Ops,sptensor,sptensor-method
+#' @importFrom assertive.base assert_are_identical
 setMethod("Ops", c("sptensor", "sptensor"),  function(e1, e2) {
   # ensure tensor dimensions are equal
   dim1 <- dim(e1)
   dim2 <- dim(e2)
-  stopifnot(dim1 == dim2)
+  assert_are_identical(dim1, dim2)
 
   # combine non-zero subscripts
   subs <- union_subs(nzsubs(e1), nzsubs(e2))
 
-  # call op on the non-zero subscripts
+  # call op on the combined non-zero values
   vals <- methods::callGeneric(e1[subs], e2[subs])
 
-  # call op on zero vals
+  # call op on combined zero values
   val0 <- methods::callGeneric(0,0)
   if (val0 != 0) {
     warning(warn_not_sparse)
@@ -161,10 +162,7 @@ setMethod("Summary", "sptensor", function(x, ..., na.rm) {
 
   if (!missing(...)) stop("multiple arguments not implemented yet", call. = FALSE)
 
-  # getGroupMembers("Summary")
-  # "max"   "min"   "range" "prod"  "sum"   "any"   "all"
   vals <- nzvals(x)
-
   # there is at least one 0.
   if (length(nzvals(x)) < length(x)) vals <- c(0, vals)
 
