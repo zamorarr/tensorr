@@ -8,6 +8,7 @@ setMethod("sptensor", c("matrix", "ANY", "numeric"), function(subs, vals, dims) 
   assert_are_identical(ncol(subs), length(vals))
   assert_are_identical(nrow(subs), length(dims))
 
+  # coerce subscripts and dimensions to integer
   subs <- apply(subs, c(1,2), as.integer)
   dims <- as.integer(dims)
 
@@ -20,6 +21,11 @@ setMethod("sptensor", c("matrix", "ANY", "numeric"), function(subs, vals, dims) 
   ascending_indices <- order(vec_index(subs, dims))
   subs <- subs[, ascending_indices, drop = FALSE]
   vals <- vals[ascending_indices]
+
+  # drop duplicated subscripts?
+  duped <- duplicated(subs, MARGIN = 2)
+  subs <- subs[, !duped, drop = FALSE]
+  vals <- vals[!duped]
 
   methods::new("sptensor", subs = subs,  vals = vals, dims = dims)
 })
