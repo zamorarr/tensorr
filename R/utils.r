@@ -36,22 +36,6 @@ expand_indices <- function(...) {
   apply(res, c(1,2), as.integer)
 }
 
-
-#' Get specific value from ellipsis arguments
-#'
-#' Looks for \code{argname} in ellipsis args. If it is
-#' not there, returns \code{default}.
-#'
-#' @param argname name of argument
-#' @param default value to return if argname not in ...
-#' @param ... ellipsis arguments
-dots_arg <- function(argname, default,  ...) {
-  dots <- match.call(expand.dots = FALSE)$`...`
-  if (argname %in% names(dots)) eval(dots[[argname]])
-  else default
-}
-
-
 #' Vector Index
 #'
 #' Coverts a vector, matrix, or list of array indices to

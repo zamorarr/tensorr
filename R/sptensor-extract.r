@@ -36,7 +36,7 @@ setMethod("[",
       x
     } else { # x[i=,j=,...]
       mat <- build_indices(dim(x), i = NULL, j = NULL, ...)
-      x[mat, type = "sptensor", drop = drop]
+      extract_sptensor(x, mat, drop)
     }
   }
 )
@@ -50,11 +50,11 @@ setMethod("[",
 
     if ((nargs() == 2 & missing(drop)) | (nargs() == 3 & !missing(drop))) { # x[i]
       mat <- array_index(i, dim(x))
-      x[mat, type = "vector", drop = drop]
+      extract_vec(x, mat)
     }
     else { # x[i, j = , ...]
       mat <- build_indices(dim(x),i = i, j = NULL ,...)
-      x[mat, type = "sptensor", drop = drop]
+      extract_sptensor(x, mat, drop)
     }
   }
 )
@@ -66,7 +66,7 @@ setMethod("[",
   signature(x = "sptensor", i = "missing", j = "numeric", drop = "ANY"),
   function(x, i, j, ..., drop = FALSE) { # x[i=,j,...]
     mat <- build_indices(dim(x), i = NULL, j = j, ...)
-    x[mat, type = "sptensor", drop = drop]
+    extract_sptensor(x, mat, drop)
   }
 )
 
@@ -78,8 +78,8 @@ setMethod("[",
   function(x, i, j, ..., drop = FALSE) { # x[i,j,...]
     mat <- build_indices(dim(x),i,j,...)
 
-    if (ncol(mat)  == 1) x[mat, type = "vector", drop = drop]
-    else x[mat, type = "sptensor", drop = drop]
+    if (ncol(mat)  == 1) extract_vec(x, mat)
+    else extract_sptensor(x, mat, drop)
   }
 )
 
@@ -90,27 +90,17 @@ setMethod("[",
   signature(x = "sptensor", i = "list", j = "missing", drop = "ANY"),
   function(x,i,j,...,drop = FALSE) {
     mat <- list_to_matidx(i)
-    x[mat, type = "vector", drop = drop]
+    extract_vec(x, mat)
   }
 )
 
 #' @rdname sptensor-extract
 #' @export
 #' @aliases [,sptensor,matrix,missing-method
-#' @importFrom assertive.base assert_are_identical
 setMethod("[",
   signature(x = "sptensor", i = "matrix", j = "missing", drop = "ANY"),
   function(x, i, j, ..., drop = FALSE) {
-    # nrows in index matrix should be number of dims
-    dims <- dim(x)
-    assert_are_identical(nrow(i), length(dims))
-
-    # check if "type" arg in the ellipsis
-    type <- dots_arg("type", "vector", ...)
-
-    # extract values as a tensor or vector
-    if (type == "sptensor") extract_sptensor(x, i, drop)
-    else extract_vec(x, i)
+    extract_vec(x, i)
   }
 )
 
@@ -122,15 +112,21 @@ setMethod("[",
 #' @param idxmat matrix of indices
 #'
 extract_vec <- function(x, idxmat) {
+  # check dimensions
+  dims <- dim(x)
+  assert_are_identical(nrow(idxmat), length(dims))
+
   # match indices
   matching <- col_apply(idxmat, matches, x)
   matching <- as.vector(matching)
 
+  # non-zero values
   vals <- nzvals(x)
-  map_dbl(matching, function(k) {
-    if (is.na(k)) NA_real_ # index out of bounds
-    else if (k == 0) 0 # value is zero
-    else vals[k] # nonzero value
+
+  # get matching value if exists
+  map_dbl(matching, function(m) {
+    if (!is.na(m) & m > 0) vals[m]
+    else m # m is NA or 0
   })
 }
 
@@ -143,16 +139,23 @@ extract_vec <- function(x, idxmat) {
 #' @param idxmat matrix of indices requested
 #' @param drop drop dimensions of size 1?
 #'
+#' @importFrom assertive.base assert_are_identical
 extract_sptensor <- function(x, idxmat, drop = FALSE) {
+  subs <- nzsubs(x)
+  vals <- nzvals(x)
+  dims <- dim(x)
+
+  # check dimensions
+  assert_are_identical(nrow(idxmat), length(dims))
+
   # non-zero matches
   matching <- col_apply(idxmat, matches, x)
   matching <- as.vector(matching)
-  nonzero <- matching[matching > 0 & !is.na(matching)]
+  nonzero_matches <- matching[matching > 0 & !is.na(matching)]
 
   # matching non-zero tensor subs/values
-  matchsubs <- x@subs[,nonzero, drop = FALSE]
-  matchvals <- x@vals[nonzero]
-  dims <- dim(x)
+  matchsubs <- subs[, nonzero_matches, drop = FALSE]
+  matchvals <- vals[nonzero_matches]
 
   # re-calculate dimensions
   newdims <- row_apply(idxmat, function(r) length(unique(r)))
@@ -205,14 +208,20 @@ matches <- function(idx, x) {
   subs <- nzsubs(x)
   dims <- dim(x)
 
-  #if (any(is.na(idx))) return(NA_integer_)
+  # check index does not have NAs in it
   assert_all_are_not_na(idx)
   if (any(idx > dims)) return(NA_integer_) # index out of bounds
 
-  # match index to subscript
+  # ask if index matches any subscript
   idx <- as.integer(idx)
-  res <- col_apply(subs, function(s) identical(s, idx))
+  match <- col_apply(subs, function(s) identical(s, idx))
+  match <- as.vector(match)
 
-  if (any(res)) which(res)[1] # multiple matches?
-  else 0L
+  # get matches
+  which_match <- which(match)
+  len_res <- length(which_match)
+
+  if (len_res == 0L) 0L # no match
+  else if (len_res == 1L) which_match # one match found (good!)
+  else stop("Multiple matches found. Tensor should not have duplicate subscripts", call. = FALSE)
 }

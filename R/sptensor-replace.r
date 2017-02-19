@@ -20,8 +20,7 @@ setMethod("[<-",
       stop("Not Implemented", call. = FALSE)
     } else { # x[i=,j=,...]
       mat <- build_indices(dim(x),i = NULL, j = NULL, ...)
-      x[mat] <- value
-      x
+      replace_sptensor(x, mat, value)
     }
   }
 )
@@ -35,14 +34,12 @@ setMethod("[<-",
 
     if (nargs() == 3 & !missing(value)) { # x[i]
       mat <- array_index(i, dim(x))
-      x[mat] <- value
-      x
     }
     else { # x[i, j = , ...]
       mat <- build_indices(dim(x),i = i, j = NULL ,...)
-      x[mat] <- value
-      x
     }
+
+    replace_sptensor(x, mat, value)
   }
 )
 
@@ -53,8 +50,7 @@ setMethod("[<-",
   signature(x = "sptensor", i = "missing", j = "numeric", value = "ANY"),
   function(x, i, j, ..., value) { # x[i=,j,...]
     mat <- build_indices(dim(x), i = NULL, j = j, ...)
-    x[mat] <- value
-    x
+    replace_sptensor(x, mat, value)
   }
 )
 
@@ -65,8 +61,7 @@ setMethod("[<-",
   signature(x = "sptensor", i = "numeric", j = "numeric", value = "ANY"),
   function(x, i, j, ..., value) { # x[i,j,...]
     mat <- build_indices(dim(x),i,j,...)
-    x[mat] <- value
-    x
+    replace_sptensor(x, mat, value)
   }
 )
 
@@ -77,8 +72,7 @@ setMethod("[<-",
   signature(x = "sptensor", i = "list", j = "missing", value = "ANY"),
   function(x,i,j,..., value = FALSE) {
     mat <- list_to_matidx(i)
-    x[mat] <- value
-    x
+    replace_sptensor(x, mat, value)
   }
 )
 
@@ -89,14 +83,6 @@ setMethod("[<-",
 setMethod("[<-",
   signature(x = "sptensor", i = "matrix", j = "missing", value = "ANY"),
   function(x, i, j, ..., value) {
-    # nrows in index matrix should be number of dims
-    dims <- dim(x)
-    assert_are_identical(nrow(i), length(dims))
-
-    # check if "type" arg in the ellipsis
-    type <- dots_arg("type", "vector", ...)
-
-    # replace values in sptensor
     replace_sptensor(x, i, value)
   }
 )
@@ -109,24 +95,28 @@ setMethod("[<-",
 #' @param idxmat matrix of indices
 #' @param value replacement value(s)
 replace_sptensor <- function(x, idxmat, value) {
-
-  newvals <- x@vals
+  subs <- nzsubs(x)
+  vals <- nzvals(x)
   dims <- dim(x)
+
+  # check dimensions
+  assert_are_identical(nrow(idxmat), length(dims))
 
   # non-zero matches
   matching <- col_apply(idxmat, matches, x)
   matching <- as.vector(matching)
-  nonzero <- matching > 0 & !is.na(matching)
+  nonzero_matches <- matching > 0 & !is.na(matching)
 
   # matching non-zero tensor subs/values
-  newvals[matching[nonzero]] <- value[nonzero]
+  newvals <- vals
+  newvals[matching[nonzero_matches]] <- value[nonzero_matches]
 
   # non-matching indices. add these in
   # throw an error for is.na(matching)?
   if (any(is.na(matching))) stop("index out of bounds", call. = FALSE)
   nomatch <- which(matching == 0)
   newsubs <- idxmat[, nomatch, drop = FALSE]
-  newsubs <- cbind(x@subs, newsubs)
+  newsubs <- cbind(subs, newsubs)
   newvals <- c(newvals, value[nomatch])
 
   sptensor(newsubs, newvals, dims)
