@@ -69,3 +69,36 @@ setGeneric("as_sptensor", function(x, ...) standardGeneric("as_sptensor"))
 #' @param x object
 #' @param ... extra params
 setGeneric("as_dtensor", function(x, ...) standardGeneric("as_dtensor"))
+
+#' Construct an unfolded sparse tensor
+#'
+#' Construct an \linkS4class{unfolded_sptensor} from a sparse matrix,
+#' mode, and dimensions of orignal tensor.
+#'
+#' @param mat sparse matrix representing unfolded tensor
+#' @param mode dimension to unfold tensor along
+#' @param tensor_dims original dimensions of tensor (useful for re-folding)
+#'
+#' @seealso \code{\link{unfolded_sptensor-class}} for class documentation.
+setGeneric("unfolded_sptensor", function(mat, mode, tensor_dims) standardGeneric("unfolded_sptensor"))
+
+#' Construct an unfolded dense tensor
+#'
+#' Construct an \linkS4class{unfolded_dtensor} from a dense matrix,
+#' mode, and dimensions of orignal tensor.
+#'
+#' @param mat dense matrix representing unfolded tensor
+#' @param mode dimension to unfold tensor along
+#' @param tensor_dims original dimensions of tensor (useful for re-folding)
+#'
+#' @seealso \code{\link{unfolded_dtensor-class}} for class documentation.
+setGeneric("unfolded_dtensor", function(mat, mode, tensor_dims) standardGeneric("unfolded_dtensor"))
+
+
+#' Unfold (matricize) a tensor along a mode
+#' @param x tensor
+#' @param mode dimension to unfold along
+setGeneric("unfold", function(x, mode) standardGeneric("unfold"))
+
+#' Refold an unfolded tensor
+#' @param x an unfolded tensor
