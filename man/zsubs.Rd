@@ -19,3 +19,4 @@ zsubs(x)
 \description{
 Subscripts of zero values in a tensor
 }
+\keyword{internal}

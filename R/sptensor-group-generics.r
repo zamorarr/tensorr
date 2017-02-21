@@ -6,6 +6,7 @@ warn_not_sparse <- "Operation converts zero values to non-zero values. Tensor is
 #' @name sptensor-Ops
 #' @aliases Ops,sptensor,sptensor-method
 #' @importFrom assertive.base assert_are_identical
+#' @keywords internal
 setMethod("Ops", c("sptensor", "sptensor"),  function(e1, e2) {
   # ensure tensor dimensions are equal
   dim1 <- dim(e1)
@@ -97,6 +98,7 @@ setMethod("Ops", c("ANY", "sptensor"), function(e1, e2) {
 #' @param x sparse tensor
 #' @name sptensor-Math
 #' @aliases Math,sptensor-method
+#' @keywords internal
 setMethod("Math", "sptensor", function(x) {
   subs <- nzsubs(x)
   vals <- nzvals(x)
@@ -138,6 +140,7 @@ setMethod("cumsum", "sptensor", function(x) stop("not implemented yet", call. = 
 #' @param digits number of digits to be used in round or signif.
 #' @name sptensor-Math2
 #' @aliases Math2,sptensor-method
+#' @keywords internal
 setMethod("Math2", "sptensor", function(x, digits) {
   subs <- nzsubs(x)
   vals <- nzvals(x)
@@ -158,6 +161,7 @@ setMethod("Math2", "sptensor", function(x, digits) {
 #' @param na.rm logical: should missing values be removed?
 #' @name sptensor-Summary
 #' @aliases Summary,sptensor-method
+#' @keywords internal
 setMethod("Summary", "sptensor", function(x, ..., na.rm) {
 
   if (!missing(...)) stop("multiple arguments not implemented yet", call. = FALSE)
@@ -175,6 +179,7 @@ setMethod("Summary", "sptensor", function(x, ..., na.rm) {
 #' @param z sparse tensor
 #' @name sptensor-Complex
 #' @aliases Complex,sptensor-method
+#' @keywords internal
 setMethod("Complex", "sptensor", function(z) {
   subs <- nzsubs(z)
   vals <- nzvals(z)

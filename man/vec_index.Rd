@@ -20,3 +20,4 @@ vec_index_one(x, cumdims)
 Coverts a vector, matrix, or list of array indices to
 linear indices.
 }
+\keyword{internal}

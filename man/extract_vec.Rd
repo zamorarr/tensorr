@@ -14,3 +14,4 @@ extract_vec(x, idxmat)
 \description{
 Extracts indices from tensor and returns as a vector.
 }
+\keyword{internal}

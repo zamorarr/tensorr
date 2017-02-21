@@ -28,4 +28,5 @@ NULL
 #'
 #' @name show
 #' @param object tensor
+#' @keywords internal
 NULL

@@ -18,3 +18,4 @@
 \description{
 Summary Methods for dense tensors
 }
+\keyword{internal}

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Show a tensor — show,unfolded_dtensor-method • tensorr</title>
+<title>Construct an unfolded sparse tensor — unfolded_sptensor • tensorr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -71,30 +71,33 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Show a tensor</h1>
+    <h1>Construct an unfolded sparse tensor</h1>
     </div>
 
     
-    <p>Show a tensor</p>
+    <p>Construct an <a href='unfolded_sptensor-class.html'>unfolded_sptensor</a> from a sparse matrix,
+mode, and dimensions of orignal tensor.</p>
     
 
-    <pre><span class='co'># S4 method for unfolded_dtensor</span>
-<span class='fu'>show</span>(<span class='no'>object</span>)
+    <pre><span class='fu'>unfolded_sptensor</span>(<span class='no'>mat</span>, <span class='no'>mode</span>, <span class='no'>tensor_dims</span>)
 
-<span class='co'># S4 method for dtensor</span>
-<span class='fu'>show</span>(<span class='no'>object</span>)
-
-<span class='co'># S4 method for unfolded_sptensor</span>
-<span class='fu'>show</span>(<span class='no'>object</span>)
-
-<span class='co'># S4 method for sptensor</span>
-<span class='fu'>show</span>(<span class='no'>object</span>)</pre>
+<span class='co'># S4 method for sparseMatrix,numeric,numeric</span>
+<span class='fu'>unfolded_sptensor</span>(<span class='no'>mat</span>, <span class='no'>mode</span>,
+  <span class='no'>tensor_dims</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
-      <dt>object</dt>
-      <dd>tensor</dd>
+      <dt>mat</dt>
+      <dd>sparse matrix representing unfolded tensor</dd>
+      <dt>mode</dt>
+      <dd>dimension to unfold tensor along</dd>
+      <dt>tensor_dims</dt>
+      <dd>original dimensions of tensor (useful for re-folding)</dd>
     </dl>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code><a href='unfolded_sptensor-class.html'>unfolded_sptensor-class</a></code> for class documentation.</p>
     
 
   </div>
@@ -102,7 +105,9 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#see-also">See also</a></li>
+          </ul>
 
   </div>
 </div>

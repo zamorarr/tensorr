@@ -28,12 +28,12 @@ setMethod("nzsubs", "dtensor", function(x) array_index(which(x@x != 0), dim(x)))
 
 #' @rdname zsubs
 #' @aliases zsubs,dtensor-method
-#' @export
+#' @keywords internal
 setMethod("zsubs", "dtensor", function(x) array_index(which(x@x == 0), dim(x)))
 
 #' @rdname allsubs
 #' @aliases allsubs,dtensor-method
-#' @export
+#' @keywords internal
 setMethod("allsubs", "dtensor", function(x) array_index(seq_along(x), dim(x)))
 
 #' @rdname nzvals

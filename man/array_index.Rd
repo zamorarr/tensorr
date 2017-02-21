@@ -16,3 +16,4 @@ Convert a vector of linear indices to a a matrix
  of array indices. Each linear index will map to
  a column in the matrix.
 }
+\keyword{internal}

@@ -110,7 +110,7 @@ setMethod("[",
 #'
 #' @param x sptensor
 #' @param idxmat matrix of indices
-#'
+#' @keywords internal
 extract_vec <- function(x, idxmat) {
   # check dimensions
   dims <- dim(x)
@@ -140,6 +140,7 @@ extract_vec <- function(x, idxmat) {
 #' @param drop drop dimensions of size 1?
 #'
 #' @importFrom assertive.base assert_are_identical
+#' @keywords internal
 extract_sptensor <- function(x, idxmat, drop = FALSE) {
   subs <- nzsubs(x)
   vals <- nzvals(x)
@@ -204,6 +205,7 @@ squeeze <- function(x) {
 #' @param idx index
 #' @param x sptensor
 #' @importFrom assertive.base assert_all_are_not_na
+#' @keywords internal
 matches <- function(idx, x) {
   subs <- nzsubs(x)
   dims <- dim(x)

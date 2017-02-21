@@ -2,6 +2,7 @@
 #'
 #' @param subs1,subs2 subscript arrays
 #' @param f set function to apply. Ex. union, setdiff, intersect
+#' @keywords internal
 setops_subs <- function(subs1, subs2, f) {
   # convert subscripts to list
   subs1list <- mat_to_listidx(subs1)
@@ -16,7 +17,9 @@ setops_subs <- function(subs1, subs2, f) {
 
 
 #' @rdname setops_subs
+#' @keywords internal
 union_subs <- function(subs1, subs2) setops_subs(subs1, subs2, union)
 
 #' @rdname setops_subs
+#' @keywords internal
 intersect_subs <- function(subs1, subs2) setops_subs(subs1, subs2, intersect)

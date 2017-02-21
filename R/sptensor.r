@@ -73,7 +73,7 @@ setMethod("nzsubs", "sptensor", function(x) x@subs)
 
 #' @rdname zsubs
 #' @aliases zsubs,sptensor-method
-#' @export
+#' @keywords internal
 setMethod("zsubs", "sptensor", function(x) {
   allsubslist <- mat_to_listidx(allsubs(x))
   nzsubslist <- mat_to_listidx(nzsubs(x))
@@ -87,7 +87,7 @@ setMethod("zsubs", "sptensor", function(x) {
 
 #' @rdname allsubs
 #' @aliases allsubs,sptensor-method
-#' @export
+#' @keywords internal
 setMethod("allsubs", "sptensor", function(x) {
   array_index(seq_along(x), dim(x))
 })

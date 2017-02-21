@@ -12,3 +12,4 @@ list_to_matidx(x)
 \description{
 convert list of indices to matrix of indcies
 }
+\keyword{internal}

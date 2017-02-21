@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Show a tensor — show,unfolded_dtensor-method • tensorr</title>
+<title>An S4 class for an unfolded dense tensor — unfolded_dtensor-class • tensorr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -71,38 +71,32 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Show a tensor</h1>
+    <h1>An S4 class for an unfolded dense tensor</h1>
     </div>
 
     
-    <p>Show a tensor</p>
+    <p>An unfolded (&quot;matriczied&quot;) tensor along a specified dimension. Can be easily
+refolded back into a tensor with command <code>refold</code></p>
     
 
-    <pre><span class='co'># S4 method for unfolded_dtensor</span>
-<span class='fu'>show</span>(<span class='no'>object</span>)
+        
+    <h2 class="hasAnchor" id="slots"><a class="anchor" href="#slots"></a>Slots</h2>
 
-<span class='co'># S4 method for dtensor</span>
-<span class='fu'>show</span>(<span class='no'>object</span>)
-
-<span class='co'># S4 method for unfolded_sptensor</span>
-<span class='fu'>show</span>(<span class='no'>object</span>)
-
-<span class='co'># S4 method for sptensor</span>
-<span class='fu'>show</span>(<span class='no'>object</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>object</dt>
-      <dd>tensor</dd>
-    </dl>
+    <p></p>
+    <p><dl class='dl-horizontal'>
+<dt><code>mat</code></dt><dd>sparse matrix representing unfolded tensor</dd></p>
+    <p><dt><code>mode</code></dt><dd>dimension along which tensor was unfolded</dd></p>
+    <p><dt><code>tensor_dims</code></dt><dd>dimensions of original tensor</dd>
+</dl></p>
     
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#slots">Slots</a></li>
+          </ul>
 
   </div>
 </div>

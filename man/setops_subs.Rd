@@ -20,3 +20,4 @@ intersect_subs(subs1, subs2)
 \description{
 Apply set function to subscript arrays
 }
+\keyword{internal}

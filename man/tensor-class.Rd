@@ -8,3 +8,4 @@
 The \code{tensor} class is a base virtual tensor class for objects in this
 repository.
 }
+\keyword{internal}

@@ -14,3 +14,4 @@ build_indices(dims, ...)
 \description{
 substitute missing args k with 1:dim[k]
 }
+\keyword{internal}

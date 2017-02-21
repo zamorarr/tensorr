@@ -94,6 +94,7 @@ setMethod("[<-",
 #' @param x sptensor
 #' @param idxmat matrix of indices
 #' @param value replacement value(s)
+#' @keywords internal
 replace_sptensor <- function(x, idxmat, value) {
   subs <- nzsubs(x)
   vals <- nzvals(x)

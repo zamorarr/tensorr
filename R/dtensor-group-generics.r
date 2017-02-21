@@ -3,6 +3,7 @@
 #' @param e1,e2 at least one of them a dense tensor
 #' @name dtensor-Ops
 #' @aliases Ops,dtensor,dtensor-method
+#' @keywords internal
 setMethod("Ops", c("dtensor","dtensor"), function(e1, e2) dtensor(methods::callGeneric(e1@x, e2@x)) )
 
 #' @rdname dtensor-Ops
@@ -25,6 +26,7 @@ setMethod("Ops", c("ANY", "dtensor"), function(e1, e2) dtensor(methods::callGene
 #' @param x dense tensor
 #' @name dtensor-Math
 #' @aliases Math,dtensor-method
+#' @keywords internal
 setMethod("Math", "dtensor", function(x) dtensor(methods::callGeneric(x@x)) )
 
 #' Math2 Methods for dense tensors
@@ -33,6 +35,7 @@ setMethod("Math", "dtensor", function(x) dtensor(methods::callGeneric(x@x)) )
 #' @param digits number of digits to be used in round or signif.
 #' @name dtensor-Math2
 #' @aliases Math2,dtensor-method
+#' @keywords internal
 setMethod("Math2", "dtensor", function(x, digits) dtensor(methods::callGeneric(x@x, digits)) )
 
 #' Summary Methods for dense tensors
@@ -42,6 +45,7 @@ setMethod("Math2", "dtensor", function(x, digits) dtensor(methods::callGeneric(x
 #' @param na.rm logical: should missing values be removed?
 #' @name dtensor-Summary
 #' @aliases Summary,dtensor-method
+#' @keywords internal
 setMethod("Summary", "dtensor", function(x, ..., na.rm = FALSE) {
   if (!missing(...)) stop("multiple arguments not implemented yet", call. = FALSE)
   methods::callGeneric(x@x, na.rm = na.rm)
@@ -52,4 +56,5 @@ setMethod("Summary", "dtensor", function(x, ..., na.rm = FALSE) {
 #' @param z dense tensor
 #' @name dtensor-Complex
 #' @aliases Complex,dtensor-method
+#' @keywords internal
 setMethod("Complex", "dtensor", function(z) dtensor(methods::callGeneric(z@x)) )

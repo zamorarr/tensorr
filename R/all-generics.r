@@ -20,7 +20,6 @@
 #' X <- sptensor(subs, vals, dims)
 #'
 #' @seealso \code{\link{sptensor-class}} for class documentation.
-#' @export
 setGeneric("sptensor", function(subs, vals, dims) standardGeneric("sptensor"))
 
 #' Construct a dense tensor
@@ -34,7 +33,6 @@ setGeneric("sptensor", function(subs, vals, dims) standardGeneric("sptensor"))
 #' X <- dtensor(arr)
 #'
 #' @seealso \code{\link{dtensor-class}} for class documentation.
-#' @export
 setGeneric("dtensor", function(x) standardGeneric("dtensor"))
 
 
@@ -46,11 +44,13 @@ setGeneric("nzsubs", function(x) standardGeneric("nzsubs"))
 #' Subscripts of zero values in a tensor
 #'
 #' @param x tensor
+#' @keywords internal
 setGeneric("zsubs", function(x) standardGeneric("zsubs"))
 
 #' Subscripts of all values in a tensor
 #'
 #' @param x tensor
+#' @keywords internal
 setGeneric("allsubs", function(x) standardGeneric("allsubs"))
 
 #' Non-zero values in a tensor
@@ -102,3 +102,4 @@ setGeneric("unfold", function(x, mode) standardGeneric("unfold"))
 
 #' Refold an unfolded tensor
 #' @param x an unfolded tensor
+setGeneric("refold", function(x) standardGeneric("refold"))

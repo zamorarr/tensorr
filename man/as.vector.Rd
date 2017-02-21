@@ -18,3 +18,4 @@
 \description{
 Vectorize values of a tensor
 }
+\keyword{internal}

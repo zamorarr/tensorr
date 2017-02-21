@@ -16,3 +16,4 @@ replace_sptensor(x, idxmat, value)
 \description{
 Replaces values in sparse tensor and returns a new sparse tensor.
 }
+\keyword{internal}

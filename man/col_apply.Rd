@@ -16,3 +16,4 @@ col_apply(x, f, ...)
 \description{
 Convenience wrapper around apply. Always returns a matrix.
 }
+\keyword{internal}

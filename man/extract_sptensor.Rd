@@ -17,3 +17,4 @@ extract_sptensor(x, idxmat, drop = FALSE)
 Extracts indices from a sparse tensor and returns as a new tensor.
 Can also drop dimensions of the tensor that have size 1.
 }
+\keyword{internal}

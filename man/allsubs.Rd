@@ -19,3 +19,4 @@ allsubs(x)
 \description{
 Subscripts of all values in a tensor
 }
+\keyword{internal}

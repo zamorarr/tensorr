@@ -17,3 +17,4 @@ in a sparse tensor.  Returns the index if there is match.
 Returns 0 if there is no match. Returns NA if the index
 is out of bounds.
 }
+\keyword{internal}

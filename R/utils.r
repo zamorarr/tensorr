@@ -4,6 +4,7 @@
 #' @param dims tensor dimensions
 #' @param ... indices
 #' @importFrom assertive.base assert_are_identical
+#' @keywords internal
 build_indices <- function(dims, ...) {
   # check that there as many indices as tensor dimensions
   nindices <- nargs() - 1L
@@ -52,6 +53,7 @@ expand_indices <- function(...) {
 #'
 #' @param x vector, matrix, or list of numeric indices
 #' @param dims dimensions
+#' @keywords internal
 vec_index <- function(x, dims) {
   if(!any(is_numeric(x), is_list(x))) {
     stop("x must be a numeric or list of numerics", call. = FALSE)
@@ -70,6 +72,7 @@ vec_index <- function(x, dims) {
 #' @rdname vec_index
 #' @param cumdims cumulative size of tensor
 #' @importFrom assertive.types assert_is_numeric
+#' @keywords internal
 vec_index_one <- function(x, cumdims) {
   assert_is_numeric(x)
   as.integer(sum( (x - 1) * cumdims) + 1)
@@ -85,6 +88,7 @@ vec_index_one <- function(x, cumdims) {
 #' @param dims dimensions
 #'
 #' @importFrom assertive.types assert_is_numeric
+#' @keywords internal
 array_index <- function(x, dims) {
   # check if linear indices are numbers
   assert_is_numeric(x)
@@ -114,6 +118,7 @@ array_index <- function(x, dims) {
 #' @param x matrix
 #' @param f function to apply to each column
 #' @param ... extra args to f
+#' @keywords internal
 col_apply <- function(x, f, ...) {
   res <- apply(x, 2, f, ...)
 
@@ -127,6 +132,7 @@ col_apply <- function(x, f, ...) {
 #' @param x matrix
 #' @param f function to apply to each row
 #' @param ... extra args to f
+#' @keywords internal
 row_apply <- function(x, f, ...) {
   res <- apply(x, 1, f, ...)
 
@@ -136,6 +142,7 @@ row_apply <- function(x, f, ...) {
 
 #' convert matrix of indices to list of indices
 #' @param m matrix
+#' @keywords internal
 mat_to_listidx <- function(m) {
   seq_cols <- seq_len(ncol(m))
   map(seq_cols, function(col) unname(m[,col]))
@@ -143,6 +150,7 @@ mat_to_listidx <- function(m) {
 
 #' convert list of indices to matrix of indcies
 #' @param x list
+#' @keywords internal
 list_to_matidx <- function(x) {
   d <- length(x[[1]])
   #vapply(x, function(i) as.integer(i), FUN.VALUE = integer(d))
