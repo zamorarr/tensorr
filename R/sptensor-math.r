@@ -19,6 +19,16 @@ setMethod("innerprod", signature(x = "sptensor", y = "sptensor"), function(x,y) 
   sum(x[subs] * y[subs])
 })
 
+#' @rdname outerprod
+#' @aliases outerprod,sptensor,sptensor-method
+#' @export
+#' @importFrom assertive.properties assert_have_same_dims
+setMethod("outerprod", signature(x = "sptensor", y = "sptensor"), function(x,y) {
+  # dimensions must match
+  assert_have_same_dims(x,y)
+  stop("not implemented yet", call. = FALSE)
+})
+
 #' @rdname ttm
 #' @aliases sptensor,Matrix,numeric,numeric-method
 #' @export

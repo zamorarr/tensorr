@@ -6,13 +6,18 @@ data <- array(1:24 , dim = dims)
 Z <- dtensor(data)
 U <- matrix(1:6, nrow = 2, ncol = 3)
 
-test_that("norm of sparse tensor works with expected inputs", {
+test_that("norm of dense tensor works with expected inputs", {
   expect_equal(norm(Z), 70)
 })
 
-test_that("inner product of sparse tensor works with expected inputs", {
+test_that("inner product of dense tensor works with expected inputs", {
   expect_equal(innerprod(Z,Z), 4900)
   expect_equal(sqrt(innerprod(Z,Z)), norm(Z))
+})
+
+test_that("outer product of dense tensor works with expected inputs", {
+  res <- outer(Z@x, Z@x)
+  expect_equal(outerprod(Z,Z), dtensor(res))
 })
 
 test_that("dense tensor times matrix works with expected inputs", {

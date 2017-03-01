@@ -14,6 +14,16 @@ setMethod("innerprod", signature(x = "dtensor", y = "dtensor"), function(x,y) {
   sum(x@x * y@x)
 })
 
+#' @rdname outerprod
+#' @aliases outerprod,dtensor,dtensor-method
+#' @export
+#' @importFrom assertive.properties assert_have_same_dims
+setMethod("outerprod", signature(x = "dtensor", y = "dtensor"), function(x,y) {
+  # dimensions must match
+  assert_have_same_dims(x,y)
+  dtensor(outer(x@x, y@x))
+})
+
 #' @rdname ttm
 #' @aliases dtensor,Matrix,numeric,numeric-method
 #' @export

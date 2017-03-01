@@ -142,3 +142,7 @@ setGeneric("norm", function(x) standardGeneric("norm"))
 #' Calculate the inner product of a pair of tensors
 #' @param x,y tensors
 setGeneric("innerprod", function(x,y) standardGeneric("innerprod"))
+
+#' Calculate the outer product of a pair of tensors
+#' @param x,y tensors
+setGeneric("outerprod", function(x,y) standardGeneric("outerprod"))
