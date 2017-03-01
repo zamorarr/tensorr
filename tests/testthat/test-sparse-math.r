@@ -6,6 +6,15 @@ data <- array(1:24 , dim = dims)
 X <- as_sptensor(dtensor(data))
 U <- matrix(1:6, nrow = 2, ncol = 3)
 
+test_that("norm of sparse tensor works with expected inputs", {
+  expect_equal(norm(X), 70)
+})
+
+test_that("inner product of sparse tensor works with expected inputs", {
+  expect_equal(innerprod(X,X), 4900)
+  expect_equal(sqrt(innerprod(X,X)), norm(X))
+})
+
 test_that("sparse tensor times matrix works with expected inputs", {
   res <- array(c(22,28,49,64,76,100,103,136,
                  130,172,157,208,184,244,211,280), c(2,4,2))

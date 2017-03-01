@@ -1,3 +1,19 @@
+#' @rdname norm
+#' @aliases norm,dtensor-method
+#' @export
+setMethod("norm", "dtensor", function(x) sqrt(sum(x@x^2)))
+
+#' @rdname innerprod
+#' @aliases innerprod,dtensor,dtensor-method
+#' @export
+#' @importFrom assertive.properties assert_have_same_dims
+setMethod("innerprod", signature(x = "dtensor", y = "dtensor"), function(x,y) {
+  # dimensions must match
+  assert_have_same_dims(x,y)
+
+  sum(x@x * y@x)
+})
+
 #' @rdname ttm
 #' @aliases dtensor,Matrix,numeric,numeric-method
 #' @export
@@ -39,7 +55,7 @@ setMethod("ttm", c("dtensor", "matrix", "numeric"), function(x, u, mode) {
 #' @export
 #' @importFrom assertive.properties assert_is_vector
 setMethod("ttv", c("dtensor", "numeric", "numeric"), function(x, v, mode) {
-  assert_is_vector(v)
+  assert_is_vector(v) # and not a matrix
   u <- Matrix::Matrix(v, nrow = 1L)
   Y <- ttm(x, u, mode)
 

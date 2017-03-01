@@ -1,3 +1,24 @@
+#' @rdname norm
+#' @aliases norm,sptensor-method
+#' @export
+setMethod("norm", "sptensor", function(x) sqrt(sum(x@vals^2)))
+
+#' @rdname innerprod
+#' @aliases innerprod,sptensor,sptensor-method
+#' @export
+#' @importFrom assertive.properties assert_have_same_dims
+setMethod("innerprod", signature(x = "sptensor", y = "sptensor"), function(x,y) {
+  # dimensions must match
+  assert_have_same_dims(x,y)
+
+  xsubs <- nzsubs(x)
+  ysubs <- nzsubs(y)
+
+  subs <- union_subs(xsubs,ysubs)
+
+  sum(x[subs] * y[subs])
+})
+
 #' @rdname ttm
 #' @aliases sptensor,Matrix,numeric,numeric-method
 #' @export
@@ -38,7 +59,7 @@ setMethod("ttm", c("sptensor", "matrix", "numeric"), function(x, u, mode) {
 #' @export
 #' @importFrom assertive.properties assert_is_vector
 setMethod("ttv", c("sptensor", "numeric", "numeric"), function(x, v, mode) {
-  assert_is_vector(v)
+  assert_is_vector(v) # and not a matrix
   u <- Matrix::Matrix(v, nrow = 1L)
   Y <- ttm(x, u, mode)
 

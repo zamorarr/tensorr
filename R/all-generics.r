@@ -132,5 +132,13 @@ setGeneric("ttm", function(x, u, mode) standardGeneric("ttm"))
 #' @param mode mode along tensor to perform multiplication
 #'
 #' @references \cite{T. G. Kolda and B. W. Bader, Tensor Decompositions and
-  #' Applications, SIAM Review 51(3):455-500, September 2009}
+#' Applications, SIAM Review 51(3):455-500, September 2009}
 setGeneric("ttv", function(x, v, mode) standardGeneric("ttv"))
+
+#' Calculate the Frobenius norm of a tensor
+#' @param x tensor
+setGeneric("norm", function(x) standardGeneric("norm"))
+
+#' Calculate the inner product of a pair of tensors
+#' @param x,y tensors
+setGeneric("innerprod", function(x,y) standardGeneric("innerprod"))
