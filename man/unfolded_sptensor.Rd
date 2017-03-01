@@ -3,13 +3,13 @@
 \docType{methods}
 \name{unfolded_sptensor}
 \alias{unfolded_sptensor}
+\alias{unfolded_sptensor,Matrix,numeric,numeric-method}
 \alias{unfolded_sptensor,sparseMatrix,numeric,numeric-method}
 \title{Construct an unfolded sparse tensor}
 \usage{
 unfolded_sptensor(mat, mode, tensor_dims)
 
-\S4method{unfolded_sptensor}{sparseMatrix,numeric,numeric}(mat, mode,
-  tensor_dims)
+\S4method{unfolded_sptensor}{Matrix,numeric,numeric}(mat, mode, tensor_dims)
 }
 \arguments{
 \item{mat}{sparse matrix representing unfolded tensor}
