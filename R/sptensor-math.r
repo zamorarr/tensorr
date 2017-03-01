@@ -26,7 +26,35 @@ setMethod("innerprod", signature(x = "sptensor", y = "sptensor"), function(x,y) 
 setMethod("outerprod", signature(x = "sptensor", y = "sptensor"), function(x,y) {
   # dimensions must match
   assert_have_same_dims(x,y)
-  stop("not implemented yet", call. = FALSE)
+
+  # new dimensions
+  newdims <- c(dim(x), dim(y))
+
+  # new subscripts
+  xsubs <- nzsubs(x)
+  ysubs <- nzsubs(y)
+
+  cols <- ncol(xsubs)
+  seq_cols <- seq_len(cols)
+  newsubs <- map(seq_cols, function(i) {
+    col_i <- rep.int(xsubs[,i], cols)
+    rbind(matrix(col_i, ncol = cols), ysubs)
+  })
+
+  newsubs <- reduce(newsubs, cbind)
+
+  # new vals
+  rows <- nrow(xsubs)
+  seq_cols <- seq_len(ncol(newsubs))
+  newvals <- map_dbl(seq_cols, function(i) {
+    sub1 <- newsubs[1:rows,i,drop=FALSE]
+    sub2 <- newsubs[(rows+1):(2*rows),i,drop=FALSE]
+    x[sub1] * y[sub2]
+  })
+
+  # return new sptensor
+  sptensor(newsubs, newvals, newdims)
+
 })
 
 #' @rdname ttm

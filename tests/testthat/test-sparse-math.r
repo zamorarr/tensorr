@@ -3,7 +3,8 @@ context("sparse-math")
 # test data
 dims <- c(3, 4, 2)
 data <- array(1:24 , dim = dims)
-X <- as_sptensor(dtensor(data))
+Z <- dtensor(data)
+X <- as_sptensor(Z)
 U <- matrix(1:6, nrow = 2, ncol = 3)
 
 test_that("norm of sparse tensor works with expected inputs", {
@@ -13,6 +14,11 @@ test_that("norm of sparse tensor works with expected inputs", {
 test_that("inner product of sparse tensor works with expected inputs", {
   expect_equal(innerprod(X,X), 4900)
   expect_equal(sqrt(innerprod(X,X)), norm(X))
+})
+
+test_that("outer product of sparse tensor works with expected inputs", {
+  res <- dtensor(outer(Z@x, Z@x))
+  expect_equal(outerprod(X,X), as_sptensor(res))
 })
 
 test_that("sparse tensor times matrix works with expected inputs", {
