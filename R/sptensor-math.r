@@ -32,3 +32,29 @@ setMethod("ttm", c("sptensor", "matrix", "numeric"), function(x, u, mode) {
   U <- Matrix::Matrix(u)
   ttm(x, U, mode)
 })
+
+#' @rdname ttv
+#' @aliases sptensor,numeric,numeric,numeric-method
+#' @export
+#' @importFrom assertive.properties assert_is_vector
+setMethod("ttv", c("sptensor", "numeric", "numeric"), function(x, v, mode) {
+  assert_is_vector(v)
+  u <- Matrix::Matrix(v, nrow = 1L)
+  Y <- ttm(x, u, mode)
+
+  # remove the mode dimension since it is of size 1 now
+  squeeze(Y, mode)
+})
+
+#' @rdname ttv
+#' @aliases sptensor,numeric,numeric,numeric-method
+#' @export
+#' @importClassesFrom Matrix sparseVector
+#' @importFrom assertive.properties assert_is_vector
+setMethod("ttv", c("sptensor", "sparseVector", "numeric"), function(x, v, mode) {
+  u <- Matrix::Matrix(v, nrow = 1L, ncol = length(v))
+  Y <- ttm(x, u, mode)
+
+  # remove the mode dimension since it is of size 1 now
+  squeeze(Y, mode)
+})

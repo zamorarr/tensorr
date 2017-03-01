@@ -118,3 +118,19 @@ setGeneric("refold", function(x) standardGeneric("refold"))
 #' @references \cite{T. G. Kolda and B. W. Bader, Tensor Decompositions and
   #' Applications, SIAM Review 51(3):455-500, September 2009}
 setGeneric("ttm", function(x, u, mode) standardGeneric("ttm"))
+
+#' Tensor times vector
+#'
+#' Calculates the n-mode product of a tensor and a vector Given a tensor X with
+#' dimensions \eqn{I_1, I_2, ..., I_n, I_n+1, ... I_N} and a vector v with
+#' dimensions \eqn{J, 1}, the resulting tensor after multiplication will have
+#' dimension \eqn{I_1, I_2, ..., I_n-1, I_n+1, ... I_N}. Note that the dimension
+#' corresponding to the \code{mode} has been dropped.
+#'
+#' @param x tensor
+#' @param v vector
+#' @param mode mode along tensor to perform multiplication
+#'
+#' @references \cite{T. G. Kolda and B. W. Bader, Tensor Decompositions and
+  #' Applications, SIAM Review 51(3):455-500, September 2009}
+setGeneric("ttv", function(x, v, mode) standardGeneric("ttv"))

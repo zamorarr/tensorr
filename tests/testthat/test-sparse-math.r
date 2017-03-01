@@ -21,3 +21,33 @@ test_that("order of sparse tensor times matrices doesn't matter", {
 
   expect_equal(Y1, Y2)
 })
+
+test_that("sparse tensor times vector works with expected inputs", {
+  v <- 1:4
+  res <- dtensor(array(c(70,80,90,190,200,210), c(3,2)))
+  res <- as_sptensor(res)
+
+  expect_equal(ttv(X, v, 2), res)
+})
+
+test_that("sparse tensor times sparse vector works with expected inputs", {
+  v <- Matrix::sparseVector(1:4, 1:4, 4)
+  res <- dtensor(array(c(70,80,90,190,200,210), c(3,2)))
+  res <- as_sptensor(res)
+
+  expect_equal(ttv(X, v, 2), res)
+})
+
+test_that("order of sparse tensor times vectors matters", {
+  v1 <- 1:3
+  v2 <- 11:14
+  mode1 <- 1
+  mode2 <- 2
+
+  Y <- ttv(ttv(X, v2, mode2), v1, mode1)
+  #Y_wrong <- ttv(ttv(X, v1, mode1), v2, mode2)
+  Y_right <- ttv(ttv(X, v1, mode1), v2, mode2 - 1)
+
+  expect_equal(Y, Y_right)
+  expect_error(ttv(ttv(X, v1, mode1), v2, mode2))
+})

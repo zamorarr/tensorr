@@ -21,3 +21,24 @@ test_that("order of dense tensor times matrices doesn't matter", {
 
   expect_equal(Y1, Y2)
 })
+
+test_that("dense tensor times vector works with expected inputs", {
+  v <- 1:4
+  res <- dtensor(array(c(70,80,90,190,200,210), c(3,2)))
+
+  expect_equal(ttv(Z, v, 2), res)
+})
+
+test_that("order of dense tensor times vectors matters", {
+  v1 <- 1:3
+  v2 <- 11:14
+  mode1 <- 1
+  mode2 <- 2
+
+  Y <- ttv(ttv(Z, v2, mode2), v1, mode1)
+  #Y_wrong <- ttv(ttv(Z, v1, mode1), v2, mode2)
+  Y_right <- ttv(ttv(Z, v1, mode1), v2, mode2 - 1)
+
+  expect_equal(Y, Y_right)
+  expect_error(ttv(ttv(Z, v1, mode1), v2, mode2))
+})
