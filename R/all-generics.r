@@ -103,3 +103,18 @@ setGeneric("unfold", function(x, mode) standardGeneric("unfold"))
 #' Refold an unfolded tensor
 #' @param x an unfolded tensor
 setGeneric("refold", function(x) standardGeneric("refold"))
+
+#' Tensor times matrix
+#'
+#' Calculates the n-mode product of a tensor and a matrix. Given a tensor X with
+#' dimensions \eqn{I_1, I_2, ..., I_n, I_n+1, ... I_N} and a matrix U with
+#' dimensions \eqn{J, I_n}, the resulting tensor after multiplication will have
+#' dimension \eqn{I_1, I_2, ..., J, I_n+1, ... I_N}.
+#'
+#' @param x tensor
+#' @param u matrix
+#' @param mode mode along tensor to perform multiplication
+#'
+#' @references \cite{T. G. Kolda and B. W. Bader, Tensor Decompositions and
+  #' Applications, SIAM Review 51(3):455-500, September 2009}
+setGeneric("ttm", function(x, u, mode) standardGeneric("ttm"))
