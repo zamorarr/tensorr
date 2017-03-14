@@ -24,6 +24,27 @@ setMethod("outerprod", signature(x = "dtensor", y = "dtensor"), function(x,y) {
   dtensor(outer(x@x, y@x))
 })
 
+#' @rdname outerprod
+#' @aliases outerprod,dtensor,tensor-method
+#' @export
+setMethod("outerprod", signature(x = "dtensor", y = "tensor"), function(x,y) {
+  outerprod(x, as_dtensor(y))
+})
+
+#' @rdname outerprod
+#' @aliases outerprod,tensor,dtensor-method
+#' @export
+setMethod("outerprod", signature(x = "tensor", y = "dtensor"), function(x,y) {
+  outerprod(as_dtensor(x), y)
+})
+
+#' @rdname outerprod
+#' @aliases ttt,tensor,tensor-method
+#' @export
+setMethod("ttt", c("tensor", "tensor"), function(x,y) {
+  outerprod(x,y)
+})
+
 #' @rdname ttm
 #' @aliases dtensor,Matrix,numeric,numeric-method
 #' @export
@@ -42,7 +63,7 @@ setMethod("ttm", c("dtensor", "Matrix", "numeric"), function(x, u, mode) {
   Xunfold <- unfold(x, mode)
   Xmat <- Xunfold@mat
 
-  # multiply by mat
+  # multiply by matrix
   Ymat <- u %*% Xmat
 
   # refold tensor

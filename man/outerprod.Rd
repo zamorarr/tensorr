@@ -4,13 +4,25 @@
 \docType{methods}
 \name{outerprod}
 \alias{outerprod}
+\alias{ttt}
 \alias{outerprod,dtensor,dtensor-method}
+\alias{outerprod,dtensor,tensor-method}
+\alias{outerprod,tensor,dtensor-method}
+\alias{ttt,tensor,tensor-method}
 \alias{outerprod,sptensor,sptensor-method}
 \title{Calculate the outer product of a pair of tensors}
 \usage{
 outerprod(x, y)
 
+ttt(x, y)
+
 \S4method{outerprod}{dtensor,dtensor}(x, y)
+
+\S4method{outerprod}{dtensor,tensor}(x, y)
+
+\S4method{outerprod}{tensor,dtensor}(x, y)
+
+\S4method{ttt}{tensor,tensor}(x, y)
 
 \S4method{outerprod}{sptensor,sptensor}(x, y)
 }

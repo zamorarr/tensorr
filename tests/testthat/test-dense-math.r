@@ -18,6 +18,7 @@ test_that("inner product of dense tensor works with expected inputs", {
 test_that("outer product of dense tensor works with expected inputs", {
   res <- outer(Z@x, Z@x)
   expect_equal(outerprod(Z,Z), dtensor(res))
+  expect_equal(ttt(Z,Z), dtensor(res))
 })
 
 test_that("dense tensor times matrix works with expected inputs", {
