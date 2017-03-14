@@ -5,11 +5,11 @@
 \name{ttv}
 \alias{ttv}
 \alias{ttv,dtensor,numeric,numeric-method}
-\alias{dtensor,numeric,numeric,numeric-method}
+\alias{ttv,dtensor,numeric,numeric,numeric-method}
 \alias{ttv,sptensor,numeric,numeric-method}
-\alias{sptensor,numeric,numeric,numeric-method}
+\alias{ttv,sptensor,numeric,numeric,numeric-method}
 \alias{ttv,sptensor,sparseVector,numeric-method}
-\alias{sptensor,numeric,numeric,numeric-method}
+\alias{ttv,sptensor,numeric,numeric,numeric-method}
 \title{Tensor times vector}
 \usage{
 ttv(x, v, mode)

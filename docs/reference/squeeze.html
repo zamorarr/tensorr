@@ -78,12 +78,15 @@
     <p>Remove tensor dimensions of size 1</p>
     
 
-    <pre><span class='fu'>squeeze</span>(<span class='no'>x</span>)</pre>
+    <pre><span class='fu'>squeeze</span>(<span class='no'>x</span>, <span class='kw'>todrop</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
-      <dd>sptensor</dd>
+      <dd><p>sptensor</p></dd>
+      <dt>todrop</dt>
+      <dd><p>specific dimensions to drop. If NULL, will drop all dimensions
+of size 1</p></dd>
     </dl>
     
 

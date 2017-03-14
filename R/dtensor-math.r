@@ -46,7 +46,7 @@ setMethod("ttt", c("tensor", "tensor"), function(x,y) {
 })
 
 #' @rdname ttm
-#' @aliases dtensor,Matrix,numeric,numeric-method
+#' @aliases ttm,dtensor,Matrix,numeric,numeric-method
 #' @export
 #' @importClassesFrom Matrix Matrix
 #' @importFrom assertive.base assert_are_identical
@@ -73,7 +73,7 @@ setMethod("ttm", c("dtensor", "Matrix", "numeric"), function(x, u, mode) {
 })
 
 #' @rdname ttm
-#' @aliases dtensor,matrix,numeric,numeric-method
+#' @aliases ttm,dtensor,matrix,numeric,numeric-method
 #' @export
 #' @importFrom assertive.base assert_are_identical
 setMethod("ttm", c("dtensor", "matrix", "numeric"), function(x, u, mode) {
@@ -82,7 +82,7 @@ setMethod("ttm", c("dtensor", "matrix", "numeric"), function(x, u, mode) {
 })
 
 #' @rdname ttv
-#' @aliases dtensor,numeric,numeric,numeric-method
+#' @aliases ttv,dtensor,numeric,numeric,numeric-method
 #' @export
 #' @importFrom assertive.properties assert_is_vector
 setMethod("ttv", c("dtensor", "numeric", "numeric"), function(x, v, mode) {

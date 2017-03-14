@@ -6,7 +6,7 @@
 \alias{as_sptensor,sptensor-method}
 \alias{as_sptensor,dtensor-method}
 \alias{as_sptensor,data.frame-method}
-\title{Convert objects to sparse or dense tensors}
+\title{Convert objects to sparse tensors}
 \usage{
 as_sptensor(x, ...)
 
@@ -26,5 +26,5 @@ as_sptensor(x, ...)
 \item{dims}{dimensions of tensor. If not provided, the maximum value for each of the indices is used.}
 }
 \description{
-Convert objects to sparse or dense tensors
+Convert objects to sparse tensors
 }

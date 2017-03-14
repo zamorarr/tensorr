@@ -26,7 +26,7 @@
 #' For a review on tensors, see
 #' \itemize{
 #' \item \cite{T. G. Kolda and B. W. Bader, Tensor Decompositions and
-  #' Applications, SIAM Review 51(3):455-500, September 2009}
+#' Applications, SIAM Review 51(3):455-500, September 2009}
 #' }
 #
 #' @docType package

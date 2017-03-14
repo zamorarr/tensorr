@@ -58,7 +58,7 @@ setMethod("outerprod", signature(x = "sptensor", y = "sptensor"), function(x,y) 
 })
 
 #' @rdname ttm
-#' @aliases sptensor,Matrix,numeric,numeric-method
+#' @aliases ttm,sptensor,Matrix,numeric,numeric-method
 #' @export
 #' @importClassesFrom Matrix Matrix
 #' @importFrom assertive.base assert_are_identical
@@ -84,7 +84,7 @@ setMethod("ttm", c("sptensor", "Matrix", "numeric"), function(x, u, mode) {
 })
 
 #' @rdname ttm
-#' @aliases sptensor,matrix,numeric,numeric-method
+#' @aliases ttm,sptensor,matrix,numeric,numeric-method
 #' @export
 #' @importFrom assertive.base assert_are_identical
 setMethod("ttm", c("sptensor", "matrix", "numeric"), function(x, u, mode) {
@@ -93,7 +93,7 @@ setMethod("ttm", c("sptensor", "matrix", "numeric"), function(x, u, mode) {
 })
 
 #' @rdname ttv
-#' @aliases sptensor,numeric,numeric,numeric-method
+#' @aliases ttv,sptensor,numeric,numeric,numeric-method
 #' @export
 #' @importFrom assertive.properties assert_is_vector
 setMethod("ttv", c("sptensor", "numeric", "numeric"), function(x, v, mode) {
@@ -106,7 +106,7 @@ setMethod("ttv", c("sptensor", "numeric", "numeric"), function(x, v, mode) {
 })
 
 #' @rdname ttv
-#' @aliases sptensor,numeric,numeric,numeric-method
+#' @aliases ttv,sptensor,numeric,numeric,numeric-method
 #' @export
 #' @importClassesFrom Matrix sparseVector
 #' @importFrom assertive.properties assert_is_vector

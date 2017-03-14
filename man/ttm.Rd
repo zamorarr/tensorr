@@ -5,13 +5,13 @@
 \name{ttm}
 \alias{ttm}
 \alias{ttm,dtensor,Matrix,numeric-method}
-\alias{dtensor,Matrix,numeric,numeric-method}
+\alias{ttm,dtensor,Matrix,numeric,numeric-method}
 \alias{ttm,dtensor,matrix,numeric-method}
-\alias{dtensor,matrix,numeric,numeric-method}
+\alias{ttm,dtensor,matrix,numeric,numeric-method}
 \alias{ttm,sptensor,Matrix,numeric-method}
-\alias{sptensor,Matrix,numeric,numeric-method}
+\alias{ttm,sptensor,Matrix,numeric,numeric-method}
 \alias{ttm,sptensor,matrix,numeric-method}
-\alias{sptensor,matrix,numeric,numeric-method}
+\alias{ttm,sptensor,matrix,numeric,numeric-method}
 \title{Tensor times matrix}
 \usage{
 ttm(x, u, mode)

@@ -80,12 +80,12 @@
       <p class="section-desc"></p>
 
       
-      <p><a href="as_dtensor.html">Convert objects to sparse or dense tensors</a></p>
+      <p><a href="as_dtensor.html">Convert objects to dense tensors</a></p>
       <ul>
         <li><code><a href="as_dtensor.html">as_dtensor</a></code></li><li><code><a href="as_dtensor.html">as_dtensor,sptensor-method</a></code></li><li><code><a href="as_dtensor.html">as_dtensor,array-method</a></code></li>
       </ul>
       
-      <p><a href="as_sptensor.html">Convert objects to sparse or dense tensors</a></p>
+      <p><a href="as_sptensor.html">Convert objects to sparse tensors</a></p>
       <ul>
         <li><code><a href="as_sptensor.html">as_sptensor</a></code></li><li><code><a href="as_sptensor.html">as_sptensor,sptensor-method</a></code></li><li><code><a href="as_sptensor.html">as_sptensor,dtensor-method</a></code></li><li><code><a href="as_sptensor.html">as_sptensor,data.frame-method</a></code></li>
       </ul>
@@ -115,6 +115,11 @@
         <li><code><a href="dtensor-replace.html">dtensor-replace</a></code></li><li><code><a href="dtensor-replace.html">[&lt;-,dtensor,ANY,ANY,ANY-method</a></code></li><li><code><a href="dtensor-replace.html">[&lt;-,dtensor,ANY,ANY-method</a></code></li><li><code><a href="dtensor-replace.html">[&lt;-,dtensor,ANY,missing,ANY-method</a></code></li><li><code><a href="dtensor-replace.html">[&lt;-,dtensor,ANY,missing-method</a></code></li><li><code><a href="dtensor-replace.html">[&lt;-,dtensor,matrix,missing,ANY-method</a></code></li><li><code><a href="dtensor-replace.html">[&lt;-,dtensor,matrix,missing-method</a></code></li><li><code><a href="dtensor-replace.html">[&lt;-,dtensor,list,missing,ANY-method</a></code></li><li><code><a href="dtensor-replace.html">[&lt;-,dtensor,list,missing-method</a></code></li>
       </ul>
       
+      <p><a href="innerprod.html">Calculate the inner product of a pair of tensors</a></p>
+      <ul>
+        <li><code><a href="innerprod.html">innerprod</a></code></li><li><code><a href="innerprod.html">innerprod,dtensor,dtensor-method</a></code></li><li><code><a href="innerprod.html">innerprod,sptensor,sptensor-method</a></code></li>
+      </ul>
+      
       <p><a href="is_tensor.html">Test if the object is a tensor</a></p>
       <ul>
         <li><code><a href="is_tensor.html">is_dtensor</a></code></li><li><code><a href="is_tensor.html">is_sptensor</a></code></li><li><code><a href="is_tensor.html">is_tensor</a></code></li>
@@ -125,6 +130,11 @@
         <li><code><a href="length-tensor-method.html">length,tensor-method</a></code></li>
       </ul>
       
+      <p><a href="norm.html">Calculate the Frobenius norm of a tensor</a></p>
+      <ul>
+        <li><code><a href="norm.html">norm</a></code></li><li><code><a href="norm.html">norm,dtensor-method</a></code></li><li><code><a href="norm.html">norm,sptensor-method</a></code></li>
+      </ul>
+      
       <p><a href="nzsubs.html">Subscripts of non-zero values in a tensor</a></p>
       <ul>
         <li><code><a href="nzsubs.html">nzsubs</a></code></li><li><code><a href="nzsubs.html">nzsubs,dtensor-method</a></code></li><li><code><a href="nzsubs.html">nzsubs,sptensor-method</a></code></li>
@@ -133,6 +143,11 @@
       <p><a href="nzvals.html">Non-zero values in a tensor</a></p>
       <ul>
         <li><code><a href="nzvals.html">nzvals</a></code></li><li><code><a href="nzvals.html">nzvals,dtensor-method</a></code></li><li><code><a href="nzvals.html">nzvals,sptensor-method</a></code></li>
+      </ul>
+      
+      <p><a href="outerprod.html">Calculate the outer product of a pair of tensors</a></p>
+      <ul>
+        <li><code><a href="outerprod.html">outerprod</a></code></li><li><code><a href="outerprod.html">ttt</a></code></li><li><code><a href="outerprod.html">outerprod,dtensor,dtensor-method</a></code></li><li><code><a href="outerprod.html">outerprod,dtensor,tensor-method</a></code></li><li><code><a href="outerprod.html">outerprod,tensor,dtensor-method</a></code></li><li><code><a href="outerprod.html">ttt,tensor,tensor-method</a></code></li><li><code><a href="outerprod.html">outerprod,sptensor,sptensor-method</a></code></li>
       </ul>
       
       <p><a href="refold.html">Refold an unfolded tensor</a></p>
@@ -170,6 +185,16 @@
         <li><code><a href="tensorr.html">tensorr</a></code></li><li><code><a href="tensorr.html">tensorr-package</a></code></li>
       </ul>
       
+      <p><a href="ttm.html">Tensor times matrix</a></p>
+      <ul>
+        <li><code><a href="ttm.html">ttm</a></code></li><li><code><a href="ttm.html">ttm,dtensor,Matrix,numeric-method</a></code></li><li><code><a href="ttm.html">ttm,dtensor,Matrix,numeric,numeric-method</a></code></li><li><code><a href="ttm.html">ttm,dtensor,matrix,numeric-method</a></code></li><li><code><a href="ttm.html">ttm,dtensor,matrix,numeric,numeric-method</a></code></li><li><code><a href="ttm.html">ttm,sptensor,Matrix,numeric-method</a></code></li><li><code><a href="ttm.html">ttm,sptensor,Matrix,numeric,numeric-method</a></code></li><li><code><a href="ttm.html">ttm,sptensor,matrix,numeric-method</a></code></li><li><code><a href="ttm.html">ttm,sptensor,matrix,numeric,numeric-method</a></code></li>
+      </ul>
+      
+      <p><a href="ttv.html">Tensor times vector</a></p>
+      <ul>
+        <li><code><a href="ttv.html">ttv</a></code></li><li><code><a href="ttv.html">ttv,dtensor,numeric,numeric-method</a></code></li><li><code><a href="ttv.html">ttv,dtensor,numeric,numeric,numeric-method</a></code></li><li><code><a href="ttv.html">ttv,sptensor,numeric,numeric-method</a></code></li><li><code><a href="ttv.html">ttv,sptensor,numeric,numeric,numeric-method</a></code></li><li><code><a href="ttv.html">ttv,sptensor,sparseVector,numeric-method</a></code></li><li><code><a href="ttv.html">ttv,sptensor,numeric,numeric,numeric-method</a></code></li>
+      </ul>
+      
       <p><a href="unfolded_dtensor-class.html">An S4 class for an unfolded dense tensor</a></p>
       <ul>
         <li><code><a href="unfolded_dtensor-class.html">unfolded_dtensor-class</a></code></li>
@@ -187,7 +212,7 @@
       
       <p><a href="unfolded_sptensor.html">Construct an unfolded sparse tensor</a></p>
       <ul>
-        <li><code><a href="unfolded_sptensor.html">unfolded_sptensor</a></code></li><li><code><a href="unfolded_sptensor.html">unfolded_sptensor,sparseMatrix,numeric,numeric-method</a></code></li>
+        <li><code><a href="unfolded_sptensor.html">unfolded_sptensor</a></code></li><li><code><a href="unfolded_sptensor.html">unfolded_sptensor,Matrix,numeric,numeric-method</a></code></li><li><code><a href="unfolded_sptensor.html">unfolded_sptensor,sparseMatrix,numeric,numeric-method</a></code></li>
       </ul>
       
       <p><a href="unfold.html">Unfold (matricize) a tensor along a mode</a></p>

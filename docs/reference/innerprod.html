@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Extract values from a sparse tensor — sptensor-extract • tensorr</title>
+<title>Calculate the inner product of a pair of tensors — innerprod • tensorr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -71,54 +71,25 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Extract values from a sparse tensor</h1>
+    <h1>Calculate the inner product of a pair of tensors</h1>
     </div>
 
     
-    <p>There are multiple ways to provide indices for a sparse tensor. For example,
-if you have a three-dimensional tensor you can provide indices separated
-by a comma or a numeric vector of linear indices:</p><ul>
-<li><p>c(x[1,1,1], x[1,1,2])</p></li>
-<li><p>x[c(1, 5)]</p></li>
-</ul><p>However for tensors with high dimensions this can be cumbersome to write.
-Therefore the <code>tensor</code> class also allows you to extract values with
-indices in matrix or list form, which are more suited for non-interactive
-coding.</p><ul>
-<li><p>x[matrix(c(1,1,1,1,1,2), nrow = 3)]</p></li>
-<li><p>x[list(c(1,1,1), c(1,1,2))]</p></li>
-</ul>
+    <p>Calculate the inner product of a pair of tensors</p>
     
 
-    <pre># S4 method for sptensor,missing,missing,ANY
-[(x, i, j, ..., drop = FALSE)
+    <pre><span class='fu'>innerprod</span>(<span class='no'>x</span>, <span class='no'>y</span>)
 
-# S4 method for sptensor,numeric,missing,ANY
-[(x, i, j, ..., drop = FALSE)
+<span class='co'># S4 method for dtensor,dtensor</span>
+<span class='fu'>innerprod</span>(<span class='no'>x</span>, <span class='no'>y</span>)
 
-# S4 method for sptensor,missing,numeric,ANY
-[(x, i, j, ..., drop = FALSE)
-
-# S4 method for sptensor,numeric,numeric,ANY
-[(x, i, j, ..., drop = FALSE)
-
-# S4 method for sptensor,list,missing,ANY
-[(x, i, j, ..., drop = FALSE)
-
-# S4 method for sptensor,matrix,missing,ANY
-[(x, i, j, ..., drop = FALSE)</pre>
+<span class='co'># S4 method for sptensor,sptensor</span>
+<span class='fu'>innerprod</span>(<span class='no'>x</span>, <span class='no'>y</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd><p>sptensor object</p></dd>
-      <dt>i</dt>
-      <dd><p>numeric index, vector, list, or matrix</p></dd>
-      <dt>j</dt>
-      <dd><p>numeric index</p></dd>
-      <dt>...</dt>
-      <dd><p>additional numeric indices</p></dd>
-      <dt>drop</dt>
-      <dd><p>whether to drop dimensions</p></dd>
+      <dt>x, y</dt>
+      <dd><p>tensors</p></dd>
     </dl>
     
 

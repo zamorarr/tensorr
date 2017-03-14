@@ -5,7 +5,7 @@
 \alias{as_dtensor}
 \alias{as_dtensor,sptensor-method}
 \alias{as_dtensor,array-method}
-\title{Convert objects to sparse or dense tensors}
+\title{Convert objects to dense tensors}
 \usage{
 as_dtensor(x, ...)
 
@@ -19,5 +19,5 @@ as_dtensor(x, ...)
 \item{...}{extra params}
 }
 \description{
-Convert objects to sparse or dense tensors
+Convert objects to dense tensors
 }
