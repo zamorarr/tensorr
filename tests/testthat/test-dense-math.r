@@ -21,6 +21,13 @@ test_that("outer product of dense tensor works with expected inputs", {
   expect_equal(ttt(Z,Z), dtensor(res))
 })
 
+test_that("outer product of dense tensor works with sparse tensor inputs", {
+  Y <- as_sptensor(Z)
+  res <- outer(Z@x, Z@x)
+  expect_equal(outerprod(Z,Y), dtensor(res))
+  expect_equal(outerprod(Y,Z), dtensor(res))
+})
+
 test_that("dense tensor times matrix works with expected inputs", {
   res <- array(c(22,28,49,64,76,100,103,136,
                  130,172,157,208,184,244,211,280), c(2,4,2))
