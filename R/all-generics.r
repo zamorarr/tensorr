@@ -103,3 +103,49 @@ setGeneric("unfold", function(x, mode) standardGeneric("unfold"))
 #' Refold an unfolded tensor
 #' @param x an unfolded tensor
 setGeneric("refold", function(x) standardGeneric("refold"))
+
+#' Tensor times matrix
+#'
+#' Calculates the n-mode product of a tensor and a matrix. Given a tensor X with
+#' dimensions \eqn{I_1, I_2, ..., I_n, I_n+1, ... I_N} and a matrix U with
+#' dimensions \eqn{J, I_n}, the resulting tensor after multiplication will have
+#' dimension \eqn{I_1, I_2, ..., J, I_n+1, ... I_N}.
+#'
+#' @param x tensor
+#' @param u matrix
+#' @param mode mode along tensor to perform multiplication
+#'
+#' @references \cite{T. G. Kolda and B. W. Bader, Tensor Decompositions and
+  #' Applications, SIAM Review 51(3):455-500, September 2009}
+setGeneric("ttm", function(x, u, mode) standardGeneric("ttm"))
+
+#' Tensor times vector
+#'
+#' Calculates the n-mode product of a tensor and a vector Given a tensor X with
+#' dimensions \eqn{I_1, I_2, ..., I_n, I_n+1, ... I_N} and a vector v with
+#' dimensions \eqn{J, 1}, the resulting tensor after multiplication will have
+#' dimension \eqn{I_1, I_2, ..., I_n-1, I_n+1, ... I_N}. Note that the dimension
+#' corresponding to the \code{mode} has been dropped.
+#'
+#' @param x tensor
+#' @param v vector
+#' @param mode mode along tensor to perform multiplication
+#'
+#' @references \cite{T. G. Kolda and B. W. Bader, Tensor Decompositions and
+#' Applications, SIAM Review 51(3):455-500, September 2009}
+setGeneric("ttv", function(x, v, mode) standardGeneric("ttv"))
+
+#' Calculate the Frobenius norm of a tensor
+#' @param x tensor
+setGeneric("norm", function(x) standardGeneric("norm"))
+
+#' Calculate the inner product of a pair of tensors
+#' @param x,y tensors
+setGeneric("innerprod", function(x,y) standardGeneric("innerprod"))
+
+#' Calculate the outer product of a pair of tensors
+#' @param x,y tensors
+setGeneric("outerprod", function(x,y) standardGeneric("outerprod"))
+
+#' @rdname outerprod
+setGeneric("ttt", function(x, y) standardGeneric("ttt"))

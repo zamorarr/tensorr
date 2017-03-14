@@ -1,9 +1,9 @@
 #' @rdname unfolded_sptensor
 #' @aliases unfolded_sptensor,sparseMatrix,numeric,numeric-method
 #' @export
-#' @importClassesFrom Matrix sparseMatrix
+#' @importClassesFrom Matrix Matrix
 #' @importFrom assertive.base assert_are_identical
-setMethod("unfolded_sptensor", c("sparseMatrix", "numeric", "numeric"), function(mat, mode, tensor_dims) {
+setMethod("unfolded_sptensor", c("Matrix", "numeric", "numeric"), function(mat, mode, tensor_dims) {
   # coerce doubles to int
   tensor_dims <- as.integer(tensor_dims)
   mode <- as.integer(mode)
@@ -12,6 +12,9 @@ setMethod("unfolded_sptensor", c("sparseMatrix", "numeric", "numeric"), function
   len_tensor <- as.integer(prod(tensor_dims))
   assert_are_identical(length(mat), len_tensor)
   assert_are_identical(nrow(mat), tensor_dims[mode])
+
+  # convert mat to COO format
+  mat <- methods::as(mat, "TsparseMatrix")
 
   methods::new("unfolded_sptensor",
                mat = mat, mode = mode, tensor_dims = tensor_dims)
