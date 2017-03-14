@@ -1,0 +1,377 @@
+---
+title: "Introduction to tensorr"
+author: "Robert Zamora"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 3
+vignette: >
+  %\VignetteIndexEntry{Introduction to tensorr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Introduction
+
+**tensorr** provides methods to manipulate and store sparse tensors. Tensors are
+multi-dimensional generalizations of matrices (two dimensional) and vectors 
+(one dimensional).
+
+It has three main goals:
+
+- Provide an effecient format to store sparse tensors in R.
+- Provide standard tensor operations such as multiplication and unfolding.
+- Provide standard tensor decomposition techniques such as CP and Tucker.
+
+We'll go over the package in more detail below, but let's start with a simple
+motivating example. Let's say we have a three-dimensional 2x2x2 tensor with non-zero
+values in the first and fifth positions (remember R arrays/matrices are column
+oriented). We could represent this object with a standard R array:
+
+```{r intro-dense}
+dims <- c(2,2,2)
+z <- array(c(10,0,0,0,20,0,0,0), dims)
+z
+```
+
+But since many of the values are zero, it makes more sense to only store this
+as a sparse tensor. Let's create this object by providing the indices 
+(subscripts) of the non-zero values.
+
+```{r into-sparse, message = FALSE}
+library(tensorr)
+
+subs <- list(c(1,1,1), c(1,1,2))
+vals <- c(10, 20)
+dims <- c(2,2,2)
+x <- sptensor(subs, vals, dims)
+x
+```
+
+For this small example, the benefit from using a sparse tensor is not apparent 
+(and in fact the sparse object is larger than the dense one if you check 
+`object.size`), but for larger and larger tensors this advantage will prove 
+useful. 
+
+We'll go over the different kinds of operations you can perform below, but for
+now feel free to try a few out:
+
+```{r intro-ops, eval = FALSE}
+# element-wise math operations
+x + x
+2 * x
+x * x
+max(x)
+
+# extracting 
+x[1,1,1]
+x[1:4]
+x[list(c(1,1,1), c(1,1,2), c(2,2,2))]
+
+# replacing
+x[1,1,2] <- 30
+
+# converting
+as_dtensor(x)
+
+# tensor multiplication
+m <- matrix(1:6, nrow = 3, ncol = 2)
+ttm(x, m, 2)
+
+# unfolding
+unfold(x, 1)
+```
+
+
+## Tensor Classes
+The **tensorr** package provides S4 classes for sparse and dense tensor 
+representations. The `sptensor` class is a new sparse tensor class, with 
+non-zero values and subscripts stored in 
+[coordinate list format](https://en.wikipedia.org/wiki/Sparse_matrix#Coordinate_list_.28COO.29)
+(coo) to reduce storage requirements (Note the **Matrix** package refers to this
+as *triplet format*, and its corresponding class is `TsparseMatrix`). The 
+`dtensor` class is a wrapper around R's existing dense multi-dimensional array,
+but adds functionality for tensor operations such as multiplication and 
+unfolding.
+
+### Sparse Tensors
+A sparse tensor can be created with a list or matrix of subscripts, a numeric 
+vector of non-zero values, and an integer vector of dimensions. Here's a summary
+of the basic commands needed to create sparse tensors.
+
+Let's create a 2x2x2 `sptensor` with non-zero values in the first and fifth 
+positions. You can create one with a list of subscripts.
+
+```{r sptensor-constructor}
+subs <- list(c(1,1,1), c(1,1,2))
+vals <- c(10, 20)
+dims <- c(2,2,2)
+x <- sptensor(subs, vals, dims)
+```
+
+Or, alternatively, you can provide a matrix of subscripts. Note that 
+the subscripts are represented as a matrix where the ith row corresponds to the 
+ith dimension and the jth column is the subscript to the jth non-zero value.
+
+```{r sptensor-constructor2}
+subs <- matrix(c(1,1,1, 1,1,2), nrow = length(dims))
+x <- sptensor(subs, vals, dims)
+```
+
+The constructor components are stored as slots in the object and can be accessed via slots
+(`x@subs`, `x@vals`, `x@dims`) or the preferred accessor functions. 
+
+```{r sptensor-slots, eval = TRUE}
+# subscripts for non-zero values
+nzsubs(x)
+
+# non-zero values
+nzvals(x)
+
+# dimensions
+dim(x)
+```
+
+See `methods(class = "sptensor")` for a full list of operations associated with
+this class.
+
+### Dense Tensors
+Dense tensors can be created by simply providing an existing multi-dimensional 
+array to the constructor. You can access the non-zero subscripts, non-zero 
+values, and dimensions the same way you would for a sparse tensor.
+
+```{r dtensor-constructor}
+dims <- c(2,2,2)
+arr <- array(c(10,0,0,0,20,0,0,0), dims)
+z <- dtensor(arr)
+```
+
+```{r dtensor-slots}
+nzsubs(z)
+nzvals(z)
+dim(z)
+```
+
+See `methods(class = "dtensor")` for a full list of operations associated with
+this class.
+
+### Unfolded Tensors
+You may also directly create `unfolded-sptensor` and `unfolded-dtensor` classes,
+though most likely you will only interact with these objects after `unfold`-ing 
+an existing tensor. The unfolding operation is discussed more in depth in a 
+later section. The complement to unfolding is `refold`-ing. Here's an example of
+unfolding our tensor along the first dimension and then refolding it back.
+
+```{r unfold}
+unfold(x, 1)
+refold(unfold(x,1))
+```
+
+### Converting Between Classes
+You can easily convert between sparse and dense tensor representations.
+
+```{r as-tensor}
+# convert dense tensor to sparse
+as_sptensor(z)
+
+# convert sparse tensor to dense
+as_dtensor(x)
+```
+
+You can also turn a data frame of indices into a sparse tensor. Each column in 
+the data frame corresponds to a specific dimension. The last column
+in the data frame is assumed to contain the value, unless otherwise specified.
+
+```{r}
+df <- data.frame(i = c(1, 1), j = c(1, 1), k = c(1,2), val = c(10, 20))
+df
+
+as_sptensor(df, dims = dims)
+```
+
+## Extracting and Replacing
+The extraction `[` and replacement `[<-` functions work exactly as they would 
+for multi-dimensional arrays, with one addition - they can also accept a list or
+matrix of subscripts. This feature was added to aid in programmaing workflows 
+(as opposed to interactive usage). 
+
+If you have a high dimensional array it can 
+be cumbersome to write all the subscript for each dimension, eg. 
+`x[1,2,4,5,1,1,1,21,100]`, and it is more likely that you will make mistakes.
+But if you are able to programmatically generate these subscripts then you can
+simply pass a list/matrix instead. 
+
+### Standard Indexing
+If the dimensions of your tensor aren't too high, you can take advantage of 
+standard indexing the way you would with any matrix or array in R.  This format
+takes a comma-separated list of arguments (since `[`  and `[<-` are actually 
+functions)
+
+```{r extract-standard}
+x[1,1,1]
+x[1,2,2]
+```
+
+```{r replace-standard}
+x[1,1,1] <- 100
+x[2,2,2] <- 200
+x
+```
+
+You can also pass ranges or leave out arguments where you want to extract or 
+replace all the values in that dimension.
+
+```{r extract-missing}
+x[1,,]
+x[1,1:2,1:2]
+x[1,,,drop=TRUE]
+```
+
+### Linear Indexing
+You can also index the tensor by treating it as a single vector of values. Note
+that R indexes values in column-wise fashion, which means that the first index
+changes the fastest and the last index changes the slowest as you traverse 
+the array. For example, these would be the indices of a 2x2x2 multi-dimensional
+array.
+
+```{r}
+array(1:8, c(2,2,2))
+```
+Using this pattern, we can extract or replace tensor values by passing a single 
+vector of numeric values with each value corresponding to a linear index.
+
+```{r}
+# get the first three values
+x[c(1,2,3)]
+
+# alternatively
+x[1:3]
+
+# replace the first and fifth values
+x[c(1,5)] <- c(-10, -20)
+x
+```
+
+### List/Matrix Indexing
+The final way to extract or replace values from a tensor is use a list/matrix of
+subscripts (similiarly to how you would construct an `sptensor`). As stated 
+above, this can be useful if you have a high dimensional tensor and have a way 
+to programmatically produce indices. In the example below we'll create the list
+manually.
+
+```{r}
+subs <- list(c(1,1,1), c(1,2,1), c(1,1,2))
+x[subs]
+x[subs] <- c(50, 60, 70)
+x
+```
+
+## Group Generics
+A number of group generics are also defined for tensors (if you're unfamiliar 
+with group generics, see `?S4GroupGeneric`), including 
+
+- Arithmetic (`+`, `-` , `*`, ...)
+- Comparisons (`==`, `>`, `!=`, ...)
+- Logic (`&`, `|`)
+- Math (`abs`, `sqrt`, ..)
+- Summary (`max`, `min`, `sum`, ...)
+
+We we'll go over a few examples for each group, but not every one. Feel free to
+experiment on your own! For these examples we'll use our sparse tensor `x`, 
+which currently has values:
+
+```{r}
+x
+```
+
+Note that these operations will throw a warning if the operation converts zero
+values to non-zero values since this will likely cause the sparse tensor to 
+become extremely dense.
+
+### Arithmetic
+These are element-wise operations. To perform tensor operations see the 
+section on Tensor Multiplication.
+```{r}
+x + x
+```
+
+Note that if an operation results in all the values equal to zero, then the 
+tensor will return empty subscripts and values.
+
+```{r}
+x - x
+```
+
+### Comparisons and Logic
+These operations are also element-wise, returning a tensor with logical values. 
+
+```{r}
+x > 100
+x > 2*x
+```
+
+Note the warning when returning a tensor that is mostly TRUE values.
+
+```{r}
+x == x
+```
+
+### Math
+```{r}
+sqrt(x)
+log1p(x)
+abs(x)
+```
+
+Again, we'll get a warning if we apply a function that converts zero values to
+non-zero values.
+
+```{r}
+log(x)
+```
+
+### Summary
+Note that any time we apply `min` or `range` to a tensor we'll get 0 if there
+are any zero values in the tensor. If you just want the `min` or `range` of 
+non-zero values call these functions on the result of `nzvals`
+
+```{r}
+max(x)
+range(x)
+range(nzvals(x))
+```
+
+
+## Unfolding
+unfold, refold
+
+## Tensor Multiplication
+
+### Tensor Times Vector
+ttv
+
+### Tensor Times Matrix
+ttm
+
+### Tensor Times Tensor (outerprod)
+ttt, outerprod
+
+### Misc
+norm and innerprod
+
+## Future Work
+I plan to add common tensor decompositions, such as CP and Tucker, to the 
+**tensorr** package in the near future. Any other requests and suggestions are
+welcome.
+
+## References
+Many of the dense and sparse implementation ideas were adpated from:
+
+ - B. W. Bader and T. G. Kolda. Algorithm 862: MATLAB tensor classes for fast algorithm prototyping, ACM Transactions on Mathematical Software 32(4):635-653, December 2006.
+- B. W. Bader and T. G. Kolda. Efficient MATLAB computations with sparse and factored tensors, SIAM Journal on Scientific Computing 30(1):205-231, December 2007.
+- [scikit-tensor](https://github.com/mnick/scikit-tensor)
+
+For a review on tensors, see:
+
+- T. G. Kolda and B. W. Bader, Tensor Decompositions and Applications, SIAM Review 51(3):455-500, September 2009
