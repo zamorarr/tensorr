@@ -24,10 +24,14 @@ It has three main goals:
 - Provide standard tensor operations such as multiplication and unfolding.
 - Provide standard tensor decomposition techniques such as CP and Tucker.
 
-We'll go over the package in more detail below, but let's start with a simple
-motivating example. Let's say we have a three-dimensional 2x2x2 tensor with non-zero
-values in the first and fifth positions (remember R arrays/matrices are column
-oriented). We could represent this object with a standard R array:
+The aim of this vignette is not to provide a mathematical overview of Tensors,
+please see Kolda and Bader (2009) instead. It assumes that you have some working
+knowledge of tensors and want to know how to use them in R.
+
+Let's start with a simple motivating example for sparse tensor usage. Let's say 
+we have a three-dimensional 2x2x2 tensor with non-zero values in the first and 
+fifth positions (remember R arrays/matrices are column oriented). We could 
+represent this object with a standard R array:
 
 ```{r intro-dense}
 dims <- c(2,2,2)
@@ -344,21 +348,83 @@ range(nzvals(x))
 
 
 ## Unfolding
-unfold, refold
+Unfolding, or *matricizing*, re-orders the fibers of tensor to be columns in a
+matrix. A fiber is analgous to a row or column in a 2D matrix in that they are
+obtained by holding every dimension constant except for one. For example, the
+mode-1 fibers of our sparse tensor `x` are `x[,1,1]`, `x[,2,1]`, `x[,1,2]`, and 
+`x[,2,2]`. The `unfold` function takes a tensor, finds the fibers, and makes 
+them the columns in a new matrix. 
+
+```{r}
+u <- unfold(x,1)
+u
+```
+
+Unfolding is important because many tensor operations can be expressed as 
+operations on unfolded tensors, so we can take advantage of existing tools 
+and methods for working with matrices. For example, the n-mode product of a
+tensor and a matrix can be written as the matrix product of the unfolded tensor
+and the matrix. See Kolda and Bader (2009) for more info.
+
+Of course, each unfolded tensor can be easily refolded to its original state.
+```{r}
+refold(u)
+```
 
 ## Tensor Multiplication
-
-### Tensor Times Vector
-ttv
+Tensor multiplication is analagous to matrix multiplication, but is a little 
+more complex due to the number of dimensions. 
 
 ### Tensor Times Matrix
-ttm
+Currently, this package only implements the *n-mode product*. This product keeps
+all tensor indices constant except for the nth, and sums the product of these 
+values with a matrix  of size $j \times i_n$. If we have a tensor $\mathbf{X}$
+and a matrix $U$, then we can write this product down as (per Kolda (2009)):
 
-### Tensor Times Tensor (outerprod)
-ttt, outerprod
+$$(\mathbf{X} \times_n U)_{i_1i_2...i_{n-1} j i_{n+1}...i_N} = \sum_{i_n = 1}^{I_n}{x_{i_1i_2...i_N}u_{ji_n}}$$
+However, as stated previously, this operation can also be expressed by unfolding
+the sparse tensor:
 
-### Misc
-norm and innerprod
+$$\mathbf{Y} = \mathbf{X} \times_n U \Leftrightarrow Y_{(n)} = UX_{(n)}$$
+where $Y_{(n)}$ and $X_{(n)}$ represent unfolded tensors along the nth 
+dimension. This product can be executed using `ttm`. For example, we can 
+multiply our sparse tensor along the 2nd mode. Notice how dimensions of the
+resulting tensor change in the 2nd dimension.
+
+```{r ttm}
+m <- matrix(1:6, nrow = 3, ncol = 2)
+ttm(x, m, 2)
+```
+
+### Tensor Times Vector
+Using `ttv` to multiply a tensor times a vector is equivalent to using `ttm` to
+multiply by a matrix with a single column except that the nth dimension of size
+one will be dropped automatically. So the result of `ttv` is a tensor with one
+less dimension.
+
+```{r}
+v <- 1:3
+ttv(x,c(3,4),2)
+```
+
+### Tensor Times Tensor (Outer Product)
+The outer product of two tensors results in a tensor with dimension 
+c(dim(x),dim(y)). This is essentially a sparse implementation of the `outer` 
+function in the base package. The function `ttt` is an alias for `outerprod`.
+
+```{r}
+outerprod(x,x)
+identical(ttt(x,x), outerprod(x,x))
+```
+
+### Norm and Inner Product
+You can also calculate the Frobenius norm of a tensor and the inner product
+between two tensors.
+
+```{r}
+norm(x)
+sqrt(innerprod(x,x))
+```
 
 ## Future Work
 I plan to add common tensor decompositions, such as CP and Tucker, to the 
