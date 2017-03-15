@@ -20,7 +20,7 @@ multi-dimensional generalizations of matrices (two dimensional) and vectors
 
 It has three main goals:
 
-- Provide an effecient format to store sparse tensors in R.
+- Provide an efficient format to store sparse tensors in R.
 - Provide standard tensor operations such as multiplication and unfolding.
 - Provide standard tensor decomposition techniques such as CP and Tucker.
 
@@ -28,7 +28,7 @@ The aim of this vignette is not to provide a mathematical overview of Tensors,
 please see Kolda and Bader (2009) instead. It assumes that you have some working
 knowledge of tensors and want to know how to use them in R.
 
-Let's start with a simple motivating example for sparse tensor usage. Let's say 
+Let's start with a simple motivating example for sparse tensor usage. Say 
 we have a three-dimensional 2x2x2 tensor with non-zero values in the first and 
 fifth positions (remember R arrays/matrices are column oriented). We could 
 represent this object with a standard R array:
@@ -55,8 +55,7 @@ x
 
 For this small example, the benefit from using a sparse tensor is not apparent 
 (and in fact the sparse object is larger than the dense one if you check 
-`object.size`), but for larger and larger tensors this advantage will prove 
-useful. 
+`object.size`), but for larger tensors this advantage will prove useful. 
 
 We'll go over the different kinds of operations you can perform below, but for
 now feel free to try a few out:
@@ -161,7 +160,7 @@ See `methods(class = "dtensor")` for a full list of operations associated with
 this class.
 
 ### Unfolded Tensors
-You may also directly create `unfolded-sptensor` and `unfolded-dtensor` classes,
+You can also directly create `unfolded-sptensor` and `unfolded-dtensor` classes,
 though most likely you will only interact with these objects after `unfold`-ing 
 an existing tensor. The unfolding operation is discussed more in depth in a 
 later section. The complement to unfolding is `refold`-ing. Here's an example of
@@ -197,11 +196,11 @@ as_sptensor(df, dims = dims)
 ## Extracting and Replacing
 The extraction `[` and replacement `[<-` functions work exactly as they would 
 for multi-dimensional arrays, with one addition - they can also accept a list or
-matrix of subscripts. This feature was added to aid in programmaing workflows 
+matrix of subscripts. This feature was added to aid in programming workflows 
 (as opposed to interactive usage). 
 
 If you have a high dimensional array it can 
-be cumbersome to write all the subscript for each dimension, eg. 
+be cumbersome to write all the subscript for each dimension, e.g. 
 `x[1,2,4,5,1,1,1,21,100]`, and it is more likely that you will make mistakes.
 But if you are able to programmatically generate these subscripts then you can
 simply pass a list/matrix instead. 
@@ -259,7 +258,7 @@ x
 
 ### List/Matrix Indexing
 The final way to extract or replace values from a tensor is use a list/matrix of
-subscripts (similiarly to how you would construct an `sptensor`). As stated 
+subscripts (similarly to how you would construct an `sptensor`). As stated 
 above, this can be useful if you have a high dimensional tensor and have a way 
 to programmatically produce indices. In the example below we'll create the list
 manually.
@@ -349,7 +348,7 @@ range(nzvals(x))
 
 ## Unfolding
 Unfolding, or *matricizing*, re-orders the fibers of tensor to be columns in a
-matrix. A fiber is analgous to a row or column in a 2D matrix in that they are
+matrix. A fiber is analogous to a row or column in a 2D matrix in that they are
 obtained by holding every dimension constant except for one. For example, the
 mode-1 fibers of our sparse tensor `x` are `x[,1,1]`, `x[,2,1]`, `x[,1,2]`, and 
 `x[,2,2]`. The `unfold` function takes a tensor, finds the fibers, and makes 
@@ -364,7 +363,7 @@ Unfolding is important because many tensor operations can be expressed as
 operations on unfolded tensors, so we can take advantage of existing tools 
 and methods for working with matrices. For example, the n-mode product of a
 tensor and a matrix can be written as the matrix product of the unfolded tensor
-and the matrix. See Kolda and Bader (2009) for more info.
+and the matrix. See [Tensor Multiplication] and Kolda and Bader (2009) for more info.
 
 Of course, each unfolded tensor can be easily refolded to its original state.
 ```{r}
@@ -372,7 +371,7 @@ refold(u)
 ```
 
 ## Tensor Multiplication
-Tensor multiplication is analagous to matrix multiplication, but is a little 
+Tensor multiplication is analogous to matrix multiplication, but is a little 
 more complex due to the number of dimensions. 
 
 ### Tensor Times Matrix
@@ -432,12 +431,12 @@ I plan to add common tensor decompositions, such as CP and Tucker, to the
 welcome.
 
 ## References
-Many of the dense and sparse implementation ideas were adpated from:
+Many of the dense and sparse implementation ideas were adapted from:
 
- - B. W. Bader and T. G. Kolda. Algorithm 862: MATLAB tensor classes for fast algorithm prototyping, ACM Transactions on Mathematical Software 32(4):635-653, December 2006.
-- B. W. Bader and T. G. Kolda. Efficient MATLAB computations with sparse and factored tensors, SIAM Journal on Scientific Computing 30(1):205-231, December 2007.
-- [scikit-tensor](https://github.com/mnick/scikit-tensor)
+-   B. W. Bader and T. G. Kolda. Algorithm 862: MATLAB tensor classes for fast algorithm prototyping, ACM Transactions on Mathematical Software 32(4):635-653, December 2006.
+-   B. W. Bader and T. G. Kolda. Efficient MATLAB computations with sparse and factored tensors, SIAM Journal on Scientific Computing 30(1):205-231, December 2007.
+-   [scikit-tensor](https://github.com/mnick/scikit-tensor)
 
 For a review on tensors, see:
 
-- T. G. Kolda and B. W. Bader, Tensor Decompositions and Applications, SIAM Review 51(3):455-500, September 2009
+-   T. G. Kolda and B. W. Bader, Tensor Decompositions and Applications, SIAM Review 51(3):455-500, September 2009
