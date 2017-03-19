@@ -1,10 +1,10 @@
 Package: tensorr
 Title: Sparse Tensors in R
-Version: 0.0.1
+Version: 0.1
 Authors@R: person("Robert","Zamora", email = "zamora.rr@gmail.com", role = c("aut", "cre"))
 Description: >
   tensorr provides methods to manipulate and store sparse tensors. Tensors are
-  multi-dimensional generalizations of matrices (two dimensional) and vectors
+  multidimensional generalizations of matrices (two dimensional) and vectors
   (one dimensional).
 Depends:
   R (>= 3.3.1)

@@ -5,3 +5,5 @@
 ^README-.*\.png$
 ^codecov\.yml$
 ^docs$
+^appveyor\.yml$
+^cran-comments\.md$
