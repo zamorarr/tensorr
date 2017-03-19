@@ -15,7 +15,7 @@ vignette: >
 ## Introduction
 
 **tensorr** provides methods to manipulate and store sparse tensors. Tensors are
-multi-dimensional generalizations of matrices (two dimensional) and vectors 
+multidimensional generalizations of matrices (two dimensional) and vectors 
 (one dimensional).
 
 It has three main goals:
@@ -94,7 +94,7 @@ non-zero values and subscripts stored in
 [coordinate list format](https://en.wikipedia.org/wiki/Sparse_matrix#Coordinate_list_.28COO.29)
 (coo) to reduce storage requirements (Note the **Matrix** package refers to this
 as *triplet format*, and its corresponding class is `TsparseMatrix`). The 
-`dtensor` class is a wrapper around R's existing dense multi-dimensional array,
+`dtensor` class is a wrapper around R's existing dense multidimensional array,
 but adds functionality for tensor operations such as multiplication and 
 unfolding.
 
@@ -140,7 +140,7 @@ See `methods(class = "sptensor")` for a full list of operations associated with
 this class.
 
 ### Dense Tensors
-Dense tensors can be created by simply providing an existing multi-dimensional 
+Dense tensors can be created by simply providing an existing multidimensional 
 array to the constructor. You can access the non-zero subscripts, non-zero 
 values, and dimensions the same way you would for a sparse tensor.
 
@@ -195,7 +195,7 @@ as_sptensor(df, dims = dims)
 
 ## Extracting and Replacing
 The extraction `[` and replacement `[<-` functions work exactly as they would 
-for multi-dimensional arrays, with one addition - they can also accept a list or
+for multidimensional arrays, with one addition - they can also accept a list or
 matrix of subscripts. This feature was added to aid in programming workflows 
 (as opposed to interactive usage). 
 
@@ -235,7 +235,7 @@ x[1,,,drop=TRUE]
 You can also index the tensor by treating it as a single vector of values. Note
 that R indexes values in column-wise fashion, which means that the first index
 changes the fastest and the last index changes the slowest as you traverse 
-the array. For example, these would be the indices of a 2x2x2 multi-dimensional
+the array. For example, these would be the indices of a 2x2x2 multidimensional
 array.
 
 ```{r}
