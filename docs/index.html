@@ -34,6 +34,9 @@
 <li>
   <a href="articles/index.html">Articles</a>
 </li>
+<li>
+  <a href="news/index.html">News</a>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -70,9 +73,30 @@
 <li>Provide standard tensor operations such as multiplication and unfolding.</li>
 <li>Provide standard tensor decomposition techniques such as CP and Tucker.</li>
 </ul>
-<div id="references" class="section level2">
+<div id="installation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#references" class="anchor"> </a>References</h2>
+<a href="#installation" class="anchor"> </a>Installation</h2>
+<p>The development version of <strong>tensorr</strong> is available on github.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">"zamorarr/tensorr"</span>)</code></pre></div>
+</div>
+<div id="usage" class="section level2">
+<h2 class="hasAnchor">
+<a href="#usage" class="anchor"> </a>Usage</h2>
+<p>See the <a href="vignettes/introduction.Rmd">introduction vignette</a> for a comprehensive overview. To create a sparse tensor you have to provide the non-zero values, subscripts to the non-zero values, and the overall dimensions of the tensor.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tensorr)
+
+subs &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>))
+vals &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">20</span>)
+dims &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>)
+x &lt;-<span class="st"> </span><span class="kw"><a href="reference/sptensor.html">sptensor</a></span>(subs, vals, dims)
+x
+<span class="co">#&gt; &lt;A 2x2x2 sparse tensor with 2 non-zero entries&gt;</span>
+<span class="co">#&gt; subs: &lt;1,1,1&gt; &lt;1,1,2&gt;</span>
+<span class="co">#&gt; vals: 10 20</span></code></pre></div>
+</div>
+<div id="tensor-references" class="section level2">
+<h2 class="hasAnchor">
+<a href="#tensor-references" class="anchor"> </a>Tensor References</h2>
 <p>Many of the dense and sparse implementation ideas were adpated from:</p>
 <ul>
 <li>B. W. Bader and T. G. Kolda. Algorithm 862: MATLAB tensor classes for fast algorithm prototyping, ACM Transactions on Mathematical Software 32(4):635-653, December 2006.</li>
@@ -106,6 +130,7 @@
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://travis-ci.org/zamorarr/tensorr"><img src="https://travis-ci.org/zamorarr/tensorr.svg?branch=master" alt="Build Status"></a></li>
+<li><a href="https://ci.appveyor.com/project/zamorarr/tensorr"><img src="https://ci.appveyor.com/api/projects/status/github/zamorarr/tensorr?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
 <li><a href="https://codecov.io/github/zamorarr/tensorr?branch=master"><img src="https://img.shields.io/codecov/c/github/zamorarr/tensorr/master.svg" alt="Coverage Status"></a></li>
 </ul>
 </div>

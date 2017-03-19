@@ -12,6 +12,7 @@
 #' \code{\link[assertive.types]{is_numeric}}
 #'
 #' @importFrom assertive.base get_name_in_parent assert_engine
+#' @keywords internal
 all_are_numeric <- function(x, .xname = get_name_in_parent(x)) {
   all(map_lgl(x, is.numeric))
 }

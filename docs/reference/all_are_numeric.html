@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Test if the object is a tensor — is_dtensor • tensorr</title>
+<title>Are all values numeric? — all_are_numeric • tensorr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,31 +77,37 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Test if the object is a tensor</h1>
+    <h1>Are all values numeric?</h1>
     </div>
 
     
-    <p>Test if the object is a tensor</p>
+    <p>Checks if the input object only contains numeric values.</p>
     
 
-    <pre><span class='fu'>is_dtensor</span>(<span class='no'>x</span>)
+    <pre><span class='fu'>all_are_numeric</span>(<span class='no'>x</span>, <span class='kw'>.xname</span> <span class='kw'>=</span> <span class='fu'>get_name_in_parent</span>(<span class='no'>x</span>))
 
-<span class='fu'>is_sptensor</span>(<span class='no'>x</span>)
-
-<span class='fu'>is_tensor</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>assert_all_are_numeric</span>(<span class='no'>x</span>, <span class='kw'>severity</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"assertive.severity"</span>, <span class='st'>"stop"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
-      <dd><p>object</p></dd>
+      <dd><p>An R object or expression.</p></dd>
+      <dt>.xname</dt>
+      <dd><p>Not intended to be used directly.</p></dd>
+      <dt>severity</dt>
+      <dd><p>How severe should the consequences of the assertion be?
+Either <code>"stop"</code>, <code>"warning"</code>, <code>"message"</code>, or <code>"none"</code>.</p></dd>
     </dl>
     
-    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <ul>
-<li><p><code>is_dtensor</code>: dense tensor</p></li>
-<li><p><code>is_sptensor</code>: sparse tensor</p></li>
-</ul>
+    <p><code>all_are_numeric</code> returns <code>TRUE</code> if <code>x</code> contains only
+numeric values.The <code>assert_*</code> function throws an error on failure.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code><a href='http://www.rdocumentation.org/packages/base/topics/numeric'>is.numeric</a></code>,
+<code><a href='http://www.rdocumentation.org/packages/assertive.types/topics/is_numeric'>is_numeric</a></code></p>
     
 
   </div>
@@ -110,7 +116,9 @@
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#functions">Functions</a></li>
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
           </ul>
 
   </div>

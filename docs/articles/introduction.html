@@ -34,6 +34,9 @@
 <li>
   <a href="../articles/index.html">Articles</a>
 </li>
+<li>
+  <a href="../news/index.html">News</a>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -57,7 +60,7 @@
       <h1>Introduction to tensorr</h1>
                         <h4 class="author">Robert Zamora</h4>
             
-            <h4 class="date">2017-03-14</h4>
+            <h4 class="date">2017-03-19</h4>
           </div>
 
     
@@ -66,7 +69,7 @@
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <html><body><a href="#introduction" class="anchor"> </a></body></html>Introduction</h2>
-<p><strong>tensorr</strong> provides methods to manipulate and store sparse tensors. Tensors are multi-dimensional generalizations of matrices (two dimensional) and vectors (one dimensional).</p>
+<p><strong>tensorr</strong> provides methods to manipulate and store sparse tensors. Tensors are multidimensional generalizations of matrices (two dimensional) and vectors (one dimensional).</p>
 <p>It has three main goals:</p>
 <ul>
 <li>Provide an efficient format to store sparse tensors in R.</li>
@@ -129,7 +132,7 @@ m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">
 <div id="tensor-classes" class="section level2">
 <h2 class="hasAnchor">
 <html><body><a href="#tensor-classes" class="anchor"> </a></body></html>Tensor Classes</h2>
-<p>The <strong>tensorr</strong> package provides S4 classes for sparse and dense tensor representations. The <code>sptensor</code> class is a new sparse tensor class, with non-zero values and subscripts stored in <a href="https://en.wikipedia.org/wiki/Sparse_matrix#Coordinate_list_.28COO.29">coordinate list format</a> (coo) to reduce storage requirements (Note the <strong>Matrix</strong> package refers to this as <em>triplet format</em>, and its corresponding class is <code>TsparseMatrix</code>). The <code>dtensor</code> class is a wrapper around R’s existing dense multi-dimensional array, but adds functionality for tensor operations such as multiplication and unfolding.</p>
+<p>The <strong>tensorr</strong> package provides S4 classes for sparse and dense tensor representations. The <code>sptensor</code> class is a new sparse tensor class, with non-zero values and subscripts stored in <a href="https://en.wikipedia.org/wiki/Sparse_matrix#Coordinate_list_.28COO.29">coordinate list format</a> (coo) to reduce storage requirements (Note the <strong>Matrix</strong> package refers to this as <em>triplet format</em>, and its corresponding class is <code>TsparseMatrix</code>). The <code>dtensor</code> class is a wrapper around R’s existing dense multidimensional array, but adds functionality for tensor operations such as multiplication and unfolding.</p>
 <div id="sparse-tensors" class="section level3">
 <h3 class="hasAnchor">
 <html><body><a href="#sparse-tensors" class="anchor"> </a></body></html>Sparse Tensors</h3>
@@ -160,7 +163,7 @@ x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sptensor.
 <div id="dense-tensors" class="section level3">
 <h3 class="hasAnchor">
 <html><body><a href="#dense-tensors" class="anchor"> </a></body></html>Dense Tensors</h3>
-<p>Dense tensors can be created by simply providing an existing multi-dimensional array to the constructor. You can access the non-zero subscripts, non-zero values, and dimensions the same way you would for a sparse tensor.</p>
+<p>Dense tensors can be created by simply providing an existing multidimensional array to the constructor. You can access the non-zero subscripts, non-zero values, and dimensions the same way you would for a sparse tensor.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dims &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>)
 arr &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">20</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>), dims)
 z &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dtensor.html">dtensor</a></span>(arr)</code></pre></div>
@@ -228,7 +231,7 @@ df</code></pre></div>
 <div id="extracting-and-replacing" class="section level2">
 <h2 class="hasAnchor">
 <html><body><a href="#extracting-and-replacing" class="anchor"> </a></body></html>Extracting and Replacing</h2>
-<p>The extraction <code>[</code> and replacement <code>[&lt;-</code> functions work exactly as they would for multi-dimensional arrays, with one addition - they can also accept a list or matrix of subscripts. This feature was added to aid in programming workflows (as opposed to interactive usage).</p>
+<p>The extraction <code>[</code> and replacement <code>[&lt;-</code> functions work exactly as they would for multidimensional arrays, with one addition - they can also accept a list or matrix of subscripts. This feature was added to aid in programming workflows (as opposed to interactive usage).</p>
 <p>If you have a high dimensional array it can be cumbersome to write all the subscript for each dimension, e.g. <code>x[1,2,4,5,1,1,1,21,100]</code>, and it is more likely that you will make mistakes. But if you are able to programmatically generate these subscripts then you can simply pass a list/matrix instead.</p>
 <div id="standard-indexing" class="section level3">
 <h3 class="hasAnchor">
@@ -261,7 +264,7 @@ x</code></pre></div>
 <div id="linear-indexing" class="section level3">
 <h3 class="hasAnchor">
 <html><body><a href="#linear-indexing" class="anchor"> </a></body></html>Linear Indexing</h3>
-<p>You can also index the tensor by treating it as a single vector of values. Note that R indexes values in column-wise fashion, which means that the first index changes the fastest and the last index changes the slowest as you traverse the array. For example, these would be the indices of a 2x2x2 multi-dimensional array.</p>
+<p>You can also index the tensor by treating it as a single vector of values. Note that R indexes values in column-wise fashion, which means that the first index changes the fastest and the last index changes the slowest as you traverse the array. For example, these would be the indices of a 2x2x2 multidimensional array.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">array</span>(<span class="dv">1</span>:<span class="dv">8</span>, <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>))</code></pre></div>
 <pre><code>## , , 1
 ## 

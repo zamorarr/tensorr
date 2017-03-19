@@ -28,3 +28,4 @@ Checks if the input object only contains numeric values.
 \code{\link[base]{is.numeric}},
 \code{\link[assertive.types]{is_numeric}}
 }
+\keyword{internal}
