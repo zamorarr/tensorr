@@ -1,6 +1,6 @@
 Package: tensorr
 Title: Sparse Tensors in R
-Version: 0.1
+Version: 0.1.0
 Authors@R: person("Robert","Zamora", email = "zamora.rr@gmail.com", role = c("aut", "cre"))
 Description: >
   The tensorr packages provides methods to manipulate and store sparse tensors.
