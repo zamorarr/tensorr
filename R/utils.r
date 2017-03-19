@@ -55,16 +55,15 @@ expand_indices <- function(...) {
 #' @param dims dimensions
 #' @keywords internal
 vec_index <- function(x, dims) {
-  if(!any(is_numeric(x), is_list(x))) {
-    stop("x must be a numeric or list of numerics", call. = FALSE)
-  }
+  # check that all inputs are numeric
+  assert_all_are_numeric(x)
 
   # calculate the cumulative size of the tensor
   n <- length(dims)
   cumdims <- cumprod(c(1, dims[-n]))
 
   # calculate vector indices
-  if (is_list(x)) map_int(x, vec_index_one, cumdims)
+  if (is.list(x)) map_int(x, vec_index_one, cumdims)
   else if (is.matrix(x)) as.vector(col_apply(x, vec_index_one, cumdims))
   else vec_index_one(x, cumdims)
 }
@@ -74,7 +73,6 @@ vec_index <- function(x, dims) {
 #' @importFrom assertive.types assert_is_numeric
 #' @keywords internal
 vec_index_one <- function(x, cumdims) {
-  assert_is_numeric(x)
   as.integer(sum( (x - 1) * cumdims) + 1)
 }
 
