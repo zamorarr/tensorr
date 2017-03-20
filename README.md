@@ -25,7 +25,7 @@ devtools::install_github("zamorarr/tensorr")
 Usage
 -----
 
-See the [introduction vignette](vignettes/introduction.Rmd) for a comprehensive overview. To create a sparse tensor you have to provide the non-zero values, subscripts to the non-zero values, and the overall dimensions of the tensor.
+See the [introduction vignette](https://zamorarr.github.io/tensorr/articles/introduction.html) for a comprehensive overview. To create a sparse tensor you have to provide the non-zero values, subscripts to the non-zero values, and the overall dimensions of the tensor.
 
 ``` r
 library(tensorr)
