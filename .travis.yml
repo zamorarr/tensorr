@@ -5,7 +5,7 @@ sudo: false
 cache: packages
 
 r:
-  - release
+  - 3.3.3
   - devel
 
 after_success:
