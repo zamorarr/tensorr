@@ -6,7 +6,7 @@ Description: Provides methods to manipulate and store sparse tensors. Tensors
   are multidimensional generalizations of matrices (two dimensional) and 
   vectors (one dimensional).
 Depends:
-  R (>= 3.2.3)
+  R (>= 3.3.3)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
