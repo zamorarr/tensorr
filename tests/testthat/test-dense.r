@@ -6,7 +6,7 @@ data <- array(c(1,0,0,0,1,0,0,0) , dim = dims)
 Z <- dtensor(data)
 
 test_that("dense tensor is initialized correctly given data", {
-  expect_equal(Z@x, data)
+  expect_equal(Z@x, data, check.attributes = FALSE)
   expect_equal(dim(Z), dims)
   expect_true(is_dtensor(Z))
 })

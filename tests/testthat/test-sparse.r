@@ -71,3 +71,8 @@ test_that("nzsubs returns non-zero subscripts for dense tensor", {
   expect_equal(allsubs(X), array_index(seq_along(X), dims))
 })
 
+test_that("sparse tensor is initialized with a list of NULL dimnames", {
+  actual <- dimnames(X)
+  expected <- vector("list", length(dims))
+  expect_identical(actual, expected)
+})

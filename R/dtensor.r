@@ -1,7 +1,16 @@
 #' @rdname dtensor
 #' @aliases dtensor,array-method
 #' @export
-setMethod("dtensor", "array", function(x) methods::new("dtensor", x = x) )
+setMethod("dtensor", "array", function(x) {
+  res <- methods::new("dtensor", x = x)
+
+  # empty dimnames
+  dims <- dim(res)
+  empty_dimnames <- vector("list", length(dims))
+  dimnames(res) <- empty_dimnames
+
+  res
+})
 
 #' @rdname dtensor
 #' @aliases dtensor,numeric-method
@@ -20,6 +29,39 @@ is_dtensor <- function(x) inherits(x, "dtensor")
 #' @aliases dim,dtensor-method
 #' @export
 setMethod("dim", "dtensor", function(x) dim(x@x))
+
+#' @rdname dimnames
+#' @aliases dimnames,dtensor-method
+#' @export
+setMethod("dimnames", c(x = "dtensor"), function(x) dimnames(x@x))
+
+#' @rdname dimnames
+#' @aliases dimnames<-,dtensor-method
+#' @export
+setMethod("dimnames<-", c(x = "dtensor", value = "list"), function(x, value) {
+  dimnames(x@x) <- value
+  x
+})
+
+#' @rdname dimnames
+#' @aliases dimnames<-,dtensor-method,NULL
+#' @export
+setMethod("dimnames<-", c(x = "dtensor", value = "NULL"), function(x, value) {
+  warning("dimnames cannot be NULL. converting to a list of NULL values", call. = FALSE)
+  dims <- dim(x)
+  NULL_dimnames <- vector("list", length(dims))
+
+  dimnames(x@x) <- NULL_dimnames
+  x
+})
+
+#' @rdname dimnames
+#' @aliases dimnames<-,dtensor-method,ANY
+#' @export
+setMethod("dimnames<-", c(x = "dtensor", value = "ANY"), function(x, value) {
+  stop("dimnames must be a list of length equal to the length of the dim(x)", call. = FALSE)
+})
+
 
 #' @rdname nzsubs
 #' @aliases nzsubs,dtensor-method
