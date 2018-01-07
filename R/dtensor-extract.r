@@ -54,7 +54,7 @@ setMethod("[",
 setMethod("[",
   signature(x = "dtensor", i = "numeric", j = "numeric", drop = "ANY"),
   function(x, i, j, ..., drop = FALSE) { # x[i,j,...]
-    mat <- build_indices(dim(x),i,j,...)
+    mat <- build_indices(x,i,j,...)
     res <- x@x[i,j,...,drop=drop]
     if (length(res) > 1) dtensor(res)
     else as.vector(res)

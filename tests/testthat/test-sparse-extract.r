@@ -68,4 +68,25 @@ test_that("range/missing indexes return a subtensor", {
   expect_equal(dim(X[1,1:2,1,drop=TRUE]), c(2))
 })
 
+test_that("indexing with a vector and missing indices works", {
+  X2 <- X[,,c(1,1)]
 
+  expect_equal(dim(X2), c(2,2,2))
+  expect_equal(nzvals(X2), c(10,10))
+  expect_equal(nzsubs(X2), matrix(as.integer(c(1,1,1,1,1,2)), nrow = 3L, ncol = 2L))#, check.attributes = FALSE)
+})
+
+test_that("indexing with negative subscripts works", {
+  X2 <- X[,,-1]
+  expect_identical(X2, X[,,2])
+})
+
+test_that("indexing with a repeated value works", {
+  Z <- dtensor(array(1:12, dim = c(2,3,2)))
+  Y <- as_sptensor(Z)
+
+  Y2 <- Y[1,c(2,1),c(1,2,1)]
+  expect_equal(dim(Y2), c(1,2,3))
+  expect_equal(nzvals(Y2), c(3,1,9,7,3,1))
+  expect_equal(nzsubs(Y2), matrix(c(1,1,1, 1,2,1, 1,1,2, 1,2,2, 1,1,3, 1,2,3), nrow = 3, ncol = 6))
+})
