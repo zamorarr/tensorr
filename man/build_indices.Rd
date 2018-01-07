@@ -4,10 +4,10 @@
 \alias{build_indices}
 \title{convert args i,j,... to array of coords.}
 \usage{
-build_indices(dims, ...)
+build_indices(x, i, j, ...)
 }
 \arguments{
-\item{dims}{tensor dimensions}
+\item{x}{tensor}
 
 \item{...}{indices}
 }

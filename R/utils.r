@@ -38,7 +38,7 @@ build_indices <- function(x,i,j, ...) {
 #'
 #' @param index a numeric value or NULL
 #' @param dim size of dimension
-fill_missing_indices <- function(index, dim, ...) {
+fill_missing_indices <- function(index, dim) {
   stopifnot(is.null(index) || all(index > 0) || all(index < 0))
 
   if (is.null(index)) { # missing value - fill with all indices in that dimension
