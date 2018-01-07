@@ -14,7 +14,18 @@ setMethod("as_sptensor", "dtensor", function(x) {
   nonzero_subs <- nzsubs(x)
   nonzero_vals <- nzvals(x)
 
-  sptensor(nonzero_subs, nonzero_vals, dims)
+  # build sptensor
+  res <- sptensor(nonzero_subs, nonzero_vals, dims)
+
+  # add dimnames if they exist
+  dnames <- dimnames(x)
+  if (is.null(dnames)) {
+    dimnames(res) <- vector("list", length(dims))
+  } else {
+    dimnames(res) <- dnames
+  }
+
+  res
 })
 
 # from data frame

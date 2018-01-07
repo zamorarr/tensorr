@@ -22,7 +22,17 @@ setMethod("as_dtensor", "sptensor",
     data[index] <- vals
 
     # return dense tensor
-    dtensor(data)
+    res <- dtensor(data)
+
+    # add dimnames if they exist
+    dnames <- dimnames(x)
+    if (is.null(dnames)) {
+      dimnames(res) <- vector("list", length(dims))
+    } else {
+      dimnames(res) <- dnames
+    }
+
+    res
   })
 
 #' @rdname as_dtensor
