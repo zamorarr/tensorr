@@ -7,6 +7,7 @@ cache: packages
 r:
   - release
   - devel
+  - 3.3.0
 
 after_success:
   - Rscript -e 'covr::codecov()'
