@@ -57,5 +57,6 @@ test_that("setting dimnames to NULL will throw warning and convert to list of NU
 test_that("dimnames cannot be set to arbitrary values", {
   expect_error(dimnames(Z) <- 3)
   expect_error(dimnames(Z) <- list(NULL, NULL))
+  expect_error(dimnames(Z) <- list(LETTERS[1:10], LETTERS[1:10], month.abb[1:10]))
 })
 
