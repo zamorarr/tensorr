@@ -39,6 +39,16 @@ setMethod("dimnames", c(x = "dtensor"), function(x) dimnames(x@x))
 #' @aliases dimnames<-,dtensor-method
 #' @export
 setMethod("dimnames<-", c(x = "dtensor", value = "list"), function(x, value) {
+  # ensure provided dimnames match dimensions of tensor
+  dims <- dim(x)
+  assertive.properties::assert_is_of_length(value, length(dims))
+
+
+  dims_value <- vapply(value, length, integer(1L))
+  if(!all(dims_value == dims | dims_value == 0)) {
+    stop("dimnames components must have same length as dimensions of tensor", call. = FALSE)
+  }
+
   dimnames(x@x) <- value
   x
 })

@@ -76,3 +76,13 @@ test_that("sparse tensor is initialized with a list of NULL dimnames", {
   expected <- vector("list", length(dims))
   expect_identical(actual, expected)
 })
+
+test_that("setting dimnames to NULL will throw warning and convert to list of NULLs", {
+  expect_warning(dimnames(X) <- NULL)
+  expect_equal(dimnames(X), list(NULL, NULL, NULL))
+})
+
+test_that("dimnames cannot be set to arbitrary values", {
+  expect_error(dimnames(X) <- 3)
+  expect_error(dimnames(X) <- list(NULL, NULL))
+})

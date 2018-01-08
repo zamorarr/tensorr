@@ -45,3 +45,23 @@ test_that("dimnames are subsetted correctly after extracting a subtensor", {
   expected <- list("A", "a", c("Feb", "Feb"), c("January", "February"))
   expect_identical(actual, expected)
 })
+
+test_that("range/missing indexing by dimnames works", {
+  newnames <-list(LETTERS[1:2], letters[1:2], month.abb[1:2], month.name[1:2])
+  dimnames(X) <- newnames
+
+  X1 <- X["A",,,]
+  expect_equal(dim(X1), c(1,2,2,2))
+  expect_equal(nzvals(X1), c(10,20))
+
+  X2 <- X[,"a",,]
+  expect_equal(dim(X2), c(2,1,2,2))
+  expect_equal(nzvals(X2), c(10,20))
+})
+
+test_that("linear indexing with dimnames throws an error", {
+  newnames <-list(LETTERS[1:2], letters[1:2], month.abb[1:2], month.name[1:2])
+  dimnames(X) <- newnames
+
+  expect_error(X[c("A", "B")])
+})
