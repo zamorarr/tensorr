@@ -24,14 +24,8 @@ setMethod("as_dtensor", "sptensor",
     # return dense tensor
     res <- dtensor(data)
 
-    # add dimnames if they exist
-    dnames <- dimnames(x)
-    if (is.null(dnames)) {
-      dimnames(res) <- vector("list", length(dims))
-    } else {
-      dimnames(res) <- dnames
-    }
-
+    # add dimnames
+    dimnames(res) <- dimnames(x)
     res
   })
 
