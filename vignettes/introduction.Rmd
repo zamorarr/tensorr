@@ -257,7 +257,7 @@ x
 ```
 
 ### List/Matrix Indexing
-The final way to extract or replace values from a tensor is use a list/matrix of
+Another way to extract or replace values from a tensor is use a list/matrix of
 subscripts (similarly to how you would construct an `sptensor`). As stated 
 above, this can be useful if you have a high dimensional tensor and have a way 
 to programmatically produce indices. In the example below we'll create the list
@@ -268,6 +268,17 @@ subs <- list(c(1,1,1), c(1,2,1), c(1,1,2))
 x[subs]
 x[subs] <- c(50, 60, 70)
 x
+```
+
+### Dimnames Indexing
+You can also add dimnames to your sparse tensor and extract by specifiying the dimname.
+
+```{r}
+dimnames(x) <- list(LETTERS[1:2], letters[1:2], month.abb[1:2])
+dimnames(x)
+
+x[,,"Feb"]
+identical(x[,,"Feb"], x[,,2])
 ```
 
 ## Group Generics
