@@ -27,7 +27,10 @@ setMethod("sptensor", c("matrix", "ANY", "numeric"), function(subs, vals, dims) 
   subs <- subs[, !duped, drop = FALSE]
   vals <- vals[!duped]
 
-  methods::new("sptensor", subs = subs,  vals = vals, dims = dims)
+  # empty dimnames
+  empty_dimnames <- vector("list", length(dims))
+
+  methods::new("sptensor", subs = subs,  vals = vals, dims = dims, dimnames = empty_dimnames)
 })
 
 #' @rdname sptensor
@@ -64,7 +67,49 @@ is_sptensor <- function(x) inherits(x, "sptensor")
 #' @rdname dim
 #' @aliases dim,sptensor-method
 #' @export
-setMethod("dim", c(x = "sptensor"), function(x) x@dims )
+setMethod("dim", c(x = "sptensor"), function(x) x@dims)
+
+#' @rdname dimnames
+#' @aliases dimnames,sptensor-method
+#' @export
+setMethod("dimnames", c(x = "sptensor"), function(x) x@dimnames)
+
+#' @rdname dimnames
+#' @aliases dimnames<-,sptensor-method,list
+#' @export
+setMethod("dimnames<-", c(x = "sptensor", value = "list"), function(x, value) {
+  # ensure provided dimnames match dimensions of tensor
+  dims <- dim(x)
+  assertive.properties::assert_is_of_length(value, length(dims))
+
+
+  dims_value <- vapply(value, length, integer(1L))
+  if(!all(dims_value == dims | dims_value == 0)) {
+    stop("dimnames components must have same length as dimensions of tensor", call. = FALSE)
+  }
+
+  x@dimnames <- value
+  x
+})
+
+#' @rdname dimnames
+#' @aliases dimnames<-,sptensor-method,NULL
+#' @export
+setMethod("dimnames<-", c(x = "sptensor", value = "NULL"), function(x, value) {
+  warning("dimnames cannot be NULL. converting to a list of NULL values", call. = FALSE)
+  dims <- dim(x)
+  NULL_dimnames <- vector("list", length(dims))
+
+  x@dimnames <- NULL_dimnames
+  x
+})
+
+#' @rdname dimnames
+#' @aliases dimnames<-,sptensor-method,ANY
+#' @export
+setMethod("dimnames<-", c(x = "sptensor", value = "ANY"), function(x, value) {
+  stop("dimnames must be a list of length equal to the length of the dim(X)", call. = FALSE)
+})
 
 #' @rdname nzsubs
 #' @aliases nzsubs,sptensor-method

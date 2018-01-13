@@ -18,6 +18,13 @@ setMethod("length", "tensor", function(x) prod(dim(x)) )
 #' @param x tensor
 NULL
 
+#' Dimension names of a tensor
+#'
+#' @name dimnames
+#' @param x tensor
+#' @param value replacement value. Must be a list of length equal to the number of dimenions in the tensor
+NULL
+
 #' Vectorize values of a tensor
 #'
 #' @name as.vector

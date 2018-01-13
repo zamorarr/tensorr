@@ -4,14 +4,14 @@
 \alias{extract_sptensor}
 \title{Extract indices from a sparse tensor}
 \usage{
-extract_sptensor(x, idxmat, drop = FALSE)
+extract_sptensor(x, i, j, ..., drop = FALSE)
 }
 \arguments{
 \item{x}{sptensor}
 
-\item{idxmat}{matrix of indices requested}
-
 \item{drop}{drop dimensions of size 1?}
+
+\item{idxmat}{matrix of indices requested}
 }
 \description{
 Extracts indices from a sparse tensor and returns as a new tensor.

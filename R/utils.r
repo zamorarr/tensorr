@@ -1,41 +1,54 @@
 #' convert args i,j,... to array of coords.
 #'
 #' substitute missing args k with 1:dim[k]
-#' @param dims tensor dimensions
+#' @param x tensor
 #' @param ... indices
 #' @importFrom assertive.base assert_are_identical
 #' @keywords internal
-build_indices <- function(dims, ...) {
+build_indices <- function(x,i,j, ...) {
   # check that there as many indices as tensor dimensions
+  dims <- dim(x)
   nindices <- nargs() - 1L
   assert_are_identical(nindices, length(dims))
 
-  # save calling environment
-  penv <- parent.frame()
-
   # get indices
-  indices <- as.list(match.call(expand.dots = FALSE)$`...`)
+  extra_indices <- as.list(substitute(list(...)))[-1L]
+  extra_indices <- lapply(extra_indices, function(v) if (is.name(v)) NULL else eval(v))
+  indices <- c(list(i), list(j), extra_indices)
+
+  # check if provided indices are strings (dimnames)
+  are_chars <- vapply(indices, is.character, logical(1L))
+  indices[are_chars] <- dimnames_to_indices(x, indices[are_chars], which(are_chars))
 
   # make new indices by filling out the missing ones
-  newindices <- map2(indices, dims, fill_missing_indices, penv)
+  filled_indices <- map2(indices, dims, fill_missing_indices)
+  new_indices <- lapply(filled_indices, seq_along)
 
   # return grid as a matrix
-  expand_indices(newindices)
+  orig_indices <- expand_indices(filled_indices)
+  new_indices <- expand_indices(new_indices)
+
+  assertive.base::assert_are_identical(nrow(orig_indices), length(dims))
+  assertive.base::assert_are_identical(nrow(new_indices), length(dims))
+
+  list(oldsubs = orig_indices, newsubs = new_indices)
 }
 
-# if an index is missing, return a range from 1:dim
-fill_missing_indices <- function(index, dim, penv) {
-  if (is.symbol(index)) {
-    if (it_exists(index, penv)) eval(index, penv) # provided i or j value (by name)
-    else seq_len(dim) # missing ... value
+#' Fill NULL indices with a range from 1:dim
+#'
+#' @param index a numeric value or NULL
+#' @param dim size of dimension
+fill_missing_indices <- function(index, dim) {
+  stopifnot(is.null(index) || all(index > 0) || all(index < 0))
+
+  if (is.null(index)) { # missing value - fill with all indices in that dimension
+    seq_len(dim)
+  } else if (all(index < 0)) { # negative values - exclude these indices
+    setdiff(seq_len(dim), abs(index))
+  } else { # positive values - include these indices
+    index
   }
-  else if (is.null(index)) seq_len(dim) # missing i or j value
-  else index # provided ... value (by value)
-}
 
-# does variable exist in environment?
-it_exists <- function(var, env) {
-  exists(as.character(var), env)
 }
 
 expand_indices <- function(...) {
@@ -43,6 +56,7 @@ expand_indices <- function(...) {
   res <- as.matrix(res)
   res <- t(res)
   rownames(res) <- NULL
+  dimnames(res) <- NULL
   apply(res, c(1,2), as.integer)
 }
 
@@ -153,4 +167,19 @@ list_to_matidx <- function(x) {
   d <- length(x[[1]])
   #vapply(x, function(i) as.integer(i), FUN.VALUE = integer(d))
   matrix(unlist(x), nrow = d)
+}
+
+#' Convert dimnames to tensor indices
+#' @param x tensor
+#' @param dnames selected dimnames
+#' @param dimensions selected dimensions
+#' @keywords internal
+dimnames_to_indices <- function(x, dnames, dimensions) {
+  indices <- mapply(function(a,b) which(a == b), dnames, dimnames(x)[dimensions], SIMPLIFY = FALSE)
+  L <- vapply(indices, length, integer(1L))
+  if (any(L < 1)) {
+    stop(paste0("dimname not found: ", dnames[L < 1]), call. = FALSE)
+  }
+
+  indices
 }

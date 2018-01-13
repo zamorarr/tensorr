@@ -14,7 +14,12 @@ setMethod("as_sptensor", "dtensor", function(x) {
   nonzero_subs <- nzsubs(x)
   nonzero_vals <- nzvals(x)
 
-  sptensor(nonzero_subs, nonzero_vals, dims)
+  # build sptensor
+  res <- sptensor(nonzero_subs, nonzero_vals, dims)
+
+  # add dimnames
+  dimnames(res) <- dimnames(x)
+  res
 })
 
 # from data frame

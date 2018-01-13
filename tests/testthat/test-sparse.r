@@ -71,3 +71,19 @@ test_that("nzsubs returns non-zero subscripts for dense tensor", {
   expect_equal(allsubs(X), array_index(seq_along(X), dims))
 })
 
+test_that("sparse tensor is initialized with a list of NULL dimnames", {
+  actual <- dimnames(X)
+  expected <- vector("list", length(dims))
+  expect_identical(actual, expected)
+})
+
+test_that("setting dimnames to NULL will throw warning and convert to list of NULLs", {
+  expect_warning(dimnames(X) <- NULL)
+  expect_equal(dimnames(X), list(NULL, NULL, NULL))
+})
+
+test_that("dimnames cannot be set to arbitrary values", {
+  expect_error(dimnames(X) <- 3)
+  expect_error(dimnames(X) <- list(NULL, NULL))
+  expect_error(dimnames(X) <- list(LETTERS[1:10], LETTERS[1:10], month.abb[1:10]))
+})

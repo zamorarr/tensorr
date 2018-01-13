@@ -19,7 +19,8 @@ setMethod("[<-",
     if (missing(...)) { # x[]
       stop("Not Implemented", call. = FALSE)
     } else { # x[i=,j=,...]
-      mat <- build_indices(dim(x),i = NULL, j = NULL, ...)
+      #mat <- build_indices(x,i = NULL, j = NULL, ...)
+      mat <- build_indices(x, i = NULL, j = NULL, ...)$oldsubs
       replace_sptensor(x, mat, value)
     }
   }
@@ -36,7 +37,8 @@ setMethod("[<-",
       mat <- array_index(i, dim(x))
     }
     else { # x[i, j = , ...]
-      mat <- build_indices(dim(x),i = i, j = NULL ,...)
+      #mat <- build_indices(x,i = i, j = NULL ,...)
+      mat <- build_indices(x, i = i, j = NULL, ...)$oldsubs
     }
 
     replace_sptensor(x, mat, value)
@@ -49,7 +51,8 @@ setMethod("[<-",
 setMethod("[<-",
   signature(x = "sptensor", i = "missing", j = "numeric", value = "ANY"),
   function(x, i, j, ..., value) { # x[i=,j,...]
-    mat <- build_indices(dim(x), i = NULL, j = j, ...)
+    #mat <- build_indices(x, i = NULL, j = j, ...)
+    mat <- build_indices(x, i = NULL, j = j, ...)$oldsubs
     replace_sptensor(x, mat, value)
   }
 )
@@ -60,7 +63,8 @@ setMethod("[<-",
 setMethod("[<-",
   signature(x = "sptensor", i = "numeric", j = "numeric", value = "ANY"),
   function(x, i, j, ..., value) { # x[i,j,...]
-    mat <- build_indices(dim(x),i,j,...)
+    #mat <- build_indices(x,i,j,...)
+    mat <- build_indices(x, i, j, ...)$oldsubs
     replace_sptensor(x, mat, value)
   }
 )

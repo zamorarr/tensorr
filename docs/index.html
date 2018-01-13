@@ -64,7 +64,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <div id="tensorr-sparse-tensors-in-r" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#tensorr-sparse-tensors-in-r" class="anchor"> </a>tensorr: sparse tensors in R</h1></div>
+<a href="#tensorr-sparse-tensors-in-r" class="anchor"></a>tensorr: sparse tensors in R</h1></div>
 
 <p><code>tensorr</code> provides methods to manipulate and store sparse tensors. Tensors are multi-dimensional generalizations of matrices (two dimensional) and vectors (one dimensional).</p>
 <p>It has three main goals:</p>
@@ -75,13 +75,13 @@
 </ul>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#installation" class="anchor"> </a>Installation</h2>
+<a href="#installation" class="anchor"></a>Installation</h2>
 <p>The development version of <strong>tensorr</strong> is available on github.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">"zamorarr/tensorr"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"zamorarr/tensorr"</span>)</code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
-<a href="#usage" class="anchor"> </a>Usage</h2>
+<a href="#usage" class="anchor"></a>Usage</h2>
 <p>See the <a href="https://zamorarr.github.io/tensorr/articles/introduction.html">introduction vignette</a> for a comprehensive overview. To create a sparse tensor you have to provide the non-zero values, subscripts to the non-zero values, and the overall dimensions of the tensor.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tensorr)
 
@@ -96,7 +96,7 @@ x
 </div>
 <div id="tensor-references" class="section level2">
 <h2 class="hasAnchor">
-<a href="#tensor-references" class="anchor"> </a>Tensor References</h2>
+<a href="#tensor-references" class="anchor"></a>Tensor References</h2>
 <p>Many of the dense and sparse implementation ideas were adpated from:</p>
 <ul>
 <li>B. W. Bader and T. G. Kolda. Algorithm 862: MATLAB tensor classes for fast algorithm prototyping, ACM Transactions on Mathematical Software 32(4):635-653, December 2006.</li>
@@ -115,6 +115,8 @@ x
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Links</h2>
 <ul class="list-unstyled">
+<li>Download from CRAN at <br><a href="https://cran.r-project.org/package=tensorr">https://​cran.r-project.org/​package=tensorr</a>
+</li>
 <li>Browse source code at <br><a href="https://github.com/zamorarr/tensorr">https://​github.com/​zamorarr/​tensorr</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/zamorarr/tensorr/issues">https://​github.com/​zamorarr/​tensorr/​issues</a>
@@ -129,6 +131,7 @@ x
 <div>
 <h2>Dev status</h2>
 <ul class="list-unstyled">
+<li><a href="https://cran.r-project.org/package=tensorr"><img src="http://www.r-pkg.org/badges/version/tensorr" alt="CRAN_Status_Badge"></a></li>
 <li><a href="https://travis-ci.org/zamorarr/tensorr"><img src="https://travis-ci.org/zamorarr/tensorr.svg?branch=master" alt="Build Status"></a></li>
 <li><a href="https://ci.appveyor.com/project/zamorarr/tensorr"><img src="https://ci.appveyor.com/api/projects/status/github/zamorarr/tensorr?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
 <li><a href="https://codecov.io/github/zamorarr/tensorr?branch=master"><img src="https://img.shields.io/codecov/c/github/zamorarr/tensorr/master.svg" alt="Coverage Status"></a></li>

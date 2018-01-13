@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Extract values from a sparse tensor — sptensor-extract • tensorr</title>
+<title>Extract values from a sparse tensor — [,sptensor,character,missing,ANY-method • tensorr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,6 +31,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -95,7 +97,16 @@ coding.</p><ul>
 </ul>
     
 
-    <pre># S4 method for sptensor,missing,missing,ANY
+    <pre># S4 method for sptensor,character,missing,ANY
+[(x, i, j, ..., drop = FALSE)
+
+# S4 method for sptensor,missing,character,ANY
+[(x, i, j, ..., drop = FALSE)
+
+# S4 method for sptensor,character,character,ANY
+[(x, i, j, ..., drop = FALSE)
+
+# S4 method for sptensor,missing,missing,ANY
 [(x, i, j, ..., drop = FALSE)
 
 # S4 method for sptensor,numeric,missing,ANY
@@ -114,18 +125,29 @@ coding.</p><ul>
 [(x, i, j, ..., drop = FALSE)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd><p>sptensor object</p></dd>
-      <dt>i</dt>
-      <dd><p>numeric index, vector, list, or matrix</p></dd>
-      <dt>j</dt>
-      <dd><p>numeric index</p></dd>
-      <dt>...</dt>
-      <dd><p>additional numeric indices</p></dd>
-      <dt>drop</dt>
-      <dd><p>whether to drop dimensions</p></dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>sptensor object</p></td>
+    </tr>
+    <tr>
+      <th>i</th>
+      <td><p>numeric index, vector, list, or matrix</p></td>
+    </tr>
+    <tr>
+      <th>j</th>
+      <td><p>numeric index</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>additional numeric indices</p></td>
+    </tr>
+    <tr>
+      <th>drop</th>
+      <td><p>whether to drop dimensions</p></td>
+    </tr>
+    </table>
     
 
   </div>

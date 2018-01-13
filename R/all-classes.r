@@ -15,7 +15,7 @@ setClass("tensor", contains = "VIRTUAL")
 #' @slot vals values of non-zero entries.
 #' @slot dims sizes of each dimension
 setClass("sptensor",
-         slots = list(subs = "matrix", vals = "ANY", dims = "integer"),
+         slots = list(subs = "matrix", vals = "ANY", dims = "integer", dimnames = "list"),
          contains = "tensor")
 
 #' An S4 class for a dense tensor

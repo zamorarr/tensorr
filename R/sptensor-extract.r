@@ -35,8 +35,7 @@ setMethod("[",
     if (missing(...)) { # x[]
       x
     } else { # x[i=,j=,...]
-      mat <- build_indices(dim(x), i = NULL, j = NULL, ...)
-      extract_sptensor(x, mat, drop)
+      extract_sptensor(x, i = NULL, j = NULL, ..., drop = drop)
     }
   }
 )
@@ -53,8 +52,7 @@ setMethod("[",
       extract_vec(x, mat)
     }
     else { # x[i, j = , ...]
-      mat <- build_indices(dim(x),i = i, j = NULL ,...)
-      extract_sptensor(x, mat, drop)
+      extract_sptensor(x, i = i, j = NULL, ..., drop = drop)
     }
   }
 )
@@ -65,8 +63,7 @@ setMethod("[",
 setMethod("[",
   signature(x = "sptensor", i = "missing", j = "numeric", drop = "ANY"),
   function(x, i, j, ..., drop = FALSE) { # x[i=,j,...]
-    mat <- build_indices(dim(x), i = NULL, j = j, ...)
-    extract_sptensor(x, mat, drop)
+    extract_sptensor(x, i = NULL, j = j, ..., drop = drop)
   }
 )
 
@@ -76,10 +73,10 @@ setMethod("[",
 setMethod("[",
   signature(x = "sptensor", i = "numeric", j = "numeric", drop = "ANY"),
   function(x, i, j, ..., drop = FALSE) { # x[i,j,...]
-    mat <- build_indices(dim(x),i,j,...)
-
-    if (ncol(mat)  == 1) extract_vec(x, mat)
-    else extract_sptensor(x, mat, drop)
+    #mat <- build_indices(x,i,j,...)
+    #if (ncol(mat)  == 1) extract_vec(x, mat)
+    #else extract_sptensor(x, mat, drop)
+    extract_sptensor(x, i, j, ..., drop = drop)
   }
 )
 
@@ -125,7 +122,7 @@ extract_vec <- function(x, idxmat) {
 
   # get matching value if exists
   map_dbl(matching, function(m) {
-    if (!is.na(m) & m > 0) vals[m]
+    if (!is.na(m) && m > 0) vals[m]
     else m # m is NA or 0
   })
 }
@@ -141,39 +138,28 @@ extract_vec <- function(x, idxmat) {
 #'
 #' @importFrom assertive.base assert_are_identical
 #' @keywords internal
-extract_sptensor <- function(x, idxmat, drop = FALSE) {
-  subs <- nzsubs(x)
-  vals <- nzvals(x)
-  dims <- dim(x)
+extract_sptensor <- function(x, i, j, ..., drop = FALSE) {
+  # build index matrices based on selection rules
+  bi <- build_indices(x, i, j, ...)
+  oldsubs <- bi$oldsubs
+  newsubs <- bi$newsubs
 
-  # check dimensions
-  assert_are_identical(nrow(idxmat), length(dims))
+  # only one value selected. return as a vector not a tensor
+  if (ncol(oldsubs) == 1L) return(extract_vec(x, oldsubs))
 
-  # non-zero matches
-  matching <- col_apply(idxmat, matches, x)
-  matching <- as.vector(matching)
-  nonzero_matches <- matching[matching > 0 & !is.na(matching)]
+  # calculate new dimensions, and values
+  newdims <- as.vector(row_apply(newsubs, max))
+  newvals <- extract_vec(x, oldsubs)
 
-  # matching non-zero tensor subs/values
-  matchsubs <- subs[, nonzero_matches, drop = FALSE]
-  matchvals <- vals[nonzero_matches]
+  # yea I need to explain this one. expand into another function?
+  oldnames <- dimnames(x)
+  newnames <- lapply(seq_len(nrow(oldsubs)), function(k) oldnames[[k]][oldsubs[k,!duplicated(newsubs[k,])]])
 
-  # re-calculate dimensions
-  newdims <- row_apply(idxmat, function(r) length(unique(r)))
-  newdims <- as.vector(newdims)
-
-  # check if vals empty - no matches found
-  if (length(matchvals) == 0) {
-    newsubs <- array(NA_integer_, dim = c(length(dims), 1L))
-    newvals <- NA_real_
-  } else {
-    # re-number the subscripts
-    newsubs <- row_apply(matchsubs, rank, ties.method = "min")
-    newvals <- matchvals
-  }
-
+  # return sparse tensor
   res <- sptensor(newsubs, newvals, newdims)
+  dimnames(res) <- newnames
 
   if (drop) squeeze(res)
   else res
+
 }
