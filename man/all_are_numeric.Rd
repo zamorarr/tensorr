@@ -7,7 +7,8 @@
 \usage{
 all_are_numeric(x, .xname = get_name_in_parent(x))
 
-assert_all_are_numeric(x, severity = getOption("assertive.severity", "stop"))
+assert_all_are_numeric(x, severity = getOption("assertive.severity",
+  "stop"))
 }
 \arguments{
 \item{x}{An R object or expression.}

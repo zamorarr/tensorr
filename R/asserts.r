@@ -23,3 +23,4 @@ assert_all_are_numeric <- function(x, severity = getOption("assertive.severity",
   assert_engine(all_are_numeric, x, .xname = .xname,severity = severity,
                 msg = paste(.xname, "contains non-numeric values"))
 }
+
