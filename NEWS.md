@@ -1,3 +1,9 @@
+# tensorr 0.1.1
+
+* added dimnames to tensors (#7)
+* fixed bug when extracting indices using negative or repeated indices (#8)
+* lower required R version to 3.3.0 (#10)
+
 # tensorr 0.1
 
 * Added initial sptensor and dtensor objects.
