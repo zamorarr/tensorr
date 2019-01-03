@@ -66,6 +66,10 @@ test_that("range/missing indexes return a subtensor", {
   expect_equal(dim(X[1,1,]), c(1,1,2))
   expect_equal(dim(X[,,2]), c(2,2,1))
   expect_equal(dim(X[1,1:2,1,drop=TRUE]), c(2))
+
+  subs2 <- matrix(integer(0L), nrow = 3)
+  vals2 <- double(0L)
+  expect_equal(X[,2,], sptensor(subs2, vals2, c(2,1,2)))
 })
 
 test_that("indexing with a vector and missing indices works", {

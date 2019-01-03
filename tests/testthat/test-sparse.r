@@ -55,6 +55,20 @@ test_that("sparse tensors show outputs", {
   expect_output(show(X))
 })
 
+test_that("sparse tensors show empty outputs", {
+  subs2 <- matrix(integer(0L), nrow = length(dims))
+  vals2 <- integer(0L)
+  X2 <- sptensor(subs2, vals2, dims)
+  expect_output(show(X2))
+})
+
+test_that("sparse tensors show truncated outputs", {
+  subs2 <- array_index(1:8, dims)
+  vals2 <- 1:8
+  X2 <- sptensor(subs2, vals2, dims)
+  expect_output(show(X2))
+})
+
 test_that("nzvals returns vals for sparse tensor", {
   expect_equal(nzvals(X), X@vals)
 })

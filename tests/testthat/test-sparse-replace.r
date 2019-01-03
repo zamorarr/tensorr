@@ -110,6 +110,10 @@ test_that("replacement using range/missing indexes works", {
   subs3 <- array_index(c(1,3,5,6,7,8), dims)
   vals3 <- c(50, 2, 25, 35, 45, 55)
   expect_equal({X[,,2] <- c(25,35,45,55); X}, sptensor(subs3, vals3, dims))
+
+  subs4 <- array_index(c(1,5,6), dims)
+  vals4 <- c(50, 25, 35)
+  expect_equal({X[,2,] <- 0; X}, sptensor(subs4, vals4, dims))
 })
 
 test_that("an out of bounds range replacement throws error", {
