@@ -9,7 +9,6 @@
 \alias{ttv,sptensor,numeric,numeric-method}
 \alias{ttv,sptensor,numeric,numeric,numeric-method}
 \alias{ttv,sptensor,sparseVector,numeric-method}
-\alias{ttv,sptensor,numeric,numeric,numeric-method}
 \title{Tensor times vector}
 \usage{
 ttv(x, v, mode)

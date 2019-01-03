@@ -13,11 +13,8 @@
 \alias{[,sptensor,missing,missing,ANY-method}
 \alias{[,sptensor,missing,missing-method}
 \alias{[,sptensor,numeric,missing,ANY-method}
-\alias{[,sptensor,numeric,missing-method}
 \alias{[,sptensor,missing,numeric,ANY-method}
-\alias{[,sptensor,missing,numeric-method}
 \alias{[,sptensor,numeric,numeric,ANY-method}
-\alias{[,sptensor,numeric,numeric-method}
 \alias{[,sptensor,list,missing,ANY-method}
 \alias{[,sptensor,list,missing-method}
 \alias{[,sptensor,matrix,missing,ANY-method}
@@ -28,7 +25,8 @@
 
 \S4method{[}{sptensor,missing,character,ANY}(x, i, j, ..., drop = FALSE)
 
-\S4method{[}{sptensor,character,character,ANY}(x, i, j, ..., drop = FALSE)
+\S4method{[}{sptensor,character,character,ANY}(x, i, j, ...,
+  drop = FALSE)
 
 \S4method{[}{sptensor,missing,missing,ANY}(x, i, j, ..., drop = FALSE)
 

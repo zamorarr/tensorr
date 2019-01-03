@@ -63,6 +63,10 @@ test_that("range/missing indexes return a subtensor", {
   expect_equal(dim(Z[1,1,]), c(1,1,2))
   expect_equal(dim(Z[,,2]), c(2,2,1))
   expect_equal(dim(Z[1,1:2,1,drop=TRUE]), c(2,1)) # Inconsistent with sp?
+
+  subs2 <- matrix(integer(0L), nrow = 3)
+  vals2 <- double(0L)
+  expect_equal(Z[,2,], dtensor(array(rep(0, 4L), c(2,1,2))))
 })
 
 
