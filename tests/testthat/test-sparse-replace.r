@@ -125,8 +125,24 @@ test_that("replacement using dimnames works", {
     c("A", "B"), c("a", "b"), c("Jan", "Feb")
   )
 
-  vals1 <- c(100, 20)
+  newX <- sptensor(subs,  c(100, 20), dims)
+  dimnames(newX) <- dimnames(X)
 
-  expect_equal({X["A", "a", "Jan"] <- 100; X}, sptensor(subs, vals1, dims))
+  expect_equal({X["A", "a", "Jan"] <- 100; X}, newX)
+})
+
+test_that("dimnames carry over after replacement", {
+  dimnames(X) <- list(
+    c("A", "B"), c("a", "b"), c("Jan", "Feb")
+  )
+
+  # save dimnames
+  oldnames <- dimnames(X)
+
+  # replace value
+  X["A", "a", "Jan"] <- 100
+
+  # ensure dimnames didn't change
+  expect_identical(dimnames(X), oldnames)
 })
 

@@ -124,5 +124,8 @@ replace_sptensor <- function(x, idxmat, value) {
   newsubs <- cbind(subs, newsubs)
   newvals <- c(newvals, value[nomatch])
 
-  sptensor(newsubs, newvals, dims)
+  # return sparse tensor
+  res <- sptensor(newsubs, newvals, dims)
+  dimnames(res) <- dimnames(x)
+  res
 }
