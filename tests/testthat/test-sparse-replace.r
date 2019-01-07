@@ -120,3 +120,13 @@ test_that("an out of bounds range replacement throws error", {
   expect_error(X[,,3] <- c(1,2,3,4))
 })
 
+test_that("replacement using dimnames works", {
+  dimnames(X) <- list(
+    c("A", "B"), c("a", "b"), c("Jan", "Feb")
+  )
+
+  vals1 <- c(100, 20)
+
+  expect_equal({X["A", "a", "Jan"] <- 100; X}, sptensor(subs, vals1, dims))
+})
+
