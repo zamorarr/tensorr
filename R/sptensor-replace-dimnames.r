@@ -1,6 +1,6 @@
 #' @rdname sptensor-replace
 #' @export
-#' @aliases [,sptensor,numeric,missing-method
+#' @aliases [<-,sptensor,numeric,missing-method
 setMethod("[<-",
   signature(x = "sptensor", i = "character", j = "missing", value = "ANY"),
   function(x, i, j, ..., value) {
@@ -18,7 +18,7 @@ setMethod("[<-",
 
 #' @rdname sptensor-replace
 #' @export
-#' @aliases [,sptensor,missing,numeric-method
+#' @aliases [<-,sptensor,missing,numeric-method
 setMethod("[<-",
   signature(x = "sptensor", i = "missing", j = "character", value = "ANY"),
   function(x, i, j, ..., value) { # x[i=,j,...]
@@ -29,7 +29,7 @@ setMethod("[<-",
 
 #' @rdname sptensor-replace
 #' @export
-#' @aliases [,sptensor,numeric,numeric-method
+#' @aliases [<-,sptensor,numeric,numeric-method
 setMethod("[<-",
   signature(x = "sptensor", i = "character", j = "character", value = "ANY"),
   function(x, i, j, ..., value) { # x[i,j,...]
