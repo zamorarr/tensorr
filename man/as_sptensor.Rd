@@ -21,7 +21,7 @@ as_sptensor(x, ...)
 
 \item{...}{extra params}
 
-\item{valcol}{column to use for the tensor values. all other columns are treated as incides}
+\item{valcol}{column to use for the tensor values. all other columns are treated as indices}
 
 \item{dims}{dimensions of tensor. If not provided, the maximum value for each of the indices is used.}
 }

@@ -21,7 +21,7 @@ unfolded_sptensor(mat, mode, tensor_dims)
 }
 \description{
 Construct an \linkS4class{unfolded_sptensor} from a sparse matrix,
-mode, and dimensions of orignal tensor.
+mode, and dimensions of original tensor.
 }
 \seealso{
 \code{\link{unfolded_sptensor-class}} for class documentation.

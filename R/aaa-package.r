@@ -7,13 +7,13 @@
 #' It has three main goals:
 #'
 #' \itemize{
-#' \item Provide an effecient format to store sparse tensors in R.
+#' \item Provide an efficient format to store sparse tensors in R.
 #' \item Provide standard tensor operations such as multiplication and unfolding.
 #' \item Provide standard tensor decomposition techniques such as CP and Tucker.
 #' }
 #'
 #' @references
-#' Many of the dense and sparse implementation ideas were adpated from
+#' Many of the dense and sparse implementation ideas were adapted from
 #' \itemize{
 #' \item \cite{B. W. Bader and T. G. Kolda. Algorithm 862: MATLAB tensor classes
   #'  for fast algorithm prototyping, ACM Transactions on Mathematical Software

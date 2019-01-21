@@ -38,7 +38,7 @@
 \arguments{
 \item{x}{tensor}
 
-\item{value}{replacement value. Must be a list of length equal to the number of dimenions in the tensor}
+\item{value}{replacement value. Must be a list of length equal to the number of dimensions in the tensor}
 }
 \description{
 Dimension names of a tensor

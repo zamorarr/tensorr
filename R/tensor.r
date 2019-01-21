@@ -22,7 +22,7 @@ NULL
 #'
 #' @name dimnames
 #' @param x tensor
-#' @param value replacement value. Must be a list of length equal to the number of dimenions in the tensor
+#' @param value replacement value. Must be a list of length equal to the number of dimensions in the tensor
 NULL
 
 #' Vectorize values of a tensor

@@ -73,7 +73,7 @@ setGeneric("as_dtensor", function(x, ...) standardGeneric("as_dtensor"))
 #' Construct an unfolded sparse tensor
 #'
 #' Construct an \linkS4class{unfolded_sptensor} from a sparse matrix,
-#' mode, and dimensions of orignal tensor.
+#' mode, and dimensions of original tensor.
 #'
 #' @param mat sparse matrix representing unfolded tensor
 #' @param mode dimension to unfold tensor along
@@ -85,7 +85,7 @@ setGeneric("unfolded_sptensor", function(mat, mode, tensor_dims) standardGeneric
 #' Construct an unfolded dense tensor
 #'
 #' Construct an \linkS4class{unfolded_dtensor} from a dense matrix,
-#' mode, and dimensions of orignal tensor.
+#' mode, and dimensions of original tensor.
 #'
 #' @param mat dense matrix representing unfolded tensor
 #' @param mode dimension to unfold tensor along

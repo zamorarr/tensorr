@@ -19,7 +19,7 @@ unfolded_dtensor(mat, mode, tensor_dims)
 }
 \description{
 Construct an \linkS4class{unfolded_dtensor} from a dense matrix,
-mode, and dimensions of orignal tensor.
+mode, and dimensions of original tensor.
 }
 \seealso{
 \code{\link{unfolded_dtensor-class}} for class documentation.

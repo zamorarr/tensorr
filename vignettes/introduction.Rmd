@@ -271,7 +271,7 @@ x
 ```
 
 ### Dimnames Indexing
-You can also add dimnames to your sparse tensor and extract by specifiying the dimname.
+You can also add dimnames to your sparse tensor and extract by specifying the dimname.
 
 ```{r}
 dimnames(x) <- list(LETTERS[1:2], letters[1:2], month.abb[1:2])

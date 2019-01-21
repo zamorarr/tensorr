@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.r
 \name{list_to_matidx}
 \alias{list_to_matidx}
-\title{convert list of indices to matrix of indcies}
+\title{convert list of indices to matrix of indices}
 \usage{
 list_to_matidx(x)
 }
@@ -10,6 +10,6 @@ list_to_matidx(x)
 \item{x}{list}
 }
 \description{
-convert list of indices to matrix of indcies
+convert list of indices to matrix of indices
 }
 \keyword{internal}

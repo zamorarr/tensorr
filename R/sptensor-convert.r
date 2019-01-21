@@ -25,7 +25,7 @@ setMethod("as_sptensor", "dtensor", function(x) {
 # from data frame
 #' @rdname as_sptensor
 #' @aliases as_sptensor,data.frame-method
-#' @param valcol column to use for the tensor values. all other columns are treated as incides
+#' @param valcol column to use for the tensor values. all other columns are treated as indices
 #' @param dims dimensions of tensor. If not provided, the maximum value for each of the indices is used.
 #' @export
 setMethod("as_sptensor", "data.frame", function(x, valcol = NULL, dims = NULL) {

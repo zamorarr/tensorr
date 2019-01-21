@@ -160,7 +160,7 @@ mat_to_listidx <- function(m) {
   map(seq_cols, function(col) unname(m[,col]))
 }
 
-#' convert list of indices to matrix of indcies
+#' convert list of indices to matrix of indices
 #' @param x list
 #' @keywords internal
 list_to_matidx <- function(x) {
