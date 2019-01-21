@@ -146,3 +146,36 @@ test_that("dimnames carry over after replacement", {
   expect_identical(dimnames(X), oldnames)
 })
 
+test_that("replacement using missing dimnames works", {
+  dimnames(X) <- list(
+    c("A", "B"), c("a", "b"), c("Jan", "Feb")
+  )
+
+  subs1 <- array_index(c(1,3,5,7), dims)
+  vals1 <- c(1,2,3,4)
+  X1 <- sptensor(subs1, vals1, dims)
+  dimnames(X1) <- dimnames(X)
+  expect_equal({X["A",,] <- c(1,2,3,4); X}, X1)
+
+  subs2 <- array_index(c(1,3,5,7), dims)
+  vals2 <- c(50, 2, 60, 4)
+  X2 <- sptensor(subs2, vals2, dims)
+  dimnames(X2) <- dimnames(X)
+  expect_equal({X["A","a",] <- c(50,60); X}, X2)
+
+  subs3 <- array_index(c(1,3,5,6,7,8), dims)
+  vals3 <- c(50, 2, 25, 35, 45, 55)
+  X3 <- sptensor(subs3, vals3, dims)
+  dimnames(X3) <- dimnames(X)
+  expect_equal({X[,,"Feb"] <- c(25,35,45,55); X}, X3)
+
+  subs4 <- array_index(c(1,5,6), dims)
+  vals4 <- c(50, 25, 35)
+  X4 <- sptensor(subs4, vals4, dims)
+  dimnames(X4) <- dimnames(X)
+  expect_equal({X[,"b",] <- 0; X}, X4)
+})
+
+test_that("indexing with a single dimname throws error", {
+  expect_error(X["Jan"] <- 3)
+})
