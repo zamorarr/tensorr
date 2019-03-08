@@ -51,3 +51,21 @@ test_that("refolding a folded tensor returns original tensor", {
 test_that("unfolded sparse tensor shows outputs", {
   expect_output(show(unfold(X, 1)))
 })
+
+test_that("refold_indices returns correct size results", {
+  dim <- c(2,2,2,2)
+
+  i1 <- c(1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2)
+  j1 <- c(1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8)
+
+  actual <- refold_indices(i1, j1, 1, dim)
+  expect_identical(nrow(actual), length(dim))
+  expect_identical(ncol(actual), length(i1))
+
+  i2 <- c(1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2)
+  j2 <- c(1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8)
+
+  actual <- refold_indices(i2, j2, 2, c(2,2,2,2))
+  expect_identical(nrow(actual), length(dim))
+  expect_identical(ncol(actual), length(i2))
+})
