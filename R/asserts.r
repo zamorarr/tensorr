@@ -24,3 +24,27 @@ assert_all_are_numeric <- function(x, severity = getOption("assertive.severity",
                 msg = paste(.xname, "contains non-numeric values"))
 }
 
+#' Are subscripts within dimensions?
+#'
+#' Checks that all subscripts have coordinates within the dimension sizes
+#' @param subs subscripts
+#' @param dims dimensions
+#' @keywords internal
+assert_subs_within_dims <- function(subs, dims) {
+  # check subscipts within dimensions
+  is_within_range <- apply(subs, 2, function(x) all(x <= dims))
+
+  # if any aren't, throw an error message
+  if (any(!is_within_range)) {
+    dims_str <- paste(dims, collapse = " ")
+    msg <- sprintf("dimensions of the tensor are %s but these subscripts are outside the range:", dims_str)
+
+    for (i in which(!is_within_range)) {
+      subs_str <- paste(subs[,i], collapse = " ")
+      msg <- paste(msg, sprintf("[%s]: %s", i, subs_str), sep = "\n\t")
+    }
+
+    stop(msg, call. = FALSE)
+  }
+}
+

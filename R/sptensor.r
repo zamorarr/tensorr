@@ -30,6 +30,9 @@ setMethod("sptensor", c("matrix", "ANY", "numeric"), function(subs, vals, dims) 
   # empty dimnames
   empty_dimnames <- vector("list", length(dims))
 
+  # check that subscripts are within dim range
+  assert_subs_within_dims(subs, dims)
+
   methods::new("sptensor", subs = subs,  vals = vals, dims = dims, dimnames = empty_dimnames)
 })
 
