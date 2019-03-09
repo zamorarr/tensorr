@@ -43,6 +43,10 @@ test_that("sparse tensor throws errors for empty subs, vals, or dims", {
   expect_error(sptensor(subs, vals, integer(0)))
 })
 
+test_that("sparse tensors cannot be initialized with incompatible subs and dims", {
+  expect_error(sptensor(subs, vals, c(1,1,1)))
+})
+
 test_that("sparse tensors are considered tensors", {
   expect_true(is_tensor(X))
 })
