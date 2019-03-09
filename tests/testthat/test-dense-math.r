@@ -36,6 +36,27 @@ test_that("dense tensor times matrix works with expected inputs", {
   expect_equal(ttm(Z, U, 1), res)
 })
 
+test_that("symmetric dense tensor time matrix retains symmetry", {
+  # example from https://github.com/zamorarr/tensorr/issues/17
+  x <- c(-8.2, 1.1, 1.1, -0.2,
+         -3.2, -0.2, -0.2, 0.1,
+         -8.2, 1.1, 1.1, -0.2,
+         -3.2, -0.2, -0.2, 0.1)
+  x <- array(x, dim = c(2,2,2,2))
+  X <- dtensor(x)
+  A <- matrix(c(-1.7, 2.9, 0.4, 0.0), nrow = 2)
+  actual <- ttm(ttm(X,A,1),A,2)
+
+  expected <- c(-25.226, 41.702, 41.702, -68.962,
+                -8.960, 15.544, 15.544, -26.912,
+                -25.226, 41.702, 41.702, -68.962,
+                -8.960, 15.544, 15.544, -26.912
+                )
+  expected <- dtensor(array(expected, dim = c(2,2,2,2)))
+
+  expect_equal(actual@x, expected@x)
+})
+
 test_that("order of dense tensor times matrices doesn't matter", {
   W <- matrix(1:8, nrow = 2, ncol = 4)
   Y1 <- ttm(ttm(Z, U, 1), W, 2)

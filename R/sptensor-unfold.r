@@ -86,7 +86,14 @@ fiber_coords <- function(fillval, fiber_num, mode, dims) {
     rbind(coords, fillval)
   }
   else {
-    rbind(coords[1:(mode-1),],fillval,coords[mode:nrow(coords),])
+    before <- coords[1:(mode-1),]
+    after <- coords[mode:nrow(coords),]
+    # rbind returns wrong result if ncol == 1
+    if (ncol(coords) == 1) {
+      c(before, fillval, after)
+    } else {
+      rbind(before, fillval, after)
+    }
   }
 }
 
